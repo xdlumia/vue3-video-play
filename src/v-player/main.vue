@@ -2,27 +2,9 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-19 18:01:39
+ * @LastEditTime: 2021-08-19 22:25:01
  * @Description: file content
 */
-/**
-* @Author: web.王晓冬
-* @Date: 2019-10-31 20:01:21
-* @LastEditors: web.王晓冬
-* @LastEditTime: 2020-03-24 14:01:13
-* @Description: file content
-* @author web-王晓冬
-* @date 2018年9月10日
-* @param api {String}                  ---api接口 微服务名称.url方法名称  必填
-* @param params {Object}               ---接口参数;  默认{ page: 1, size: 15 }
-* @param size {String}                 ---表格size 
-* @param autoInit {String}                 ---表格size 
-* @param page {Boole}                ---是否显示分页   默认true
-* @param dragClass {string}             ---是否拖动 以及为列表中对象设置手柄，按住对象的拖动手柄才可以进行拖动  
-* @param rowClassName {string function} ---定义拖动的class. 返回参数要和dragClass相同. 具体使用方式参考element ui
-* @param slot                          ---slot
-* @fucnton dragEnd  ---拖动结束的参数. 返回拖动修改后的数据
-**/
 
 <template>
   <div
@@ -30,9 +12,8 @@
     ref="refPlayerWrap"
     @mousemove="mouseMovewWarp"
     :class="{ 'web-full-screen': isWebFullScreen, 'd-player-wrap-hover': isVideoHovering }"
-    @mouseenter="mouseEnterVideo"
-    @mouseleave="mouseLeaveVideo"
   >
+    <div class="d-player-heimu"></div>
     <video
       ref="refdVideo"
       :controls="false"
@@ -47,20 +28,28 @@
       @ended="ended"
       width="100%"
       height="100%"
-      poster="https://cn.bing.com//th?id=OHR.GiantManta_ZH-CN0594951444_1024x768.jpg"
+      poster
     >
       <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
     <d-player-top v-if="isFullScreen"></d-player-top>
     <!-- 状态栏 -->
-    <div class="d-player-state">
-      <d-status-multiple></d-status-multiple>
+    <div class="d-player-state" @click="togglePlay">
+      <!-- <d-status-multiple></d-status-multiple> -->
     </div>
     <!-- 播放按钮控制器 -->
     <div class="d-player-control">
-      <div class="d-control-progress" @mousedown="onProgressDown" @touchstart="onProgressDown">
+      <div
+        class="d-control-progress"
+        @mousemove="onProgressMove"
+        @mousedown="onProgressDown"
+        @touchstart="onProgressDown"
+      >
         <div class="d-progress-bar">
+          <div class="d-progress-subtitle" :style="{ left: progressCursorX + 'px' }">
+            <div class="d-progress-cover">{{ progressCursorTime }}</div>
+          </div>
           <div class="d-progress-play" :style="{ width: `${playRatio}%` }"></div>
           <div class="d-progress-load" :style="{ width: `${loadRatio}%` }"></div>
         </div>
@@ -72,9 +61,9 @@
             <d-icon @click="togglePlay" size="24" :icon="`icon-${isPaused ? 'play' : 'pause'}`"></d-icon>
           </div>
           <!-- 下一部 -->
-          <div class="d-tool-item">
+          <!-- <div class="d-tool-item">
             <d-icon size="18" icon="icon-next"></d-icon>
-          </div>
+          </div>-->
 
           <div class="d-tool-item d-tool-time">
             <span>{{ currentTime }}</span>
@@ -98,16 +87,18 @@
           </div>
           <!-- 音量 -->
           <div class="d-tool-item">
-            <div class="d-tool-item-main volume-box">
+            <div class="d-tool-item-main volume-box" style="width:52px">
               <div class="volume-main">
                 <span class="volume-text-size">{{ ~~volumeSize }}%</span>
                 <div
                   ref="refVolumeWrap"
-                  class="volume-line"
+                  class="volume-body"
                   @mousedown="onVolumeDown"
                   @touchstart="onVolumeDown"
                 >
-                  <p class="volume-line-range" :style="{ height: `${volumeSize}%` }"></p>
+                  <div class="volume-line">
+                    <p class="volume-line-range" :style="{ height: `${volumeSize}%` }"></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -121,7 +112,16 @@
           <!-- 设置 -->
           <div class="d-tool-item">
             <d-icon size="20" icon="icon-settings"></d-icon>
-            <div class="d-tool-item-main">设置</div>
+            <div class="d-tool-item-main">
+              <ul class="speed-main">
+                <li
+                  :class="{ 'speed-active': speedActive == row }"
+                  @click="playbackRate(row)"
+                  v-for="row of options.speedRate"
+                  :key="row"
+                >{{ row }}X</li>
+              </ul>
+            </div>
           </div>
           <!-- 画中画 -->
           <div class="d-tool-item" @click="requestPictureInPictureHandle">
@@ -147,7 +147,7 @@
 // import dIcon from "./d-icon";
 export default {
   name: "d-v-player",
-};
+}
 
 </script>
 <script setup>
@@ -165,7 +165,7 @@ const props = defineProps({
       muted: false,
       webFullScreen: false,
       speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
-      autoPlay: true,
+      autoPlay: false,
     }),
   },
 })
@@ -198,9 +198,11 @@ const state = reactive({
   volumeSize: 30,
   cacheVolumeSize: 0, //记录静音之前的大小
   startY: 0,
-  speedActive: "1.0",
-  isMultiplesPlay: false,
+  speedActive: "1.0", //倍速
+  isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
+  progressCursorX: 0, //进度条光标
+  progressCursorTime: '00:00:00' //进度条光标时间
 })
 
 // 把颜色格式化为rgb格式
@@ -225,15 +227,11 @@ const keypress = (ev, pressType) => {
       if (state.isMultiplesPlay) {
         state.dVideo.playbackRate = state.speedActive;
         state.isMultiplesPlay = false;
-
       } else {
         // 进度加10s
         state.dVideo.currentTime = state.dVideo.currentTime + 10;
         timeupdate(state.dVideo);
       }
-
-
-
       // 如果长按5倍速播放
     } else if (pressType == "keydown") {
       if (state.isMultiplesPlay) {
@@ -242,7 +240,7 @@ const keypress = (ev, pressType) => {
       state.longPressTimeout = setTimeout(() => {
         state.isMultiplesPlay = true;
         state.dVideo.playbackRate = 5;
-      }, 1000)
+      }, 500)
 
     }
   }
@@ -389,6 +387,14 @@ const onVolumeEnd = (ev) => {
   }
 }
 // 进度条按下
+const onProgressMove = (ev) => {
+  let playerWrapWidth = refPlayerWrap.value.clientWidth
+  state.progressCursorX = ev.offsetX
+  state.progressCursorTime = timeFormat(
+    state.dVideo.duration * (ev.offsetX / playerWrapWidth)
+  );
+}
+// 进度条按下
 const onProgressDown = (ev) => {
   ev.preventDefault();
   onProgressStart(ev);
@@ -479,20 +485,14 @@ const onDragEnd = (ev) => {
     window.removeEventListener("contextmenu", onDragEnd);
   }
 }
-// 鼠标滑过播放器
-const mouseEnterVideo = (ev) => {
-  state.isVideoHovering = true;
-  // state.displayTooltip();
-}
+
 // 隐藏控制器
 const hideControl = debounce(2500, () => {
   state.isVideoHovering = false;
 })
-const mouseLeaveVideo = (ev) => {
-  hideControl()
-  // state.hideTooltip();
-}
+
 const mouseMovewWarp = (ev) => {
+  state.isVideoHovering = true;
   hideControl()
 }
 
@@ -530,7 +530,8 @@ const toggleFullScreenHandle = () => {
 }
 
 
-let { isPaused, isMuted, isWebFullScreen, isFullScreen, currentTime, playRatio, loadRatio, totalTime, isShow, startTime, isVideoHovering, draging, volumeSize, cacheVolumeSize, startY, speedActive, isMultiplesPlay, longPressTimeout } = toRefs(state)
+let { isPaused, isMuted, isWebFullScreen, isFullScreen, currentTime, playRatio, loadRatio, totalTime, isShow, startTime, isVideoHovering, draging, volumeSize, cacheVolumeSize, startY, speedActive, isMultiplesPlay, longPressTimeout, progressCursorX,
+  progressCursorTime } = toRefs(state)
 let color = '#000'
 </script>
 
