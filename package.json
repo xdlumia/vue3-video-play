@@ -1,19 +1,15 @@
 {
   "name": "vue3-video-play",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "vue3视频播放器",
-  "main": "./lib/index.js",
+ 
   "author": "xdlumia <214005111@qq.com>",
   "files": [
+    "dist",
     "lib"
   ],
-  "module": "./lib/index.js",
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
-    }
-  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

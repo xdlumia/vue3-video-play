@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 17:13:59
+ * @LastEditTime: 2021-08-20 22:01:31
  * @Description: file content
 */
 
@@ -29,15 +29,16 @@
       @progress="progress"
       @canplay="canplay"
       @timeupdate="timeupdate"
+      :muted="state.muted"
       :loop="state.loop"
       width="100%"
       height="100%"
       :poster="state.poster"
     >
-      <source :src="state.source.src" :type="state.source.type" />
+      <source :src="state.source.src || ''" :type="state.source.type || ''" />
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
-    <d-player-top v-if="fullScreen"></d-player-top>
+    <d-player-top :source="options.source" v-if="fullScreen"></d-player-top>
     <!-- 状态栏 -->
     <div class="d-player-state" @click="togglePlay">
       <!-- 操作信息通知 -->
@@ -60,7 +61,7 @@
         </div>
       </div>
 
-      <div class="d-control-tool" ref="controlWrap">
+      <div class="d-control-tool">
         <div class="d-tool-bar">
           <div class="d-tool-item">
             <d-icon
@@ -98,7 +99,7 @@
           <div class="d-tool-item">
             <div class="d-tool-item-main volume-box" style="width:52px">
               <div class="volume-main">
-                <span class="volume-text-size">{{ ~~volumeSize }}%</span>
+                <span class="volume-text-size">{{ state.muted ? 0 : ~~volumeSize }}%</span>
                 <div
                   ref="refVolumeWrap"
                   class="volume-body"
@@ -106,7 +107,10 @@
                   @touchstart="onVolumeDown"
                 >
                   <div class="volume-line">
-                    <p class="volume-line-range" :style="{ height: `${volumeSize}%` }"></p>
+                    <p
+                      class="volume-line-range"
+                      :style="{ height: `${state.muted ? 0 : volumeSize}%` }"
+                    ></p>
                   </div>
                 </div>
               </div>
@@ -114,7 +118,7 @@
             <d-icon
               @click="mutedHandler"
               size="18"
-              :icon="`icon-volume-${volumeSize == 0 ? 'mute' : volumeSize > 50 ? 'up' : 'down'
+              :icon="`icon-volume-${volumeSize == 0 || state.muted ? 'mute' : volumeSize > 50 ? 'up' : 'down'
               }`"
             ></d-icon>
           </div>
@@ -162,7 +166,7 @@
 <script lang="ts">
 // import dIcon from "./d-icon";
 export default {
-  name: "vue3videoPlay",
+  name: "vue3VideoPlay",
 }
 
 </script>
@@ -181,7 +185,7 @@ const defaultOptions = {
   width: '800px',
   height: '450px',
   color: "#409eff",
-  muted: false,
+  muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
   autoPlay: false, //自动播放
@@ -212,6 +216,7 @@ const state = reactive({
   dVideo: null,
   ...defaultOptions, //默认配置
   ...props.options, //如果有自定义配置就会替换默认配置
+  muted: props.options.autoPlay,
   //标记当前的播放状态
   isPaused: !props.options.autoPlay || !defaultOptions.autoPlay,
   loading: true, //加载动画
@@ -228,7 +233,6 @@ const state = reactive({
   isVideoHovering: true,
   // 是否在拖拽中
   draging: false,
-  cacheVolumeSize: 0, //记录静音之前的大小
   startY: 0,
   speedActive: "1.0", //倍速
   isMultiplesPlay: false, //是否倍速播放
@@ -256,6 +260,7 @@ const keypress = (ev, pressType: any) => {
   // arrowTop  音量+
   else if (keyCode == 38 || keyCode == 'ArrowTop') {
     if (pressType == "keydown") {
+      state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
       state.volumeSize = (state.volumeSize + 10) > 100 ? 100 : state.volumeSize + 10
@@ -292,6 +297,7 @@ const keypress = (ev, pressType: any) => {
   // arrowBottom 音量--
   else if (keyCode == 40 || keyCode == 'ArrowDown') {
     if (pressType == "keydown") {
+      state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
       state.volumeSize = (state.volumeSize - 10) < 0 ? 0 : state.volumeSize - 10
@@ -378,9 +384,16 @@ const canplay = (ev) => {
   // console.log("可以播放");
   emits('canplay', ev)
   // 如果静音
-  if (state.muted) {
+  if (props.options.muted) {
     state.dVideo.muted = true;
   } else {
+    nextTick(() => {
+      // state.muted = false
+      // setTimeout(() => {
+      //   state.dVideo.muted = false;
+      // }, 1000)
+    })
+
     state.dVideo.volume = state.volumeSize / 100;
   }
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
@@ -402,14 +415,6 @@ const timeupdate = (ev) => {
 // 静音事件
 const mutedHandler = () => {
   state.muted = !state.muted;
-  state.dVideo.muted = state.muted;
-  if (state.muted) {
-    // 缓存静音之前的音量大小
-    state.cacheVolumeSize = state.volumeSize;
-    state.volumeSize = 0;
-  } else {
-    state.volumeSize = state.cacheVolumeSize;
-  }
 }
 
 // 音量按下
@@ -427,6 +432,7 @@ const onVolumeDown = (ev) => {
 }
 // 音量鼠标按下触发
 const onVolumeStart = (ev, type) => {
+  state.muted = false
   state.draging = true;
   if (type == "y") {
     state.startY = ev.clientY - ev.offsetY;

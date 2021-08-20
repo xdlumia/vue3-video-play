@@ -2,23 +2,24 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 18:13:29
+ * @LastEditTime: 2021-08-20 20:07:41
  * @Description: file content
 */
 
 <template>
   <div>
-    <vue3-video-play size="24" :options="options" />
+    <videoPlay size="24" :options="options" />
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { reactive } from 'vue';
-
+import { videoPlay } from '../lib/index.js';
+console.log(videoPlay)
 // console.log(videoPlay)
 
 export default {
-  components: {},
+  components: { videoPlay },
 
   // import { vue3VideoPlay } from 'vue3-video-play';
   // console.log(vue3VideoPlay)

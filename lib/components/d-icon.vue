@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-10-27 10:31:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 17:04:14
+ * @LastEditTime: 2021-08-20 21:46:19
  * @Description: file content
 */
 <template>
@@ -11,6 +11,7 @@
   </svg>
 </template>
 <script>
+import '../utils/iconfont.js'
 export default {
   name: "d-icon"
 }
