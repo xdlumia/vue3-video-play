@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-19 22:25:01
+ * @LastEditTime: 2021-08-20 15:02:16
  * @Description: file content
 */
 
@@ -11,13 +11,18 @@
     class="d-player-wrap"
     ref="refPlayerWrap"
     @mousemove="mouseMovewWarp"
-    :class="{ 'web-full-screen': isWebFullScreen, 'd-player-wrap-hover': isVideoHovering }"
+    :class="{ 'web-full-screen': webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
-    <div class="d-player-heimu"></div>
+    <!-- 预加载动画 -->
+    <d-loading v-show="state.loading" />
+    <transition name="d-fade-in">
+      <div class="d-player-lightoff" v-show="state.lightOff"></div>
+    </transition>
     <video
       ref="refdVideo"
       :controls="false"
       class="d-player-main"
+      :class="{ 'video-mirror': state.mirrorMode }"
       @loadstart="loadstart"
       @durationchange="durationchange"
       @loadeddata="loadeddata"
@@ -26,20 +31,22 @@
       @canplaythrough="canplaythrough"
       @timeupdate="timeupdate"
       @ended="ended"
+      :loop="state.loop"
       width="100%"
       height="100%"
-      poster
+      :poster="state.poster"
     >
       <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
-    <d-player-top v-if="isFullScreen"></d-player-top>
+    <d-player-top v-if="fullScreen"></d-player-top>
     <!-- 状态栏 -->
     <div class="d-player-state" @click="togglePlay">
-      <!-- <d-status-multiple></d-status-multiple> -->
+      <!-- 操作信息通知 -->
+      <d-status :state="state"></d-status>
     </div>
     <!-- 播放按钮控制器 -->
-    <div class="d-player-control">
+    <div class="d-player-control" v-if="state.control">
       <div
         class="d-control-progress"
         @mousemove="onProgressMove"
@@ -47,18 +54,22 @@
         @touchstart="onProgressDown"
       >
         <div class="d-progress-bar">
-          <div class="d-progress-subtitle" :style="{ left: progressCursorX + 'px' }">
-            <div class="d-progress-cover">{{ progressCursorTime }}</div>
+          <div class="d-progress-subtitle" :style="{ left: state.progressCursorX + 'px' }">
+            <div class="d-progress-cover">{{ state.progressCursorTime }}</div>
           </div>
-          <div class="d-progress-play" :style="{ width: `${playRatio}%` }"></div>
-          <div class="d-progress-load" :style="{ width: `${loadRatio}%` }"></div>
+          <div class="d-progress-play" :style="{ width: `${state.playRatio}%` }"></div>
+          <div class="d-progress-load" :style="{ width: `${state.loadRatio}%` }"></div>
         </div>
       </div>
 
       <div class="d-control-tool" ref="controlWrap">
         <div class="d-tool-bar">
           <div class="d-tool-item">
-            <d-icon @click="togglePlay" size="24" :icon="`icon-${isPaused ? 'play' : 'pause'}`"></d-icon>
+            <d-icon
+              @click="togglePlay"
+              size="24"
+              :icon="`icon-${state.isPaused ? 'play' : 'pause'}`"
+            ></d-icon>
           </div>
           <!-- 下一部 -->
           <!-- <div class="d-tool-item">
@@ -66,9 +77,9 @@
           </div>-->
 
           <div class="d-tool-item d-tool-time">
-            <span>{{ currentTime }}</span>
+            <span>{{ state.currentTime }}</span>
             <span style="margin: 0 3px">/</span>
-            <span class="total-time">{{ totalTime }}</span>
+            <span class="total-time">{{ state.totalTime }}</span>
           </div>
         </div>
         <div class="d-tool-bar">
@@ -114,12 +125,19 @@
             <d-icon size="20" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
-                <li
-                  :class="{ 'speed-active': speedActive == row }"
-                  @click="playbackRate(row)"
-                  v-for="row of options.speedRate"
-                  :key="row"
-                >{{ row }}X</li>
+                <!-- :class="{ 'speed-active': speedActive == row }" -->
+                <li>
+                  镜像画面
+                  <d-switch v-model="state.mirrorMode" />
+                </li>
+                <li>
+                  循环播放
+                  <d-switch v-model="state.loop" />
+                </li>
+                <li>
+                  关灯模式
+                  <d-switch v-model="state.lightOff" />
+                </li>
               </ul>
             </div>
           </div>
@@ -129,7 +147,7 @@
             <div class="d-tool-item-main">画中画</div>
           </div>
           <!-- 画中画 -->
-          <div class="d-tool-item" @click="isWebFullScreen = !isWebFullScreen">
+          <div class="d-tool-item" @click="webFullScreen = !webFullScreen">
             <d-icon size="20" icon="icon-web-screen"></d-icon>
             <div class="d-tool-item-main">网页全屏</div>
           </div>
@@ -143,30 +161,44 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 // import dIcon from "./d-icon";
 export default {
   name: "d-v-player",
 }
 
 </script>
-<script setup>
+<script setup lang="ts">
 import { reactive, ref, toRefs, nextTick } from 'vue'
 import { debounce } from 'throttle-debounce';
 import DIcon from '../components/d-icon.vue'
 import DPlayerTop from '../components/d-player-top.vue'
-import DStatusMultiple from '../components/d-status-Multiple.vue' //倍速播放状态
+import DStatus from '../components/d-status.vue' //倍速播放状态
+import DSwitch from '../components/d-switch.vue' //switch
+import DLoading from '../components/d-loading.vue' //loading
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
+
+// 默认配置
+const defaultOptions = {
+  width: '800px',
+  height: '450px',
+  color: "#409eff",
+  muted: false,
+  webFullScreen: false,
+  speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+  autoPlay: false, //自动播放
+  loop: false, //循环播放
+  mirrorMode: false, //镜像画面
+  ligthOff: false,  //关灯模式
+  volumeSize: 30, //默认音量大小
+  control: true, //是否显示控制器
+  poster: '', //封面
+
+}
 const props = defineProps({
   options: {
     type: Object,
-    default: () => ({
-      color: "#409eff",
-      muted: false,
-      webFullScreen: false,
-      speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
-      autoPlay: false,
-    }),
+    default: () => ({}),
   },
 })
 let refdVideo = ref(null)
@@ -174,12 +206,13 @@ let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
 const state = reactive({
   dVideo: null,
+  ...defaultOptions, //默认配置
+  ...props.options, //如果有自定义配置就会替换默认配置
   //标记当前的播放状态
-  isPaused: !props.options.autoPlay,
-  //标记当前是否静音
-  isMuted: props.options.muted,
-  isWebFullScreen: props.options.webFullScreen,
-  isFullScreen: false,
+  isPaused: !props.options.autoPlay || !defaultOptions.autoPlay,
+  loading: true, //加载动画
+  fullScreen: false,
+  handleType: '', //当前操作类型
   //当前播放时间
   currentTime: "00:00:00",
   // 当前播放进度比例
@@ -188,27 +221,26 @@ const state = reactive({
   loadRatio: 0,
   //总时长
   totalTime: "00:00:00",
-  //标记控制面板是否可见
-  isShow: true,
-  //开始时间，毫秒为单位
-  startTime: 0,
   isVideoHovering: true,
   // 是否在拖拽中
   draging: false,
-  volumeSize: 30,
   cacheVolumeSize: 0, //记录静音之前的大小
   startY: 0,
   speedActive: "1.0", //倍速
   isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
   progressCursorX: 0, //进度条光标
-  progressCursorTime: '00:00:00' //进度条光标时间
+  progressCursorTime: '00:00:00', //进度条光标时间
+
 })
 
 // 把颜色格式化为rgb格式
-const hexToRgbaColor = hexToRgba(props.options.color)
-
-const keypress = (ev, pressType) => {
+const hexToRgbaColor = hexToRgba(state.color)
+// 清空当前操作类型
+const clearHandleType = debounce(1000, () => {
+  state.handleType = '';
+})
+const keypress = (ev, pressType: any) => {
   let keyCode = ev.keyCode || ev.code;
   // arrowLeft  快退
   if (keyCode == 37 || keyCode == 'ArrowLeft') {
@@ -217,8 +249,13 @@ const keypress = (ev, pressType) => {
       timeupdate(state.dVideo);
     }
   }
-  // arrowTop
+  // arrowTop  音量+
   else if (keyCode == 38 || keyCode == 'ArrowTop') {
+    if (pressType == "keydown") {
+      state.handleType = 'volume' //操作类型  音量
+      clearHandleType() //清空 操作类型
+      state.volumeSize = (state.volumeSize + 10) > 100 ? 100 : state.volumeSize + 10
+    }
   }
   // arrowRight
   else if (keyCode == 39 || keyCode == 'ArrowRight') {
@@ -240,12 +277,21 @@ const keypress = (ev, pressType) => {
       state.longPressTimeout = setTimeout(() => {
         state.isMultiplesPlay = true;
         state.dVideo.playbackRate = 5;
+        state.isPaused = false;
+        state.dVideo.play();
+        state.handleType = 'playbackRate' //操作类型 倍速播放
+        clearHandleType() //清空 操作类型
       }, 500)
 
     }
   }
-  // arrowBottom
+  // arrowBottom 音量--
   else if (keyCode == 40 || keyCode == 'ArrowDown') {
+    if (pressType == "keydown") {
+      state.handleType = 'volume' //操作类型  音量
+      clearHandleType() //清空 操作类型
+      state.volumeSize = (state.volumeSize - 10) < 0 ? 0 : state.volumeSize - 10
+    }
   }
 }
 
@@ -276,6 +322,7 @@ const togglePlay = () => {
 }
 //开始加载
 const loadstart = (ev) => {
+  state.loading = true
   console.log("开始加载");
 }
 // 已获得播放时长
@@ -298,16 +345,16 @@ const progress = (ev) => {
 }
 // 可以播放
 const canplay = (ev) => {
+  state.loading = false
   console.log("可以播放");
   // 如果静音
-  if (props.options.muted) {
+  if (state.muted) {
     state.dVideo.muted = true;
   } else {
     state.dVideo.volume = state.volumeSize / 100;
   }
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
-
-  if (props.options.autoPlay) {
+  if (state.autoPlay) {
     state.isPaused = false;
     state.dVideo.play();
   }
@@ -325,9 +372,9 @@ const timeupdate = (ev) => {
 }
 // 静音事件
 const mutedHandler = () => {
-  state.isMuted = !state.isMuted;
-  state.dVideo.muted = state.isMuted;
-  if (state.isMuted) {
+  state.muted = !state.muted;
+  state.dVideo.muted = state.muted;
+  if (state.muted) {
     // 缓存静音之前的音量大小
     state.cacheVolumeSize = state.volumeSize;
     state.volumeSize = 0;
@@ -523,22 +570,24 @@ const requestPictureInPictureHandle = () => {
 const toggleFullScreenHandle = () => {
   toggleFullScreen(refPlayerWrap.value)
   if (!document.webkitIsFullScreen) {
-    state.isFullScreen = true
+    state.fullScreen = true
   } else {
-    state.isFullScreen = false
+    state.fullScreen = false
   }
 }
 
 
-let { isPaused, isMuted, isWebFullScreen, isFullScreen, currentTime, playRatio, loadRatio, totalTime, isShow, startTime, isVideoHovering, draging, volumeSize, cacheVolumeSize, startY, speedActive, isMultiplesPlay, longPressTimeout, progressCursorX,
-  progressCursorTime } = toRefs(state)
-let color = '#000'
+let { webFullScreen, width, height, fullScreen, volumeSize, speedActive, } = toRefs(state)
+
 </script>
 
 <style lang="less" scoped>
 .d-player-wrap {
   --primary-color: v-bind(hexToRgbaColor);
+  width: v-bind(width);
+  height: v-bind(height);
 }
 @import "../style/reset.less";
 @import "../style/vPlayer.less";
+@import "../style/transition.less";
 </style>

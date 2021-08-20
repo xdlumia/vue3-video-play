@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 10:25:40
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-19 11:48:42
+ * @LastEditTime: 2021-08-20 09:15:58
  * @Description: file content
  */
 const path = require('path')
@@ -12,6 +12,10 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  server: {
+    port: 3005,
+    open: true,
+  },
   build: {
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

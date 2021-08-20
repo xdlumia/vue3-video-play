@@ -1,7 +1,5 @@
 .d-player-wrap {
   position: relative;
-  width: 800px;
-  height: 450px;
   transition: 0.2s;
   overflow: hidden;
   z-index: 999999;
@@ -23,13 +21,16 @@
     left: 0;
     width: 100%;
     height: 100%;
+    &.video-mirror{
+      transform: rotateY(180deg);
+    }
   }
 
   .d-player-control {
     transition: .1s;
     transform: translateY(40px);
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     left: 0;
     bottom: 0;
     height: 50px;
@@ -40,6 +41,7 @@
       width: 100%;
       position: relative;
       height: 10px;
+      cursor: pointer;
 
       .d-progress-bar {
         position: absolute;
@@ -90,14 +92,13 @@
           background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
 
           &::before {
-            opacity: 0;
             content: "";
             position: absolute;
             right: -6px;
             top: 50%;
             width: 12px;
             height: 12px;
-            transform: translateY(-50%);
+            transform: translateY(-50%) scale(0,0);
             border-radius: 50%;
             background: #fff;
             box-shadow: 0 0 0 5px rgba(var(--primary-color), 0.6);
@@ -116,6 +117,7 @@
           height: 100%;
 
           .d-progress-play::before {
+            transform: translateY(-50%) scale(1,1);
             transition: .2s;
             opacity: 1;
           }
@@ -163,7 +165,7 @@
             padding: 4px 6px;
             box-sizing: border-box;
             display: none;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.95);
             border-radius: 5px;
             transform: translateX(-50%);
           }
@@ -281,11 +283,14 @@
   left: 0;
   top: 0;
   right: 0;
-  bottom: 50px;
+  bottom: 40px;
+  text-align: center;
+  z-index: 1;
+  overflow: hidden;
 }
 
 // 黑幕
-.d-player-heimu {
+.d-player-lightoff {
   position: fixed;
   left: 0;
   top: 0;
