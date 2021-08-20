@@ -1919,14 +1919,6 @@ vue-tsc@^0.2.3:
   dependencies:
     vscode-vue-languageservice "^0.27.0"
 
-vue3-video-play@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.0.5.tgz#63b93f3c25f88fafec6eab63d02e4987a43bb602"
-  integrity sha512-oAqTgl9oLqOamMxuHCU4BmqYU20CLVMYz0w7UfYL5gRbKOu6IhQtw6LG+RK0L8Ccdhhu/zDH3Fp6AltuYowoJg==
-  dependencies:
-    throttle-debounce "^3.0.1"
-    vue "^3.2.4"
-
 vue@^3.2.1, vue@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.4.tgz#d94d88675e41c050d3a722d0848a7063b5e87a60"

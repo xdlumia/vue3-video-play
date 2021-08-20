@@ -1,21 +1,21 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add vue3-video-play
+  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add vue3-video-play
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Users\admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\AppData\Roaming\nrm;
+  c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
 
 Yarn version: 
-  1.22.10
+  1.21.1
 
 Node version: 
-  14.17.1
+  12.18.2
 
 Platform: 
   win32 x64
 
 Trace: 
   Error: read ECONNRESET
-      at TLSWrap.onStreamRead (internal/stream_base_commons.js:209:20)
+      at TLSWrap.onStreamRead (internal/stream_base_commons.js:205:27)
 
 npm manifest: 
   {
