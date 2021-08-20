@@ -1,18 +1,23 @@
 {
-  "name": "vue3videoplayer",
-  "version": "0.0.0",
-  "description": "state management for Vue.js",
-  "main": "./dist/vue3VideoPlayer.umd.js",
-  "module": "./dist/vue3VideoPlayer.es.js",
+  "name": "vue3-video-play",
+  "version": "1.0.5",
+  "description": "vue3视频播放器",
+  "main": "./lib/index.js",
+  "author": "xdlumia <214005111@qq.com>",
+  "files": [
+    "lib"
+  ],
+  "module": "./lib/index.js",
   "exports": {
     ".": {
-      "import": "./dist/vue3VideoPlayer.es.js",
-      "require": "./dist/vue3VideoPlayer.umd.js"
+      "import": "./lib/index.js",
+      "require": "./lib/index.js"
     }
   },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "pub": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -23,7 +28,6 @@
     "url": "git+https://github.com/vuejs/vuex.git"
   },
   "homepage": "https://github.com/vuejs/vuex#readme",
-  "author": "xdlumia",
   "dependencies": {
     "throttle-debounce": "^3.0.1",
     "vue": "^3.2.4"

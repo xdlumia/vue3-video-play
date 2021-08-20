@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 15:02:16
+ * @LastEditTime: 2021-08-20 17:13:59
  * @Description: file content
 */
 
@@ -23,20 +23,18 @@
       :controls="false"
       class="d-player-main"
       :class="{ 'video-mirror': state.mirrorMode }"
+      v-bind="$attrs"
       @loadstart="loadstart"
       @durationchange="durationchange"
-      @loadeddata="loadeddata"
       @progress="progress"
       @canplay="canplay"
-      @canplaythrough="canplaythrough"
       @timeupdate="timeupdate"
-      @ended="ended"
       :loop="state.loop"
       width="100%"
       height="100%"
       :poster="state.poster"
     >
-      <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
+      <source :src="state.source.src" :type="state.source.type" />
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
     <d-player-top v-if="fullScreen"></d-player-top>
@@ -164,7 +162,7 @@
 <script lang="ts">
 // import dIcon from "./d-icon";
 export default {
-  name: "d-v-player",
+  name: "vue3videoPlay",
 }
 
 </script>
@@ -192,6 +190,11 @@ const defaultOptions = {
   ligthOff: false,  //关灯模式
   volumeSize: 30, //默认音量大小
   control: true, //是否显示控制器
+  source: {
+    title: '鲨鱼集合',
+    type: "video/mp4",
+    src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+  },
   poster: '', //封面
 
 }
@@ -201,6 +204,7 @@ const props = defineProps({
     default: () => ({}),
   },
 })
+const emits = defineEmits(['loadstart', 'durationchange', 'progress', 'canplay', 'timeupdate',])
 let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
@@ -320,25 +324,50 @@ const togglePlay = () => {
   }
   state.isPaused = !state.isPaused
 }
+// // 播放
+// const onPlay = (ev) => {
+//   // console.log('播放')
+//   emits('play', ev)
+// }
+// // 暂停
+// const onPause = (ev) => {
+//   // console.log('暂定')
+//   emits('pause', ev)
+// }
+// const onPlaying = (ev) => {
+//   emits('playing', ev)
+// }
+// const onWaiting = (ev) => {
+//   emits('waiting', ev)
+// }
+// 获得播放头文件
+// const loadeddata = (ev) => {
+//   console.log("已获取播放头");
+// }
+// const canplaythrough = (ev) => {
+//   console.log("可持续播放");
+// }
+// // 播放结束
+// const ended = () => { }
 //开始加载
 const loadstart = (ev) => {
   state.loading = true
-  console.log("开始加载");
+  emits('loadstart', ev)
+  // console.log("开始加载");
 }
 // 已获得播放时长
 const durationchange = (ev) => {
+  emits('durationchange', ev)
   state.totalTime = timeFormat(ev.target.duration);
 }
-// 获得播放头文件
-const loadeddata = (ev) => {
-  console.log("已获取播放头");
-}
+
 // 缓冲下载中
 const progress = (ev) => {
-  console.log("开始缓冲");
+  // console.log("开始缓冲");
+  emits('progress', ev)
   let duration = ev.target.duration; // 媒体总长
   let length = ev.target.buffered.length;
-  let end = ev.target.buffered.end(length - 1);
+  let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
   state.loadRatio = ((end / duration) * 100).toFixed(2);
   // console.dir(ev.target.buffered.length);
   // console.dir(ev.target.buffered.end(length - 1));
@@ -346,7 +375,8 @@ const progress = (ev) => {
 // 可以播放
 const canplay = (ev) => {
   state.loading = false
-  console.log("可以播放");
+  // console.log("可以播放");
+  emits('canplay', ev)
   // 如果静音
   if (state.muted) {
     state.dVideo.muted = true;
@@ -359,11 +389,10 @@ const canplay = (ev) => {
     state.dVideo.play();
   }
 }
-const canplaythrough = (ev) => {
-  console.log("可持续播放");
-}
+
 // 当前播放进度
 const timeupdate = (ev) => {
+  emits('timeupdate', ev)
   let duration = ev.duration || ev.target.duration; // 媒体总长
   let currentTime = ev.currentTime || ev.target.currentTime; // 当前歌曲播放长度
 
@@ -382,8 +411,7 @@ const mutedHandler = () => {
     state.volumeSize = state.cacheVolumeSize;
   }
 }
-// 播放结束
-const ended = () => { }
+
 // 音量按下
 const onVolumeDown = (ev) => {
   ev.preventDefault();
