@@ -1,0 +1,51 @@
+{
+  "name": "vue3-video-play",
+  "version": "1.1.0",
+  "description": "vue3视频播放器",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "pub": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "yarn run register:components && vitepress build docs",
+    "register:components": "vitepress-rc"
+  },
+  "author": {
+    "name": "xdlumia",
+    "email": "214005111@qq.com",
+    "url": "https://dreamwq.com"
+  },
+  "homepage": "https://github.com/xdlumia/vue3-video-play#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xdlumia/vue3-video-play.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xdlumia/vue3-video-play/issues"
+  },
+  "dependencies": {
+    "throttle-debounce": "^3.0.1",
+    "vue": "^3.2.4"
+  
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.4.0",
+    "@vue/compiler-sfc": "^3.2.2",
+    "less": "^4.1.1",
+    "less-loader": "^10.0.1",
+    "typescript": "^4.3.5",
+    "vite": "^2.5.0",
+    "vitepress": "^0.16.1",
+    "vitepress-theme-demoblock": "^1.1.1",
+    "vue-tsc": "^0.2.3",
+    "vue3-video-play": "^1.0.9"
+  },
+  "license": "ISC"
+}
