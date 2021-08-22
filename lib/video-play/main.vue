@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-21 12:21:12
+ * @LastEditTime: 2021-08-22 09:41:09
  * @Description: file content
 */
 
@@ -47,7 +47,7 @@
       <d-status :state="state"></d-status>
     </div>
     <!-- 播放按钮控制器 -->
-    <div class="d-player-control" v-if="state.control">
+    <div class="d-player-control" ref="refPlayerControl" v-if="state.control">
       <div
         class="d-control-progress"
         @mousemove="onProgressMove"
@@ -163,13 +163,16 @@
         </div>
       </div>
     </div>
+ 
   </div>
 </template>
 <script lang="ts">
 // import dIcon from "./d-icon";
+// import 'element-plus/lib/theme-chalk/index.css';
 export default {
   name: "vue3VideoPlay",
 }
+
 
 </script>
 <script setup lang="ts">
@@ -181,6 +184,7 @@ import DStatus from '../components/d-status.vue' //倍速播放状态
 import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
+
 
 // 默认配置
 const defaultOptions = {
@@ -214,6 +218,7 @@ const emits = defineEmits(['loadstart', 'durationchange', 'progress', 'canplay',
 let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
+let refPlayerControl = ref(null) //控制器
 const state = reactive({
   dVideo: null,
   ...defaultOptions, //默认配置
@@ -443,12 +448,12 @@ const onVolumeEnd = (ev) => {
     window.removeEventListener("contextmenu", onVolumeEnd);
   }
 }
-// 进度条按下
+// 进度条移动
 const onProgressMove = (ev) => {
-  let playerWrapWidth = refPlayerWrap.value.clientWidth
+  let controlWidth = refPlayerControl.value.clientWidth
   state.progressCursorX = ev.offsetX
   state.progressCursorTime = timeFormat(
-    state.dVideo.duration * (ev.offsetX / playerWrapWidth)
+    state.dVideo.duration * (ev.offsetX / controlWidth)
   );
 }
 // 进度条按下
@@ -473,9 +478,9 @@ const onProgressStart = (ev, type) => {
   // state.dVideo.pause();
   state.draging = true;
   // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerWrap.value) * 100;
+  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
   state.currentTime = timeFormat(
-    ev.target.duration * onDraggFn(ev, refPlayerWrap.value)
+    ev.target.duration * onDraggFn(ev, refPlayerControl.value)
   );
   state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
 }
@@ -484,10 +489,10 @@ const onDraging = (ev) => {
   ev.preventDefault();
   if (!state.draging) return;
   // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerWrap.value) * 100;
+  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
 
   state.currentTime = timeFormat(
-    state.dVideo.duration * onDraggFn(ev, refPlayerWrap.value)
+    state.dVideo.duration * onDraggFn(ev, refPlayerControl.value)
   );
   state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
 }
@@ -510,10 +515,11 @@ const onDraggFn = (ev, evBox, type) => {
   }
   // X轴拖动
   else {
+    // 控制器宽度
     let evBoxClientWidth = evBox.clientWidth;
     // 获取整个播放器宽度
     let offsetX = ev.clientX - refPlayerWrap.value.offsetLeft;
-    let value = offsetX / evBoxClientWidth;
+    let value = ev.offsetX / evBoxClientWidth
     // 鼠标移出播放器做的兼容
     return value < 0 ? 0 : value > 1 ? 1 : value;
   }

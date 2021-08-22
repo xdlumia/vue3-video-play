@@ -1,5 +1,5 @@
 Arguments: 
-  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add Vitepress-Theme-Demoblock
+  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add ElementPlus
 
 PATH: 
   c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/Vitepress-Theme-Demoblock: Not found
+  Error: https://registry.yarnpkg.com/ElementPlus: Not found
       at Request.params.callback [as _callback] (c:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
       at Request.self.callback (c:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
       at Request.emit (events.js:315:20)
@@ -43,14 +43,17 @@ npm manifest:
       "pub": "vue-tsc --noEmit && vite build",
       "serve": "vite preview",
       "docs:dev": "vitepress dev docs",
-      "docs:build": "vitepress build docs"
+      "docs:build": "vitepress build docs",
+      "docs:serve": "vitepress serve docs",
+      "docs:pub": "./scripts/gh-pages.sh",
+      "register:components": "vitepress-rc"
     },
     "author": {
       "name": "xdlumia",
       "email": "214005111@qq.com",
       "url": "https://dreamwq.com"
     },
-    "homepage": "https://github.com/xdlumia/vue3-video-play#readme",
+    "homepage": "https://xdlumia.github.io/vue3-video-play.github.io",
     "repository": {
       "type": "git",
       "url": "https://github.com/xdlumia/vue3-video-play.git"
@@ -60,8 +63,8 @@ npm manifest:
     },
     "dependencies": {
       "throttle-debounce": "^3.0.1",
-      "vitepress": "^0.16.1",
       "vue": "^3.2.4"
+    
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.4.0",
@@ -70,7 +73,10 @@ npm manifest:
       "less-loader": "^10.0.1",
       "typescript": "^4.3.5",
       "vite": "^2.5.0",
-      "vue-tsc": "^0.2.3"
+      "vitepress": "^0.16.1",
+      "vitepress-theme-demoblock": "^1.1.1",
+      "vue-tsc": "^0.2.3",
+      "vue3-video-play": "^1.0.9"
     },
     "license": "ISC"
   }
@@ -322,46 +328,46 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-1.4.0.tgz#962ae01b7fd16ad4007898c64ed639136e12215b"
     integrity sha512-RkqfJHz9wdLKBp5Yi+kQL8BAljdrvPoccQm2PTZc/UcL4EjD11xsv2PPCduYx2oV1a/bpSKA3sD5sxOHFhz+LA==
   
-  "@volar/code-gen@^0.27.4":
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/@volar/code-gen/-/code-gen-0.27.4.tgz#cc95b7e2d2ad3140824df0109cb152701b2d2fa3"
-    integrity sha512-KWjrL/a9L7TV1lcB0JUfnGf5jMs/4maOtqWFfi37SHWxWPw+uwjx4Nc/oYYEMBGC1r7oXqSu4mfPKusJH8LGTg==
+  "@volar/code-gen@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/code-gen/-/code-gen-0.27.5.tgz#777d049afb726c49d596f1c75e90e6fcab59fdb6"
+    integrity sha512-6ZXvW+FDpiYoNfsIqw1u6HEBiQJA+dTZkE2XehKRL+/44RAItWIFc67E+WlM/MtrtdM2cRe3Pqh43MWewyKWfg==
     dependencies:
-      "@volar/shared" "^0.27.4"
-      "@volar/source-map" "^0.27.4"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
   
-  "@volar/html2pug@^0.27.4":
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/@volar/html2pug/-/html2pug-0.27.4.tgz#0d1c01fb842d73546e934f03d3929da91babfc0b"
-    integrity sha512-HwkHRWlFfYsPEOTie2OeZ0tddBT0pU5mPE2D80faQ6Tf3fuO1d4pdeN2/iU3O/PRx6CtEh4VAndfMWiY5RjiGA==
+  "@volar/html2pug@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/html2pug/-/html2pug-0.27.5.tgz#85f25f99364c92f34be6eea8a50aa824401e9636"
+    integrity sha512-JjESSssJ6Zs/uajFwe4HPZzjstN3XBoaKRw7vfAx1G5fVW7lY7L/+IuUuiHxaumWieDT9Irhuvuk74x+7yF6kA==
     dependencies:
       domelementtype "^2.2.0"
       domhandler "^4.2.0"
       htmlparser2 "^6.1.0"
       pug "^3.0.2"
   
-  "@volar/shared@^0.27.4":
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/@volar/shared/-/shared-0.27.4.tgz#71f530b2c9566254e422edc5239a085e72226216"
-    integrity sha512-5QMJK/1GEgIcF0PguITGNQbz6Y8dUF8h5kLRP4oiMAHy9KFMRFIp+71N+idPAXQqEzSNm/yfjxmAs6QHBo6ohw==
+  "@volar/shared@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/shared/-/shared-0.27.5.tgz#b3c03bc4ab7d709f80e186cf76e56a0864a11177"
+    integrity sha512-l1vm3OhVBqcs9Cl9xDsrh71BVjs/9OS7ALmLu0DbIFaY8ZcnUkEYA3s77UEawiloDMcuH6zHZSBjptlPyV9dCQ==
     dependencies:
       upath "^2.0.1"
       vscode-jsonrpc "^8.0.0-next.1"
       vscode-uri "^3.0.2"
   
-  "@volar/source-map@^0.27.4":
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/@volar/source-map/-/source-map-0.27.4.tgz#358d81096072381e5190a5ae6993d7c953a9df0e"
-    integrity sha512-XlkV5a0icYNKkgO1lkqwFSokFO9DxBjRLLkQLf8G/z6n4fzbN8aCB46bsm/rqHIpE5DHlgZ6AZQQIAErkor3Gw==
+  "@volar/source-map@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/source-map/-/source-map-0.27.5.tgz#a3130075fb250269bce8ebaf5d949a6765d39e05"
+    integrity sha512-IO632kIhLMjXhnSNdGgNkDDUFvZVHVZA54mM73xmn/I5DfQ2vshZAkQKiob+biGnvlwFAbxtQ2mij1Af2Yp6EQ==
     dependencies:
-      "@volar/shared" "^0.27.4"
+      "@volar/shared" "^0.27.5"
   
-  "@volar/transforms@^0.27.4":
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/@volar/transforms/-/transforms-0.27.4.tgz#6c3946d87db5c852578de7fe4a669fec39626c28"
-    integrity sha512-AcPxZM5Jmw2WogHNqnLb/YBwqWoK4EmoED1g6vh/VsxeR7Vvmtg+qyKUzyoSPYUR5nkuCE6X5KDJRQj7jhJUvw==
+  "@volar/transforms@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/transforms/-/transforms-0.27.5.tgz#c0e09122531be8ee3ea29872c6a58ba81692de2b"
+    integrity sha512-IOsdwEarszNb5+icpDl8X2Kezhx8ZXPvxhYvLTlEKnkKU9Hu8pVUvEcNGNwZ5G+DCaMO7hZ9WoKoKAkRGyphWA==
     dependencies:
-      "@volar/shared" "^0.27.4"
+      "@volar/shared" "^0.27.5"
   
   "@vscode/emmet-helper@^2.7.0":
     version "2.7.0"
@@ -592,6 +598,11 @@ Lockfile:
     dependencies:
       function-bind "^1.1.1"
       get-intrinsic "^1.0.2"
+  
+  camelcase@^6.2.0:
+    version "6.2.0"
+    resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
+    integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
   
   chalk@^4.1.0, chalk@^4.1.1:
     version "4.1.2"
@@ -893,7 +904,7 @@ Lockfile:
     dependencies:
       is-glob "^4.0.1"
   
-  globby@^11.0.3:
+  globby@^11.0.2, globby@^11.0.3:
     version "11.0.4"
     resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.4.tgz#2cbaff77c2f2a62e71e9b2813a67b97a3a3001a5"
     integrity sha512-9O4MVG9ioZJ08ffbcyVYyLOJLk5JQ688pJ4eMGLpdWLHq/Wr1D9BlriLQyL0E+jbkuePVZXYFj47QM/v093wHg==
@@ -1123,6 +1134,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
     integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
   
+  kolorist@^1.5.0:
+    version "1.5.0"
+    resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.0.tgz#a06f7dd11d1b5fdb743d79c8acd4e1ecbcbd89b3"
+    integrity sha512-pPobydIHK884YBtkS/tWSZXpSAEpcMbilyun3KL37ot935qL2HNKm/tI45i/Rd+MxdIWEhm7/LmUQzWZYK+Qhg==
+  
   less-loader@^10.0.1:
     version "10.0.1"
     resolved "https://registry.yarnpkg.com/less-loader/-/less-loader-10.0.1.tgz#c05aaba68d00400820275f21c2ad87cb9fa9923f"
@@ -1162,6 +1178,11 @@ Lockfile:
       big.js "^5.2.2"
       emojis-list "^3.0.0"
       json5 "^1.0.1"
+  
+  lodash-es@^4.17.20:
+    version "4.17.21"
+    resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+    integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
   
   lodash.camelcase@^4.3.0:
     version "4.3.0"
@@ -1225,7 +1246,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/markdown-it-table-of-contents/-/markdown-it-table-of-contents-0.5.2.tgz#2f941d386c277887910f2c7a8a16f5a17acb829c"
     integrity sha512-6o+rxSwzXmXCUn1n8QGTSpgbcnHBG6lUU8x7A5Cssuq5vbfzTfitfGPvQ5PZkp+gP1NGS/DR2rkYqJPn0rbZ1A==
   
-  markdown-it@^12.0.6:
+  markdown-it@^12.0.4, markdown-it@^12.0.6:
     version "12.2.0"
     resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.2.0.tgz#091f720fd5db206f80de7a8d1f1a7035fd0d38db"
     integrity sha512-Wjws+uCrVQRqOoJvze4HCqkKl1AsSh95iFAeQDwnyfxM09divCBSXlDR1uTvyUP3Grzpn4Ru8GeCxYPM8vkCQg==
@@ -1467,6 +1488,11 @@ Lockfile:
     version "10.5.14"
     resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.14.tgz#0b14a2eefba3c10a57116b90d1a65f5f00cd2701"
     integrity sha512-KojoltCrshZ099ksUZ2OQKfbH66uquFoxHSbnwKbTJHeQNvx42EmC7wQVWNuDt6vC5s3nudRHFtKbpY4ijKlaQ==
+  
+  prettier@^2.2.1:
+    version "2.3.2"
+    resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+    integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
   
   prismjs@^1.23.0:
     version "1.24.1"
@@ -1826,6 +1852,21 @@ Lockfile:
     optionalDependencies:
       fsevents "~2.3.2"
   
+  vitepress-theme-demoblock@^1.1.1:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/vitepress-theme-demoblock/-/vitepress-theme-demoblock-1.1.1.tgz#6a7c4e4f0045fb6cb9d4946703ad3ee1cba5e72c"
+    integrity sha512-cqN1d4jXn8DojaYotsKdr+llSfkj7tR7p2i1nPHKtJdiZNUsr0TTPFivuW5ENhO2QX7rW4kbng25AzdsKojrag==
+    dependencies:
+      camelcase "^6.2.0"
+      globby "^11.0.2"
+      kolorist "^1.5.0"
+      lodash-es "^4.17.20"
+      markdown-it "^12.0.4"
+      minimist "^1.2.5"
+      prettier "^2.2.1"
+      vitepress "^0.16.1"
+      yaml "^2.0.0-6"
+  
   vitepress@^0.16.1:
     version "0.16.1"
     resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.16.1.tgz#70ba4326a4bdc7152f264868c0775615c0bc16d5"
@@ -1935,25 +1976,25 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/vscode-nls/-/vscode-nls-5.0.0.tgz#99f0da0bd9ea7cda44e565a74c54b1f2bc257840"
     integrity sha512-u0Lw+IYlgbEJFF6/qAqG2d1jQmJl0eyAGJHoAJqr2HT4M2BNuQYSEiSE75f52pXHSJm8AlTjnLLbBFPrdz2hpA==
   
-  vscode-pug-languageservice@^0.27.4:
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/vscode-pug-languageservice/-/vscode-pug-languageservice-0.27.4.tgz#798485938352c2fc7b063b5645274d2cf6898747"
-    integrity sha512-+mzglZl1rDaO5FBcMEQaJ6jcQuablcZ/kc5ROiMJxMGrsIL6YO42pC+eH6NYp+3XMcwe+W2DO1WUts00qBGTOg==
+  vscode-pug-languageservice@^0.27.5:
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-pug-languageservice/-/vscode-pug-languageservice-0.27.5.tgz#aaf0ad5f1c340ae991beb03183ab4e234d315fc3"
+    integrity sha512-0SOBk23X3tjVNi9c0toB0RCDOaIjduBSFE+QdOVYfLoaiLn5Y8nXu2gqCdwlAnRE8HGNo/5u56thjxjmmn5Fog==
     dependencies:
-      "@volar/code-gen" "^0.27.4"
-      "@volar/shared" "^0.27.4"
-      "@volar/source-map" "^0.27.4"
-      "@volar/transforms" "^0.27.4"
+      "@volar/code-gen" "^0.27.5"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
+      "@volar/transforms" "^0.27.5"
       pug-lexer "^5.0.1"
       pug-parser "^6.0.0"
       vscode-languageserver "^8.0.0-next.1"
   
-  vscode-typescript-languageservice@^0.27.4:
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/vscode-typescript-languageservice/-/vscode-typescript-languageservice-0.27.4.tgz#a44ae51db262be7af0080948086cd4b49e8eac10"
-    integrity sha512-GIpq/tf9QsaFFlFNuoFehhJuPjoenZhE2gkvxb/FnPYy5hCpGxh+r0nrlyiLOkAd7yabS4yOd/+vcWx4b0FrcA==
+  vscode-typescript-languageservice@^0.27.5:
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-typescript-languageservice/-/vscode-typescript-languageservice-0.27.5.tgz#9d47dd77837037c5d0b8380537c2489cd6d835f9"
+    integrity sha512-1B5CPGxasE4CF58Z/Jdkb1+AMOWBzxPMJDYawwJmEv6FeSTV1M6Xnw49LyGbnpj1HhJAeb+F++qJ3feErRwG4Q==
     dependencies:
-      "@volar/shared" "^0.27.4"
+      "@volar/shared" "^0.27.5"
       upath "^2.0.1"
       vscode-languageserver "^8.0.0-next.1"
       vscode-languageserver-textdocument "^1.0.1"
@@ -1969,15 +2010,15 @@ Lockfile:
     integrity sha512-jkjy6pjU1fxUvI51P+gCsxg1u2n8LSt0W6KrCNQceaziKzff74GoWmjVG46KieVzybO1sttPQmYfrwSHey7GUA==
   
   vscode-vue-languageservice@^0.27.0:
-    version "0.27.4"
-    resolved "https://registry.yarnpkg.com/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.4.tgz#02193f5f9007041d5dff32aaa045ede3b874542d"
-    integrity sha512-CKxCBbzrYAkhZeZo9GnteONq/iIb9SeGQtn1IPwZJDaogS07RfEjjSbOdMsZg0qkY6RXDeu8ZWWWWGN2PhnEZw==
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.5.tgz#7762d4c8aabc6afd325c9e98120b503e684e5381"
+    integrity sha512-kW9ShFZpREoI8M/GJmPfHEmRIwBKvJyc/R7XGASEZJ/4Iwfm86YaFPQweoLclxxdhOveIgGEB1mZ9R7LRe6TkQ==
     dependencies:
-      "@volar/code-gen" "^0.27.4"
-      "@volar/html2pug" "^0.27.4"
-      "@volar/shared" "^0.27.4"
-      "@volar/source-map" "^0.27.4"
-      "@volar/transforms" "^0.27.4"
+      "@volar/code-gen" "^0.27.5"
+      "@volar/html2pug" "^0.27.5"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
+      "@volar/transforms" "^0.27.5"
       "@vscode/emmet-helper" "^2.7.0"
       "@vue/compiler-dom" "^3.2.4"
       "@vue/compiler-sfc" "^3.2.4"
@@ -1990,8 +2031,8 @@ Lockfile:
       vscode-json-languageservice "^4.1.5"
       vscode-languageserver "^8.0.0-next.1"
       vscode-languageserver-textdocument "^1.0.1"
-      vscode-pug-languageservice "^0.27.4"
-      vscode-typescript-languageservice "^0.27.4"
+      vscode-pug-languageservice "^0.27.5"
+      vscode-typescript-languageservice "^0.27.5"
   
   vue-tsc@^0.2.3:
     version "0.2.3"
@@ -1999,6 +2040,14 @@ Lockfile:
     integrity sha512-0ahxAnQolmv6EOnv5zxeMi4vCpM4PkhjU70i/EI44OzMWq4OErjLZhEh8EXOLtMx6FBRuuqS5fiBXcuqLpoL7Q==
     dependencies:
       vscode-vue-languageservice "^0.27.0"
+  
+  vue3-video-play@^1.0.9:
+    version "1.0.9"
+    resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.0.9.tgz#79b942277ba2a9ca838418bce8b0956462dcd521"
+    integrity sha512-uPcvpnBKvlhr1iU9f14ISs5aDuAV7FGQ9UTqmuT8a3Y8CHrhQX3PnkpZRycUZVuSFAL9KQWoweWcBQUROxBi3w==
+    dependencies:
+      throttle-debounce "^3.0.1"
+      vue "^3.2.4"
   
   vue@^3.2.1, vue@^3.2.4:
     version "3.2.4"
@@ -2035,3 +2084,8 @@ Lockfile:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
     integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+  
+  yaml@^2.0.0-6:
+    version "2.0.0-7"
+    resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.0.0-7.tgz#9799d9d85dfc8f01e4cc425e18e09215364beef1"
+    integrity sha512-RbI2Tm3hl9AoHY4wWyWvGvJfFIbHOzuzaxum6ez1A0vve+uXgNor03Wys4t+2sgjJSVSe+B2xerd1/dnvqHlOA==

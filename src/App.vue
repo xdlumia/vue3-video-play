@@ -1,12 +1,16 @@
+/*
+ * @Author: web.王晓冬
+ * @Date: 2021-08-20 19:10:57
+ * @LastEditors: web.王晓冬
+ * @LastEditTime: 2021-08-22 08:21:45
+ * @Description: file content
+*/
 <template>
-  <div>
+  <div style="text-align:center">
     <button @click="options.width = '1200px'">{{ options.width }}</button>
     <videoPlay
-      @play="onPlay"
+      style="display:inline-block"
       :options="options"
-      @pause="onPause"
-      @timeupdate="onTimeupdate"
-      @canplay="onCanplay"
     />
   </div>
 </template>
@@ -35,19 +39,7 @@ const options = reactive({
   },
   poster: '', //封面
 })
-const onPlay = (ev) => {
-  console.log('播放发送扽')
-}
-const onPause = (ev) => {
-  console.log(ev, '暂停')
-}
 
-const onTimeupdate = (ev) => {
-  console.log(ev, '时间更新')
-}
-const onCanplay = (ev) => {
-  console.log(ev, '可以播放')
-}
 </script>
 
 <style scoped>
