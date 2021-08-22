@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 21:55:46
+ * @LastEditTime: 2021-08-23 06:56:07
  * @Description: file content
 -->
 
@@ -75,7 +75,7 @@ export default {
 <template>
   <div>
     <videoPlay 
-    :options="options" 
+    v-bind="options" 
     @play="onPlay"
     @pause="onPause" 
     @timeupdate="onTimeupdate" 
@@ -100,10 +100,8 @@ const options = reactive({
   ligthOff: false,  //关灯模式
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
-  source: {
-    title: '', //视频名称
-    src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
-  },
+  title: '', //视频名称
+  src: "http://vjs.zencdn.net/v/oceans.mp4", //视频源
   poster: '', //封面
 })
 const onPlay = (ev) => {
