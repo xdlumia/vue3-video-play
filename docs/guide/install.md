@@ -2,33 +2,12 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 10:16:35
+ * @LastEditTime: 2021-08-22 10:34:03
  * @Description: file content
 -->
+# 使用指南
 
-[![GitHub stars](https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/issues)
-[![GitHub forks](https://img.shields.io/github/forks/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/network)
-[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
-
-
-
-[![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
-
-# vue3-video-play
-
-适用于vue3编写的视频播放器插件
-
-# 示例 主页
-
-[Example](https://xdlumia.github.io)
-
-
-
-# 安装
-
-
+## 安装
 npm安装：
 ``` bash
 npm i vue3-video-play --save
@@ -38,7 +17,7 @@ yarn安装：
 yarn add vue3-video-play --save
 ```
 
-### 开始使用
+## 开始使用
 
 #### 全局使用
 
@@ -57,7 +36,7 @@ app.mount('#app')
 #### 组件内使用
 
 ```js
-// require styles
+// require style
 import 'vue3-video-play/dist/style.css'
 import { videoPlay } from 'vue-video-player'
 export default {
@@ -66,23 +45,21 @@ export default {
   }
 }
 ```
-### SPA 单页面使用示例
 
-```html
+## 小试牛刀
+:::demo 使用`options`属性来进行配置。
+
+```vue
 <template>
   <div>
-    <videoPlay 
-    :options="options" 
-    @play="onPlay"
-    @pause="onPause" 
-    @timeupdate="onTimeupdate" 
-    @canplay="onCanplay" />
+    <ClientOnly>
+      <vue3VideoPlay :options="options" />
+    </ClientOnly>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { videoPlay } from '../lib/index.js';
 
 const options = reactive({
   width: '800px', //播放器高度
@@ -100,7 +77,46 @@ const options = reactive({
   source: {
     title: '', //视频名称
     type: "", //视频格式
-    src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
+    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
+  }
+})
+</script>
+
+<style scoped>
+</style>
+
+```
+
+:::
+
+
+
+## 事件示例
+:::demo `vue3-video-play` 支持原生`video`所有事件。
+
+```vue
+<template>
+  <div>
+      <vue3VideoPlay 
+      :options="options" 
+      @play="onPlay"
+      @pause="onPause" 
+      @timeupdate="onTimeupdate" 
+      @canplay="onCanplay" />
+    
+  </div>
+
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const options = reactive({
+  width: '800px', //播放器高度
+  source: {
+    title: '', //视频名称
+    type: "", //视频格式
+    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
   },
   poster: '', //封面
 })
@@ -124,15 +140,20 @@ const onCanplay = (ev) => {
 
 ```
 
-# Props
-vue3-video-play 支持video原生所有Attributes
+:::
+
+
+
+
+#### Props
+vue3-video-play 支持video原生所有Attributes  [video默认事件](https://www.w3school.com.cn/jsref/dom_obj_video.asp/)
 
 | 参数名称 | 说明     | 类型   | 默认值        |
 | -------- | -------- | ------ | ------------- |
 | options  | 配置对象 | object | 见options配置 |
 
 
-# options 
+## options配置
 options作为props配置项包含众多属性
 
 | 名称          |     说明     |               类型               | 可选值 |                默认值                 |
@@ -156,8 +177,8 @@ options作为props配置项包含众多属性
 
 
 
-# Events
-vue3-video-play支持video原生所有事件  [video默认事件](https://segmentfault.com/a/1190000008053507)
+## Events
+vue3-video-play支持video原生所有事件 
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
@@ -179,7 +200,21 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 | durationchange | 资源长度改变       | event |
 | volumechange   | 音量改变           | event |
 
-
-
+## 快捷键说明
+支持快捷键操作
+| 键名      | 说明                |
+| --------- | ------------------- |
+| 方向左键← | 快退10s             |
+| 方向右键→ | 快进10s             |
+| 方向上键↑ | 音量+0.1            |
+| 方向下键↓ | 音量-0.1            |
+| 长按右键→ | 5x倍速播放          |
+| 空格键    | 暂停/播放(暂未实现) |
 # Author
+
 [xdlumia](https://dreamwq.com)
+
+# 点个start
+
+[vue3-video-play](https://github.com/xdlumia/vue3-video-play)
+

@@ -1,19 +1,13 @@
 {
   "name": "vue3-video-play",
-  "version": "1.0.5",
+  "version": "1.1.2",
   "description": "vue3视频播放器",
-  "main": "./lib/index.js",
-  "author": "xdlumia <214005111@qq.com>",
   "files": [
+    "dist",
     "lib"
   ],
-  "module": "./lib/index.js",
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
-    }
-  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -21,13 +15,23 @@
     "serve": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs:serve": "vitepress serve docs",
+    "docs:pub": "./scripts/gh-pages.sh",
+    "register:components": "vitepress-rc"
   },
+  "author": {
+    "name": "xdlumia",
+    "email": "214005111@qq.com",
+    "url": "https://dreamwq.com"
+  },
+  "homepage": "https://xdlumia.github.io",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vuex.git"
+    "url": "https://github.com/xdlumia/vue3-video-play.git"
   },
-  "homepage": "https://github.com/vuejs/vuex#readme",
+  "bugs": {
+    "url": "https://github.com/xdlumia/vue3-video-play/issues"
+  },
   "dependencies": {
     "throttle-debounce": "^3.0.1",
     "vue": "^3.2.4"
@@ -40,7 +44,9 @@
     "typescript": "^4.3.5",
     "vite": "^2.5.0",
     "vitepress": "^0.16.1",
-    "vue-tsc": "^0.2.3"
+    "vitepress-theme-demoblock": "^1.1.1",
+    "vue-tsc": "^0.2.3",
+    "vue3-video-play": "^1.1.1"
   },
   "license": "ISC"
 }

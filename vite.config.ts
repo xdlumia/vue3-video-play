@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 10:25:40
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 17:48:38
+ * @LastEditTime: 2021-08-20 22:57:29
  * @Description: file content
  */
 const path = require('path')
@@ -17,6 +17,11 @@ export default defineConfig({
     open: true,
   },
   build: {
+    lib: {
+      entry: './lib/index.js',
+      name: 'index',
+      fileName: 'index'
+    },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue'],

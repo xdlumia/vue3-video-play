@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 13:52:52
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 14:59:34
+ * @LastEditTime: 2021-08-21 10:22:21
  * @Description: file content
 */
 <template>
@@ -11,10 +11,10 @@
             <d-icon
                 size="18"
                 class="d-message-icon"
-                :icon="`icon-volume-${state.volumeSize == 0 ? 'mute' : state.volumeSize > 50 ? 'up' : 'down'
+                :icon="`icon-volume-${state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
                 }`"
             ></d-icon>
-            {{ state.volumeSize }}%
+            {{ ~~(state.volume * 100) }}%
         </li>
         <li
             class="d-message-info"

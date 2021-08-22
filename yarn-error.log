@@ -1,5 +1,5 @@
 Arguments: 
-  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add vue3-video-play
+  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add ElementPlus
 
 PATH: 
   c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
@@ -14,26 +14,29 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: read ECONNRESET
-      at TLSWrap.onStreamRead (internal/stream_base_commons.js:205:27)
+  Error: https://registry.yarnpkg.com/ElementPlus: Not found
+      at Request.params.callback [as _callback] (c:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
+      at Request.self.callback (c:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1221:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
     "name": "vue3-video-play",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "description": "vue3视频播放器",
-    "main": "./lib/index.js",
-    "author": "xdlumia <214005111@qq.com>",
     "files": [
+      "dist",
       "lib"
     ],
-    "module": "./lib/index.js",
-    "exports": {
-      ".": {
-        "import": "./lib/index.js",
-        "require": "./lib/index.js"
-      }
-    },
+    "main": "./dist/index.umd.js",
+    "module": "./dist/index.es.js",
     "scripts": {
       "dev": "vite",
       "build": "vue-tsc --noEmit && vite build",
@@ -41,16 +44,27 @@ npm manifest:
       "serve": "vite preview",
       "docs:dev": "vitepress dev docs",
       "docs:build": "vitepress build docs",
-      "docs:serve": "vitepress serve docs"
+      "docs:serve": "vitepress serve docs",
+      "docs:pub": "./scripts/gh-pages.sh",
+      "register:components": "vitepress-rc"
     },
+    "author": {
+      "name": "xdlumia",
+      "email": "214005111@qq.com",
+      "url": "https://dreamwq.com"
+    },
+    "homepage": "https://xdlumia.github.io/vue3-video-play.github.io",
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/vuejs/vuex.git"
+      "url": "https://github.com/xdlumia/vue3-video-play.git"
     },
-    "homepage": "https://github.com/vuejs/vuex#readme",
+    "bugs": {
+      "url": "https://github.com/xdlumia/vue3-video-play/issues"
+    },
     "dependencies": {
       "throttle-debounce": "^3.0.1",
       "vue": "^3.2.4"
+    
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.4.0",
@@ -60,7 +74,9 @@ npm manifest:
       "typescript": "^4.3.5",
       "vite": "^2.5.0",
       "vitepress": "^0.16.1",
-      "vue-tsc": "^0.2.3"
+      "vitepress-theme-demoblock": "^1.1.1",
+      "vue-tsc": "^0.2.3",
+      "vue3-video-play": "^1.0.9"
     },
     "license": "ISC"
   }
@@ -184,18 +200,18 @@ Lockfile:
   
   "@babel/helper-validator-identifier@^7.14.9":
     version "7.14.9"
-    resolved "https://registry.nlark.com/@babel/helper-validator-identifier/download/@babel/helper-validator-identifier-7.14.9.tgz?cache=0&sync_timestamp=1627804540083&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Fhelper-validator-identifier%2Fdownload%2F%40babel%2Fhelper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
-    integrity sha1-ZlTRcbICT22O4VG/JQlpmRkTHUg=
+    resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
+    integrity sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==
   
   "@babel/parser@^7.12.0", "@babel/parser@^7.13.9", "@babel/parser@^7.6.0", "@babel/parser@^7.9.6":
     version "7.15.3"
-    resolved "https://registry.nlark.com/@babel/parser/download/@babel/parser-7.15.3.tgz#3416d9bea748052cfcb63dbcc27368105b1ed862"
-    integrity sha1-NBbZvqdIBSz8tj28wnNoEFse2GI=
+    resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.15.3.tgz#3416d9bea748052cfcb63dbcc27368105b1ed862"
+    integrity sha512-O0L6v/HvqbdJawj0iBEfVQMc3/6WP+AeOsovsIgBFyJaG+W2w7eqvZB7puddATmWuARlm1SX7DwxJ/JJUnDpEA==
   
   "@babel/types@^7.12.0", "@babel/types@^7.13.0", "@babel/types@^7.6.1", "@babel/types@^7.9.6":
     version "7.15.0"
-    resolved "https://registry.nlark.com/@babel/types/download/@babel/types-7.15.0.tgz#61af11f2286c4e9c69ca8deb5f4375a73c72dcbd"
-    integrity sha1-Ya8R8ihsTpxpyo3rX0N1pzxy3L0=
+    resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.15.0.tgz#61af11f2286c4e9c69ca8deb5f4375a73c72dcbd"
+    integrity sha512-OBvfqnllOIdX4ojTHpwZbpvz4j3EWyjkZEdmjH0/cgsd6QOdSgU8rLSk6ard/pcW7rlmjdVSX/AWOaORR1uNOQ==
     dependencies:
       "@babel/helper-validator-identifier" "^7.14.9"
       to-fast-properties "^2.0.0"
@@ -312,46 +328,46 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-1.4.0.tgz#962ae01b7fd16ad4007898c64ed639136e12215b"
     integrity sha512-RkqfJHz9wdLKBp5Yi+kQL8BAljdrvPoccQm2PTZc/UcL4EjD11xsv2PPCduYx2oV1a/bpSKA3sD5sxOHFhz+LA==
   
-  "@volar/code-gen@^0.27.3":
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/@volar/code-gen/-/code-gen-0.27.3.tgz#e59100c2c208d7ca840bfe9c8cc7f124aa1574a2"
-    integrity sha512-uWbfplUJZl11zTe3RtCLWa2KJKd29QsmP4vFpzAxJhOz9VrfjjtQOUViTpFrztX6Vgs8Ug+b8voI1eVaKn5WMw==
+  "@volar/code-gen@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/code-gen/-/code-gen-0.27.5.tgz#777d049afb726c49d596f1c75e90e6fcab59fdb6"
+    integrity sha512-6ZXvW+FDpiYoNfsIqw1u6HEBiQJA+dTZkE2XehKRL+/44RAItWIFc67E+WlM/MtrtdM2cRe3Pqh43MWewyKWfg==
     dependencies:
-      "@volar/shared" "^0.27.3"
-      "@volar/source-map" "^0.27.3"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
   
-  "@volar/html2pug@^0.27.3":
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/@volar/html2pug/-/html2pug-0.27.3.tgz#06369b10bf6cc0920ff638535ee9bc9743ca47ce"
-    integrity sha512-TaRdYyoG0ZdWdQLzWN1pfhtpzeKNj4b0g5iH/Yl2sya616fEKi5qzbb6xUXiZW/MaGf6pFlcaUWxup8EUMb5YA==
+  "@volar/html2pug@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/html2pug/-/html2pug-0.27.5.tgz#85f25f99364c92f34be6eea8a50aa824401e9636"
+    integrity sha512-JjESSssJ6Zs/uajFwe4HPZzjstN3XBoaKRw7vfAx1G5fVW7lY7L/+IuUuiHxaumWieDT9Irhuvuk74x+7yF6kA==
     dependencies:
       domelementtype "^2.2.0"
       domhandler "^4.2.0"
       htmlparser2 "^6.1.0"
       pug "^3.0.2"
   
-  "@volar/shared@^0.27.3":
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/@volar/shared/-/shared-0.27.3.tgz#81c6033fed68d9f02ba475a672cd27087177dfcd"
-    integrity sha512-XQ6xNEaQ4AmfjcRwzsab7tJ7x9MPwrhDueaRLp9zFkHSrJZJ9vc0DXJO5KVndswfVD+Cn1Y2EFsNVvKpgbtkYg==
+  "@volar/shared@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/shared/-/shared-0.27.5.tgz#b3c03bc4ab7d709f80e186cf76e56a0864a11177"
+    integrity sha512-l1vm3OhVBqcs9Cl9xDsrh71BVjs/9OS7ALmLu0DbIFaY8ZcnUkEYA3s77UEawiloDMcuH6zHZSBjptlPyV9dCQ==
     dependencies:
       upath "^2.0.1"
       vscode-jsonrpc "^8.0.0-next.1"
       vscode-uri "^3.0.2"
   
-  "@volar/source-map@^0.27.3":
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/@volar/source-map/-/source-map-0.27.3.tgz#29305c21daac70ab591e46fb9b6bd21687c35a95"
-    integrity sha512-qvfpLB2MNEL7QbFz7kPOwRY0Mtt5b9dS+dPa0h+z27u53J7QnFHsgwttr1c91rMinmi3Jxiw6iQhjtyHwvIvxw==
+  "@volar/source-map@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/source-map/-/source-map-0.27.5.tgz#a3130075fb250269bce8ebaf5d949a6765d39e05"
+    integrity sha512-IO632kIhLMjXhnSNdGgNkDDUFvZVHVZA54mM73xmn/I5DfQ2vshZAkQKiob+biGnvlwFAbxtQ2mij1Af2Yp6EQ==
     dependencies:
-      "@volar/shared" "^0.27.3"
+      "@volar/shared" "^0.27.5"
   
-  "@volar/transforms@^0.27.3":
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/@volar/transforms/-/transforms-0.27.3.tgz#bf1904aa4340be711470a157652bb32aa51c429b"
-    integrity sha512-JMmAuooBoaXFUjTKCtUdW4PctCciEZwYl7txtRMKL3tbXWrMo5DGEKutmzVYWzT7AW3+1mzBW2Xn9aqATeokUQ==
+  "@volar/transforms@^0.27.5":
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/@volar/transforms/-/transforms-0.27.5.tgz#c0e09122531be8ee3ea29872c6a58ba81692de2b"
+    integrity sha512-IOsdwEarszNb5+icpDl8X2Kezhx8ZXPvxhYvLTlEKnkKU9Hu8pVUvEcNGNwZ5G+DCaMO7hZ9WoKoKAkRGyphWA==
     dependencies:
-      "@volar/shared" "^0.27.3"
+      "@volar/shared" "^0.27.5"
   
   "@vscode/emmet-helper@^2.7.0":
     version "2.7.0"
@@ -376,7 +392,7 @@ Lockfile:
       estree-walker "^2.0.1"
       source-map "^0.6.1"
   
-  "@vue/compiler-dom@3.2.4", "@vue/compiler-dom@^3.2.2":
+  "@vue/compiler-dom@3.2.4", "@vue/compiler-dom@^3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.4.tgz#3a43de243eba127abbe57e796a0b969d2df78c08"
     integrity sha512-uj1nwO4794fw2YsYas5QT+FU/YGrXbS0Qk+1c7Kp1kV7idhZIghWLTjyvYibpGoseFbYLPd+sW2/noJG5H04EQ==
@@ -384,7 +400,7 @@ Lockfile:
       "@vue/compiler-core" "3.2.4"
       "@vue/shared" "3.2.4"
   
-  "@vue/compiler-sfc@^3.2.1", "@vue/compiler-sfc@^3.2.2":
+  "@vue/compiler-sfc@^3.2.1", "@vue/compiler-sfc@^3.2.2", "@vue/compiler-sfc@^3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.4.tgz#9807868cc950291f163c3930a81bb16e870df097"
     integrity sha512-GM+ouDdDzhqgkLmBH4bgq4kiZxJQArSppJiZHWHIx9XRaefHLmc1LBNPmN8ivm4SVfi2i7M2t9k8ZnjsScgzPQ==
@@ -415,7 +431,7 @@ Lockfile:
       "@vue/compiler-dom" "3.2.4"
       "@vue/shared" "3.2.4"
   
-  "@vue/reactivity@3.2.4", "@vue/reactivity@^3.2.2":
+  "@vue/reactivity@3.2.4", "@vue/reactivity@^3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.4.tgz#a020ad7e50f674219a07764b105b5922e61597ea"
     integrity sha512-ljWTR0hr8Tn09hM2tlmWxZzCBPlgGLnq/k8K8X6EcJhtV+C8OzFySnbWqMWataojbrQOocThwsC8awKthSl2uQ==
@@ -447,15 +463,15 @@ Lockfile:
       "@vue/compiler-ssr" "3.2.4"
       "@vue/shared" "3.2.4"
   
-  "@vue/shared@3.2.4", "@vue/shared@^3.2.2":
+  "@vue/shared@3.2.4", "@vue/shared@^3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.4.tgz#ba2a09527afff27b28d08f921b4a597e9504ca7a"
     integrity sha512-j2j1MRmjalVKr3YBTxl/BClSIc8UQ8NnPpLYclxerK65JIowI4O7n8O8lElveEtEoHxy1d7BelPUDI0Q4bumqg==
   
   accepts@~1.3.5:
     version "1.3.7"
-    resolved "https://registry.nlark.com/accepts/download/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
-    integrity sha1-UxvHJlF6OytB+FACHGzBXqq1B80=
+    resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
+    integrity sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==
     dependencies:
       mime-types "~2.1.24"
       negotiator "0.6.2"
@@ -487,20 +503,20 @@ Lockfile:
   
   ansi-regex@^5.0.0:
     version "5.0.0"
-    resolved "https://registry.nlark.com/ansi-regex/download/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
-    integrity sha1-OIU59VF5vzkznIGvMKZU1p+Hy3U=
+    resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
+    integrity sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==
   
   ansi-styles@^4.1.0:
     version "4.3.0"
-    resolved "https://registry.nlark.com/ansi-styles/download/ansi-styles-4.3.0.tgz#edd803628ae71c04c85ae7a0906edad34b648937"
-    integrity sha1-7dgDYornHATIWuegkG7a00tkiTc=
+    resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.3.0.tgz#edd803628ae71c04c85ae7a0906edad34b648937"
+    integrity sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
     dependencies:
       color-convert "^2.0.1"
   
   argparse@^1.0.7:
     version "1.0.10"
-    resolved "https://registry.nlark.com/argparse/download/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
-    integrity sha1-vNZ5HqWuCXJeF+WtmIE0zUCz2RE=
+    resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
+    integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
     dependencies:
       sprintf-js "~1.0.2"
   
@@ -538,8 +554,8 @@ Lockfile:
   
   big.js@^5.2.2:
     version "5.2.2"
-    resolved "https://registry.nlark.com/big.js/download/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
-    integrity sha1-ZfCvOC9Xi83HQr2cKB6cstd2gyg=
+    resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
+    integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
   
   bl@^4.1.0:
     version "4.1.0"
@@ -572,16 +588,21 @@ Lockfile:
   
   bytes@3.0.0:
     version "3.0.0"
-    resolved "https://registry.npm.taobao.org/bytes/download/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
+    resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
     integrity sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
   
   call-bind@^1.0.2:
     version "1.0.2"
-    resolved "https://registry.npm.taobao.org/call-bind/download/call-bind-1.0.2.tgz?cache=0&sync_timestamp=1610402896029&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcall-bind%2Fdownload%2Fcall-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
-    integrity sha1-sdTonmiBGcPJqQOtMKuy9qkZvjw=
+    resolved "https://registry.yarnpkg.com/call-bind/-/call-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
+    integrity sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==
     dependencies:
       function-bind "^1.1.1"
       get-intrinsic "^1.0.2"
+  
+  camelcase@^6.2.0:
+    version "6.2.0"
+    resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
+    integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
   
   chalk@^4.1.0, chalk@^4.1.1:
     version "4.1.2"
@@ -617,15 +638,15 @@ Lockfile:
   
   color-convert@^2.0.1:
     version "2.0.1"
-    resolved "https://registry.npm.taobao.org/color-convert/download/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
-    integrity sha1-ctOmjVmMm9s68q0ehPIdiWq9TeM=
+    resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
+    integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
     dependencies:
       color-name "~1.1.4"
   
   color-name@~1.1.4:
     version "1.1.4"
-    resolved "https://registry.npm.taobao.org/color-name/download/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
-    integrity sha1-wqCah6y95pVD3m9j+jmVyCbFNqI=
+    resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
+    integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
   
   colorette@^1.2.2:
     version "1.3.0"
@@ -634,15 +655,15 @@ Lockfile:
   
   compressible@~2.0.16:
     version "2.0.18"
-    resolved "https://registry.npm.taobao.org/compressible/download/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
-    integrity sha1-r1PMprBw1MPAdQ+9dyhqbXzEb7o=
+    resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
+    integrity sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
     dependencies:
       mime-db ">= 1.43.0 < 2"
   
   compression@^1.7.4:
     version "1.7.4"
-    resolved "https://registry.npm.taobao.org/compression/download/compression-1.7.4.tgz#95523eff170ca57c29a0ca41e6fe131f41e5bb8f"
-    integrity sha1-lVI+/xcMpXwpoMpB5v4TH0Hlu48=
+    resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.4.tgz#95523eff170ca57c29a0ca41e6fe131f41e5bb8f"
+    integrity sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==
     dependencies:
       accepts "~1.3.5"
       bytes "3.0.0"
@@ -676,18 +697,18 @@ Lockfile:
   
   cssesc@^3.0.0:
     version "3.0.0"
-    resolved "https://registry.nlark.com/cssesc/download/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
-    integrity sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=
+    resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
+    integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
   
   csstype@^2.6.8:
     version "2.6.17"
-    resolved "https://registry.nlark.com/csstype/download/csstype-2.6.17.tgz#4cf30eb87e1d1a005d8b6510f95292413f6a1c0e"
-    integrity sha1-TPMOuH4dGgBdi2UQ+VKSQT9qHA4=
+    resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.17.tgz#4cf30eb87e1d1a005d8b6510f95292413f6a1c0e"
+    integrity sha512-u1wmTI1jJGzCJzWndZo8mk4wnPTZd1eOIYTYvuEyOQGfmDl3TrabCCfKnOC86FZwW/9djqTl933UF/cS425i9A==
   
   debug@2.6.9:
     version "2.6.9"
-    resolved "https://registry.nlark.com/debug/download/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
-    integrity sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=
+    resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+    integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
     dependencies:
       ms "2.0.0"
   
@@ -731,8 +752,8 @@ Lockfile:
   
   dom-serializer@^1.0.1:
     version "1.3.2"
-    resolved "https://registry.nlark.com/dom-serializer/download/dom-serializer-1.3.2.tgz?cache=0&sync_timestamp=1621256858583&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdom-serializer%2Fdownload%2Fdom-serializer-1.3.2.tgz#6206437d32ceefaec7161803230c7a20bc1b4d91"
-    integrity sha1-YgZDfTLO767HFhgDIwx6ILwbTZE=
+    resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-1.3.2.tgz#6206437d32ceefaec7161803230c7a20bc1b4d91"
+    integrity sha512-5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig==
     dependencies:
       domelementtype "^2.0.1"
       domhandler "^4.2.0"
@@ -740,20 +761,20 @@ Lockfile:
   
   domelementtype@^2.0.1, domelementtype@^2.2.0:
     version "2.2.0"
-    resolved "https://registry.nlark.com/domelementtype/download/domelementtype-2.2.0.tgz#9a0b6c2782ed6a1c7323d42267183df9bd8b1d57"
-    integrity sha1-mgtsJ4LtahxzI9QiZxg9+b2LHVc=
+    resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.2.0.tgz#9a0b6c2782ed6a1c7323d42267183df9bd8b1d57"
+    integrity sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==
   
   domhandler@^4.0.0, domhandler@^4.2.0:
     version "4.2.0"
-    resolved "https://registry.nlark.com/domhandler/download/domhandler-4.2.0.tgz#f9768a5f034be60a89a27c2e4d0f74eba0d8b059"
-    integrity sha1-+XaKXwNL5gqJonwuTQ9066DYsFk=
+    resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-4.2.0.tgz#f9768a5f034be60a89a27c2e4d0f74eba0d8b059"
+    integrity sha512-zk7sgt970kzPks2Bf+dwT/PLzghLnsivb9CcxkvR8Mzr66Olr0Ofd8neSbglHJHaHa2MadfoSdNlKYAaafmWfA==
     dependencies:
       domelementtype "^2.2.0"
   
   domutils@^2.5.2:
     version "2.7.0"
-    resolved "https://registry.nlark.com/domutils/download/domutils-2.7.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdomutils%2Fdownload%2Fdomutils-2.7.0.tgz#8ebaf0c41ebafcf55b0b72ec31c56323712c5442"
-    integrity sha1-jrrwxB66/PVbC3LsMcVjI3EsVEI=
+    resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.7.0.tgz#8ebaf0c41ebafcf55b0b72ec31c56323712c5442"
+    integrity sha512-8eaHa17IwJUPAiB+SoTYBo5mCdeMgdcAoXJ59m6DT1vw+5iLS3gNoqYaRowaBKtGVrOF1Jz4yDTgYKLK2kvfJg==
     dependencies:
       dom-serializer "^1.0.1"
       domelementtype "^2.2.0"
@@ -769,13 +790,13 @@ Lockfile:
   
   emojis-list@^3.0.0:
     version "3.0.0"
-    resolved "https://registry.npm.taobao.org/emojis-list/download/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
-    integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
+    resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
+    integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
   
   entities@^2.0.0:
     version "2.2.0"
-    resolved "https://registry.nlark.com/entities/download/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"
-    integrity sha1-CY3JDruD2N/6CJ1VJWs1HTTE2lU=
+    resolved "https://registry.yarnpkg.com/entities/-/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"
+    integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
   
   entities@~2.1.0:
     version "2.1.0"
@@ -790,28 +811,28 @@ Lockfile:
       prr "~1.0.1"
   
   esbuild@^0.12.17:
-    version "0.12.21"
-    resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.21.tgz#7ff32a9ac73ce4310f9cb61ea4c3da9756570d46"
-    integrity sha512-7hyXbU3g94aREufI/5nls7Xcc+RGQeZWZApm6hoBaFvt2BPtpT4TjFMQ9Tb1jU8XyBGz00ShmiyflCogphMHFQ==
+    version "0.12.22"
+    resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.22.tgz#6031a1257b8d0307d306bed673b79c3668607f51"
+    integrity sha512-yWCr9RoFehpqoe/+MwZXJpYOEIt7KOEvNnjIeMZpMSyQt+KCBASM3y7yViiN5dJRphf1wGdUz1+M4rTtWd/ulA==
   
   escape-html@^1.0.3:
     version "1.0.3"
-    resolved "https://registry.npm.taobao.org/escape-html/download/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
+    resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
     integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
   
   esprima@^4.0.0:
     version "4.0.1"
-    resolved "https://registry.npm.taobao.org/esprima/download/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
-    integrity sha1-E7BM2z5sXRnfkatph6hpVhmwqnE=
+    resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
+    integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
   
   estree-walker@^2.0.1:
     version "2.0.2"
-    resolved "https://registry.npm.taobao.org/estree-walker/download/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
-    integrity sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=
+    resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
+    integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
   
   extend-shallow@^2.0.1:
     version "2.0.1"
-    resolved "https://registry.nlark.com/extend-shallow/download/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
+    resolved "https://registry.yarnpkg.com/extend-shallow/-/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
     integrity sha1-Ua99YUrZqfYQ6huvu5idaxxWiQ8=
     dependencies:
       is-extendable "^0.1.0"
@@ -828,16 +849,16 @@ Lockfile:
       micromatch "^4.0.4"
   
   fastq@^1.6.0:
-    version "1.11.1"
-    resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.11.1.tgz#5d8175aae17db61947f8b162cfc7f63264d22807"
-    integrity sha512-HOnr8Mc60eNYl1gzwp6r5RoUyAn5/glBolUzP/Ez6IFVPMPirxn/9phgL6zhOtaTy7ISwPvQ+wT+hfcRZh/bzw==
+    version "1.12.0"
+    resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.12.0.tgz#ed7b6ab5d62393fb2cc591c853652a5c318bf794"
+    integrity sha512-VNX0QkHK3RsXVKr9KrlUv/FoTa0NdbYoHHl7uXHv2rzyHSlxjdNAKug2twd9luJxpcyNeAgf5iPPMutJO67Dfg==
     dependencies:
       reusify "^1.0.4"
   
   fill-range@^7.0.1:
     version "7.0.1"
-    resolved "https://registry.npm.taobao.org/fill-range/download/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
-    integrity sha1-GRmmp8df44ssfHflGYU12prN2kA=
+    resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
+    integrity sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
     dependencies:
       to-regex-range "^5.0.1"
   
@@ -852,13 +873,13 @@ Lockfile:
   
   fsevents@~2.3.2:
     version "2.3.2"
-    resolved "https://registry.npm.taobao.org/fsevents/download/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
-    integrity sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=
+    resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
+    integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
   
   function-bind@^1.1.1:
     version "1.1.1"
-    resolved "https://registry.npm.taobao.org/function-bind/download/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
-    integrity sha1-pWiZ0+o8m6uHS7l3O3xe3pL0iV0=
+    resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
+    integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
   
   generic-names@^2.0.1:
     version "2.0.1"
@@ -869,8 +890,8 @@ Lockfile:
   
   get-intrinsic@^1.0.2:
     version "1.1.1"
-    resolved "https://registry.nlark.com/get-intrinsic/download/get-intrinsic-1.1.1.tgz#15f59f376f855c446963948f0d24cd3637b4abc6"
-    integrity sha1-FfWfN2+FXERpY5SPDSTNNje0q8Y=
+    resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.1.1.tgz#15f59f376f855c446963948f0d24cd3637b4abc6"
+    integrity sha512-kWZrnVM42QCiEA2Ig1bG8zjoIMOgxWwYCEeNdwY6Tv/cOSeGpcoX4pXHfKUxNKVoArnrEr2e9srnAxxGIraS9Q==
     dependencies:
       function-bind "^1.1.1"
       has "^1.0.3"
@@ -883,7 +904,7 @@ Lockfile:
     dependencies:
       is-glob "^4.0.1"
   
-  globby@^11.0.3:
+  globby@^11.0.2, globby@^11.0.3:
     version "11.0.4"
     resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.4.tgz#2cbaff77c2f2a62e71e9b2813a67b97a3a3001a5"
     integrity sha512-9O4MVG9ioZJ08ffbcyVYyLOJLk5JQ688pJ4eMGLpdWLHq/Wr1D9BlriLQyL0E+jbkuePVZXYFj47QM/v093wHg==
@@ -912,25 +933,25 @@ Lockfile:
   
   has-flag@^4.0.0:
     version "4.0.0"
-    resolved "https://registry.nlark.com/has-flag/download/has-flag-4.0.0.tgz?cache=0&sync_timestamp=1626715907927&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhas-flag%2Fdownload%2Fhas-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
-    integrity sha1-lEdx/ZyByBJlxNaUGGDaBrtZR5s=
+    resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
+    integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
   
   has-symbols@^1.0.1, has-symbols@^1.0.2:
     version "1.0.2"
-    resolved "https://registry.npm.taobao.org/has-symbols/download/has-symbols-1.0.2.tgz?cache=0&sync_timestamp=1614443577352&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fhas-symbols%2Fdownload%2Fhas-symbols-1.0.2.tgz#165d3070c00309752a1236a479331e3ac56f1423"
-    integrity sha1-Fl0wcMADCXUqEjakeTMeOsVvFCM=
+    resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.2.tgz#165d3070c00309752a1236a479331e3ac56f1423"
+    integrity sha512-chXa79rL/UC2KlX17jo3vRGz0azaWEx5tGqZg5pO3NUyEJVB17dMruQlzCCOfUvElghKcm5194+BCRvi2Rv/Gw==
   
   has-tostringtag@^1.0.0:
     version "1.0.0"
-    resolved "https://registry.nlark.com/has-tostringtag/download/has-tostringtag-1.0.0.tgz?cache=0&sync_timestamp=1628197490246&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhas-tostringtag%2Fdownload%2Fhas-tostringtag-1.0.0.tgz#7e133818a7d394734f941e73c3d3f9291e658b25"
-    integrity sha1-fhM4GKfTlHNPlB5zw9P5KR5liyU=
+    resolved "https://registry.yarnpkg.com/has-tostringtag/-/has-tostringtag-1.0.0.tgz#7e133818a7d394734f941e73c3d3f9291e658b25"
+    integrity sha512-kFjcSNhnlGV1kyoGk7OXKSawH5JOb/LzUc5w9B02hOTO0dfFRjbHQKvg1d6cf3HbeUmtU9VbbV3qzZ2Teh97WQ==
     dependencies:
       has-symbols "^1.0.2"
   
   has@^1.0.3:
     version "1.0.3"
-    resolved "https://registry.npm.taobao.org/has/download/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
-    integrity sha1-ci18v8H2qoJB8W3YFOAR4fQeh5Y=
+    resolved "https://registry.yarnpkg.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
+    integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
     dependencies:
       function-bind "^1.1.1"
   
@@ -946,8 +967,8 @@ Lockfile:
   
   htmlparser2@^6.1.0:
     version "6.1.0"
-    resolved "https://registry.nlark.com/htmlparser2/download/htmlparser2-6.1.0.tgz#c4d762b6c3371a05dbe65e94ae43a9f845fb8fb7"
-    integrity sha1-xNditsM3GgXb5l6UrkOp+EX7j7c=
+    resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-6.1.0.tgz#c4d762b6c3371a05dbe65e94ae43a9f845fb8fb7"
+    integrity sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A==
     dependencies:
       domelementtype "^2.0.1"
       domhandler "^4.0.0"
@@ -963,7 +984,7 @@ Lockfile:
   
   icss-replace-symbols@^1.1.0:
     version "1.1.0"
-    resolved "https://registry.npm.taobao.org/icss-replace-symbols/download/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
+    resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
     integrity sha1-Bupvg2ead0njhs/h/oEq5dsiPe0=
   
   icss-utils@^5.0.0:
@@ -988,13 +1009,13 @@ Lockfile:
   
   inherits@^2.0.3, inherits@^2.0.4:
     version "2.0.4"
-    resolved "https://registry.nlark.com/inherits/download/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
-    integrity sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
+    resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
+    integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
   
   is-core-module@^2.2.0:
     version "2.6.0"
-    resolved "https://registry.nlark.com/is-core-module/download/is-core-module-2.6.0.tgz?cache=0&sync_timestamp=1629224758563&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fis-core-module%2Fdownload%2Fis-core-module-2.6.0.tgz#d7553b2526fe59b92ba3e40c8df757ec8a709e19"
-    integrity sha1-11U7JSb+Wbkro+QMjfdX7Ipwnhk=
+    resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.6.0.tgz#d7553b2526fe59b92ba3e40c8df757ec8a709e19"
+    integrity sha512-wShG8vs60jKfPWpF2KZRaAtvt3a20OAn7+IJ6hLPECpSABLcKtFKTTI4ZtH5QcBruBHlq+WsdHWyz0BCZW7svQ==
     dependencies:
       has "^1.0.3"
   
@@ -1008,18 +1029,18 @@ Lockfile:
   
   is-extendable@^0.1.0:
     version "0.1.1"
-    resolved "https://registry.nlark.com/is-extendable/download/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
+    resolved "https://registry.yarnpkg.com/is-extendable/-/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
     integrity sha1-YrEQ4omkcUGOPsNqYX1HLjAd/Ik=
   
   is-extglob@^2.1.1:
     version "2.1.1"
-    resolved "https://registry.nlark.com/is-extglob/download/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
+    resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
     integrity sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=
   
   is-glob@^4.0.1:
     version "4.0.1"
-    resolved "https://registry.npm.taobao.org/is-glob/download/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
-    integrity sha1-dWfb6fL14kZ7x3q4PEopSCQHpdw=
+    resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
+    integrity sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
     dependencies:
       is-extglob "^2.1.1"
   
@@ -1030,8 +1051,8 @@ Lockfile:
   
   is-number@^7.0.0:
     version "7.0.0"
-    resolved "https://registry.npm.taobao.org/is-number/download/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
-    integrity sha1-dTU0W4lnNNX4DE0GxQlVUnoU8Ss=
+    resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
+    integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
   
   is-promise@^2.0.0:
     version "2.2.2"
@@ -1063,16 +1084,16 @@ Lockfile:
   
   js-yaml@^3.13.1:
     version "3.14.1"
-    resolved "https://registry.npm.taobao.org/js-yaml/download/js-yaml-3.14.1.tgz?cache=0&sync_timestamp=1618434911653&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-yaml%2Fdownload%2Fjs-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
-    integrity sha1-2ugS/bOCX6MGYJqHFzg8UMNqBTc=
+    resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
+    integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
     dependencies:
       argparse "^1.0.7"
       esprima "^4.0.0"
   
   json5@^1.0.1:
     version "1.0.1"
-    resolved "https://registry.npm.taobao.org/json5/download/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
-    integrity sha1-d5+wAYYE+oVOrL9iUhgNg1Q+Pb4=
+    resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
+    integrity sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
     dependencies:
       minimist "^1.2.0"
   
@@ -1105,13 +1126,18 @@ Lockfile:
   
   kind-of@^6.0.0, kind-of@^6.0.2:
     version "6.0.3"
-    resolved "https://registry.nlark.com/kind-of/download/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
-    integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
+    resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
+    integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
   
   klona@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
     integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
+  
+  kolorist@^1.5.0:
+    version "1.5.0"
+    resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.0.tgz#a06f7dd11d1b5fdb743d79c8acd4e1ecbcbd89b3"
+    integrity sha512-pPobydIHK884YBtkS/tWSZXpSAEpcMbilyun3KL37ot935qL2HNKm/tI45i/Rd+MxdIWEhm7/LmUQzWZYK+Qhg==
   
   less-loader@^10.0.1:
     version "10.0.1"
@@ -1146,12 +1172,17 @@ Lockfile:
   
   loader-utils@^1.1.0:
     version "1.4.0"
-    resolved "https://registry.npm.taobao.org/loader-utils/download/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
-    integrity sha1-xXm140yzSxp07cbB+za/o3HVphM=
+    resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
+    integrity sha512-qH0WSMBtn/oHuwjy/NucEgbx5dbxxnxup9s4PVXJUDHZBQY+s0NWA9rJf53RBnQZxfch7euUui7hpoAPvALZdA==
     dependencies:
       big.js "^5.2.2"
       emojis-list "^3.0.0"
       json5 "^1.0.1"
+  
+  lodash-es@^4.17.20:
+    version "4.17.21"
+    resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+    integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
   
   lodash.camelcase@^4.3.0:
     version "4.3.0"
@@ -1168,8 +1199,8 @@ Lockfile:
   
   lru-cache@^5.1.1:
     version "5.1.1"
-    resolved "https://registry.npm.taobao.org/lru-cache/download/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
-    integrity sha1-HaJ+ZxAnGUdpXa9oSOhH8B2EuSA=
+    resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
+    integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
     dependencies:
       yallist "^3.0.2"
   
@@ -1215,7 +1246,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/markdown-it-table-of-contents/-/markdown-it-table-of-contents-0.5.2.tgz#2f941d386c277887910f2c7a8a16f5a17acb829c"
     integrity sha512-6o+rxSwzXmXCUn1n8QGTSpgbcnHBG6lUU8x7A5Cssuq5vbfzTfitfGPvQ5PZkp+gP1NGS/DR2rkYqJPn0rbZ1A==
   
-  markdown-it@^12.0.6:
+  markdown-it@^12.0.4, markdown-it@^12.0.6:
     version "12.2.0"
     resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.2.0.tgz#091f720fd5db206f80de7a8d1f1a7035fd0d38db"
     integrity sha512-Wjws+uCrVQRqOoJvze4HCqkKl1AsSh95iFAeQDwnyfxM09divCBSXlDR1uTvyUP3Grzpn4Ru8GeCxYPM8vkCQg==
@@ -1235,13 +1266,13 @@ Lockfile:
   
   mdurl@^1.0.1:
     version "1.0.1"
-    resolved "https://registry.npm.taobao.org/mdurl/download/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
+    resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
     integrity sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
   
   merge-source-map@^1.1.0:
     version "1.1.0"
-    resolved "https://registry.nlark.com/merge-source-map/download/merge-source-map-1.1.0.tgz#2fdde7e6020939f70906a68f2d7ae685e4c8c646"
-    integrity sha1-L93n5gIJOfcJBqaPLXrmheTIxkY=
+    resolved "https://registry.yarnpkg.com/merge-source-map/-/merge-source-map-1.1.0.tgz#2fdde7e6020939f70906a68f2d7ae685e4c8c646"
+    integrity sha512-Qkcp7P2ygktpMPh2mCQZaf3jhN6D3Z/qVZHSdWvQ+2Ef5HgRAPBO57A77+ENm0CPx2+1Ce/MYKi3ymqdfuqibw==
     dependencies:
       source-map "^0.6.1"
   
@@ -1260,13 +1291,13 @@ Lockfile:
   
   mime-db@1.49.0, "mime-db@>= 1.43.0 < 2":
     version "1.49.0"
-    resolved "https://registry.nlark.com/mime-db/download/mime-db-1.49.0.tgz?cache=0&sync_timestamp=1627335450684&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fmime-db%2Fdownload%2Fmime-db-1.49.0.tgz#f3dfde60c99e9cf3bc9701d687778f537001cbed"
-    integrity sha1-89/eYMmenPO8lwHWh3ePU3ABy+0=
+    resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.49.0.tgz#f3dfde60c99e9cf3bc9701d687778f537001cbed"
+    integrity sha512-CIc8j9URtOVApSFCQIF+VBkX1RwXp/oMMOrqdyXSBXq5RWNEsRfyj1kiRnQgmNXmHxPoFIxOroKA3zcU9P+nAA==
   
   mime-types@~2.1.24:
     version "2.1.32"
-    resolved "https://registry.nlark.com/mime-types/download/mime-types-2.1.32.tgz#1d00e89e7de7fe02008db61001d9e02852670fd5"
-    integrity sha1-HQDonn3n/gIAjbYQAdngKFJnD9U=
+    resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.32.tgz#1d00e89e7de7fe02008db61001d9e02852670fd5"
+    integrity sha512-hJGaVS4G4c9TSMYh2n6SQAGrC4RnfU+daP8G7cSCmaqNjiOoUY0VHCMS42pxnQmVF1GWwFhbHWn3RIxCqTmZ9A==
     dependencies:
       mime-db "1.49.0"
   
@@ -1287,18 +1318,18 @@ Lockfile:
   
   minimist@^1.2.0, minimist@^1.2.5:
     version "1.2.5"
-    resolved "https://registry.npm.taobao.org/minimist/download/minimist-1.2.5.tgz?cache=0&sync_timestamp=1602337228360&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fminimist%2Fdownload%2Fminimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-    integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+    resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
+    integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
   
   ms@2.0.0:
     version "2.0.0"
-    resolved "https://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz?cache=0&sync_timestamp=1617819849842&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+    resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
     integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
   
   ms@2.1.2:
     version "2.1.2"
-    resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz?cache=0&sync_timestamp=1617819849842&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
-    integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
+    resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+    integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
   
   ms@^2.1.1:
     version "2.1.3"
@@ -1321,18 +1352,18 @@ Lockfile:
   
   negotiator@0.6.2:
     version "0.6.2"
-    resolved "https://registry.npm.taobao.org/negotiator/download/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
-    integrity sha1-/qz3zPUlp3rpY0Q2pkiD/+yjRvs=
+    resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
+    integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
   
   object-assign@^4.1.1:
     version "4.1.1"
-    resolved "https://registry.nlark.com/object-assign/download/object-assign-4.1.1.tgz?cache=0&sync_timestamp=1618846992533&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fobject-assign%2Fdownload%2Fobject-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+    resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
     integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
   
   on-headers@~1.0.2:
     version "1.0.2"
-    resolved "https://registry.nlark.com/on-headers/download/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
-    integrity sha1-dysK5qqlJcOZ5Imt+tkMQD6zwo8=
+    resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
+    integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   
   onetime@^5.1.0:
     version "5.1.2"
@@ -1363,8 +1394,8 @@ Lockfile:
   
   path-parse@^1.0.6:
     version "1.0.7"
-    resolved "https://registry.nlark.com/path-parse/download/path-parse-1.0.7.tgz?cache=0&sync_timestamp=1621947783503&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpath-parse%2Fdownload%2Fpath-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
-    integrity sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=
+    resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+    integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
   
   path-type@^4.0.0:
     version "4.0.0"
@@ -1441,8 +1472,8 @@ Lockfile:
   
   postcss-value-parser@^4.1.0:
     version "4.1.0"
-    resolved "https://registry.npm.taobao.org/postcss-value-parser/download/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
-    integrity sha1-RD9qIM7WSBor2k+oUypuVdeJoss=
+    resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
+    integrity sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==
   
   postcss@^8.1.10, postcss@^8.3.6:
     version "8.3.6"
@@ -1457,6 +1488,11 @@ Lockfile:
     version "10.5.14"
     resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.14.tgz#0b14a2eefba3c10a57116b90d1a65f5f00cd2701"
     integrity sha512-KojoltCrshZ099ksUZ2OQKfbH66uquFoxHSbnwKbTJHeQNvx42EmC7wQVWNuDt6vC5s3nudRHFtKbpY4ijKlaQ==
+  
+  prettier@^2.2.1:
+    version "2.3.2"
+    resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+    integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
   
   prismjs@^1.23.0:
     version "1.24.1"
@@ -1634,13 +1670,13 @@ Lockfile:
   
   safe-buffer@5.1.2:
     version "5.1.2"
-    resolved "https://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
-    integrity sha1-mR7GnSluAxN0fVm9/St0XDX4go0=
+    resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
+    integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
   
   safe-buffer@~5.2.0:
     version "5.2.1"
-    resolved "https://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
-    integrity sha1-Hq+fqb2x/dTsdfWPnNtOa3gn7sY=
+    resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
+    integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
   
   "safer-buffer@>= 2.1.2 < 3":
     version "2.1.2"
@@ -1654,8 +1690,8 @@ Lockfile:
   
   section-matter@^1.0.0:
     version "1.0.0"
-    resolved "https://registry.nlark.com/section-matter/download/section-matter-1.0.0.tgz#e9041953506780ec01d59f292a19c7b850b84167"
-    integrity sha1-6QQZU1BngOwB1Z8pKhnHuFC4QWc=
+    resolved "https://registry.yarnpkg.com/section-matter/-/section-matter-1.0.0.tgz#e9041953506780ec01d59f292a19c7b850b84167"
+    integrity sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==
     dependencies:
       extend-shallow "^2.0.1"
       kind-of "^6.0.0"
@@ -1667,8 +1703,8 @@ Lockfile:
   
   signal-exit@^3.0.2:
     version "3.0.3"
-    resolved "https://registry.npm.taobao.org/signal-exit/download/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
-    integrity sha1-oUEMLt2PB3sItOJTyOrPyvBXRhw=
+    resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
+    integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
   
   sirv@^1.0.12:
     version "1.0.14"
@@ -1691,8 +1727,8 @@ Lockfile:
   
   source-map@^0.6.1, source-map@~0.6.0:
     version "0.6.1"
-    resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
-    integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
+    resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+    integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
   
   sourcemap-codec@^1.4.4:
     version "1.4.8"
@@ -1701,7 +1737,7 @@ Lockfile:
   
   sprintf-js@~1.0.2:
     version "1.0.3"
-    resolved "https://registry.npm.taobao.org/sprintf-js/download/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
+    resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
     integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
   
   string-hash@^1.1.1:
@@ -1711,27 +1747,27 @@ Lockfile:
   
   string_decoder@^1.1.1:
     version "1.3.0"
-    resolved "https://registry.npm.taobao.org/string_decoder/download/string_decoder-1.3.0.tgz#42f114594a46cf1a8e30b0a84f56c78c3edac21e"
-    integrity sha1-QvEUWUpGzxqOMLCoT1bHjD7awh4=
+    resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.3.0.tgz#42f114594a46cf1a8e30b0a84f56c78c3edac21e"
+    integrity sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
     dependencies:
       safe-buffer "~5.2.0"
   
   strip-ansi@^6.0.0:
     version "6.0.0"
-    resolved "https://registry.nlark.com/strip-ansi/download/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
-    integrity sha1-CxVx3XZpzNTz4G4U7x7tJiJa5TI=
+    resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
+    integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
     dependencies:
       ansi-regex "^5.0.0"
   
   strip-bom-string@^1.0.0:
     version "1.0.0"
-    resolved "https://registry.npm.taobao.org/strip-bom-string/download/strip-bom-string-1.0.0.tgz#e5211e9224369fbb81d633a2f00044dc8cedad92"
+    resolved "https://registry.yarnpkg.com/strip-bom-string/-/strip-bom-string-1.0.0.tgz#e5211e9224369fbb81d633a2f00044dc8cedad92"
     integrity sha1-5SEekiQ2n7uB1jOi8ABE3IztrZI=
   
   supports-color@^7.1.0:
     version "7.2.0"
-    resolved "https://registry.nlark.com/supports-color/download/supports-color-7.2.0.tgz?cache=0&sync_timestamp=1626703400240&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsupports-color%2Fdownload%2Fsupports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
-    integrity sha1-G33NyzK4E4gBs+R4umpRyqiWSNo=
+    resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
+    integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
     dependencies:
       has-flag "^4.0.0"
   
@@ -1742,13 +1778,13 @@ Lockfile:
   
   to-fast-properties@^2.0.0:
     version "2.0.0"
-    resolved "https://registry.nlark.com/to-fast-properties/download/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
+    resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
     integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
   
   to-regex-range@^5.0.1:
     version "5.0.1"
-    resolved "https://registry.nlark.com/to-regex-range/download/to-regex-range-5.0.1.tgz#1648c44aae7c8d988a326018ed72f5b4dd0392e4"
-    integrity sha1-FkjESq58jZiKMmAY7XL1tN0DkuQ=
+    resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-5.0.1.tgz#1648c44aae7c8d988a326018ed72f5b4dd0392e4"
+    integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
     dependencies:
       is-number "^7.0.0"
   
@@ -1781,8 +1817,8 @@ Lockfile:
   
   uc.micro@^1.0.1, uc.micro@^1.0.5:
     version "1.0.6"
-    resolved "https://registry.npm.taobao.org/uc.micro/download/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"
-    integrity sha1-nEEagCpAmpH8bPdAgbq6NLJEmaw=
+    resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"
+    integrity sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==
   
   universalify@^2.0.0:
     version "2.0.0"
@@ -1796,12 +1832,12 @@ Lockfile:
   
   util-deprecate@^1.0.1, util-deprecate@^1.0.2:
     version "1.0.2"
-    resolved "https://registry.npm.taobao.org/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
+    resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
     integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
   
   vary@~1.1.2:
     version "1.1.2"
-    resolved "https://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+    resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
     integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
   
   vite@^2.4.4, vite@^2.5.0:
@@ -1815,6 +1851,21 @@ Lockfile:
       rollup "^2.38.5"
     optionalDependencies:
       fsevents "~2.3.2"
+  
+  vitepress-theme-demoblock@^1.1.1:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/vitepress-theme-demoblock/-/vitepress-theme-demoblock-1.1.1.tgz#6a7c4e4f0045fb6cb9d4946703ad3ee1cba5e72c"
+    integrity sha512-cqN1d4jXn8DojaYotsKdr+llSfkj7tR7p2i1nPHKtJdiZNUsr0TTPFivuW5ENhO2QX7rW4kbng25AzdsKojrag==
+    dependencies:
+      camelcase "^6.2.0"
+      globby "^11.0.2"
+      kolorist "^1.5.0"
+      lodash-es "^4.17.20"
+      markdown-it "^12.0.4"
+      minimist "^1.2.5"
+      prettier "^2.2.1"
+      vitepress "^0.16.1"
+      yaml "^2.0.0-6"
   
   vitepress@^0.16.1:
     version "0.16.1"
@@ -1925,25 +1976,25 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/vscode-nls/-/vscode-nls-5.0.0.tgz#99f0da0bd9ea7cda44e565a74c54b1f2bc257840"
     integrity sha512-u0Lw+IYlgbEJFF6/qAqG2d1jQmJl0eyAGJHoAJqr2HT4M2BNuQYSEiSE75f52pXHSJm8AlTjnLLbBFPrdz2hpA==
   
-  vscode-pug-languageservice@^0.27.3:
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/vscode-pug-languageservice/-/vscode-pug-languageservice-0.27.3.tgz#9f1acec68cf18b8dbbab4e5ea3b11c4cf1227d13"
-    integrity sha512-MmVoXja+JhipmWzeyT1yVisL62T5mcF/Hpqxu9sX0Wkdv8Vw+wOeKaiR/dq06/ivknpk6aQs+g+jD0+309WTeA==
+  vscode-pug-languageservice@^0.27.5:
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-pug-languageservice/-/vscode-pug-languageservice-0.27.5.tgz#aaf0ad5f1c340ae991beb03183ab4e234d315fc3"
+    integrity sha512-0SOBk23X3tjVNi9c0toB0RCDOaIjduBSFE+QdOVYfLoaiLn5Y8nXu2gqCdwlAnRE8HGNo/5u56thjxjmmn5Fog==
     dependencies:
-      "@volar/code-gen" "^0.27.3"
-      "@volar/shared" "^0.27.3"
-      "@volar/source-map" "^0.27.3"
-      "@volar/transforms" "^0.27.3"
+      "@volar/code-gen" "^0.27.5"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
+      "@volar/transforms" "^0.27.5"
       pug-lexer "^5.0.1"
       pug-parser "^6.0.0"
       vscode-languageserver "^8.0.0-next.1"
   
-  vscode-typescript-languageservice@^0.27.3:
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/vscode-typescript-languageservice/-/vscode-typescript-languageservice-0.27.3.tgz#930c0c0e8f569b0575f51f705ee5cdd60b8cdc37"
-    integrity sha512-M3DAeqzy6HOWoX3Hr3IyPXGZj33vzQFjvRhOYUqXB7PxIgrTR2X1BEPq0E7YaYlabhuRLYxaa1QPpNA+B4CABQ==
+  vscode-typescript-languageservice@^0.27.5:
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-typescript-languageservice/-/vscode-typescript-languageservice-0.27.5.tgz#9d47dd77837037c5d0b8380537c2489cd6d835f9"
+    integrity sha512-1B5CPGxasE4CF58Z/Jdkb1+AMOWBzxPMJDYawwJmEv6FeSTV1M6Xnw49LyGbnpj1HhJAeb+F++qJ3feErRwG4Q==
     dependencies:
-      "@volar/shared" "^0.27.3"
+      "@volar/shared" "^0.27.5"
       upath "^2.0.1"
       vscode-languageserver "^8.0.0-next.1"
       vscode-languageserver-textdocument "^1.0.1"
@@ -1959,20 +2010,20 @@ Lockfile:
     integrity sha512-jkjy6pjU1fxUvI51P+gCsxg1u2n8LSt0W6KrCNQceaziKzff74GoWmjVG46KieVzybO1sttPQmYfrwSHey7GUA==
   
   vscode-vue-languageservice@^0.27.0:
-    version "0.27.3"
-    resolved "https://registry.yarnpkg.com/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.3.tgz#590d44ea9f5be100d6a6f889a79af26a6f40ebbb"
-    integrity sha512-veHGBvVFx90gchdMQNwxjUZrX35gPhHnlOecB6rP6NgKQN1/d/WgQgm6a+Lx6uc4q5DhJs3R4B987FQ/VYwQFQ==
+    version "0.27.5"
+    resolved "https://registry.yarnpkg.com/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.5.tgz#7762d4c8aabc6afd325c9e98120b503e684e5381"
+    integrity sha512-kW9ShFZpREoI8M/GJmPfHEmRIwBKvJyc/R7XGASEZJ/4Iwfm86YaFPQweoLclxxdhOveIgGEB1mZ9R7LRe6TkQ==
     dependencies:
-      "@volar/code-gen" "^0.27.3"
-      "@volar/html2pug" "^0.27.3"
-      "@volar/shared" "^0.27.3"
-      "@volar/source-map" "^0.27.3"
-      "@volar/transforms" "^0.27.3"
+      "@volar/code-gen" "^0.27.5"
+      "@volar/html2pug" "^0.27.5"
+      "@volar/shared" "^0.27.5"
+      "@volar/source-map" "^0.27.5"
+      "@volar/transforms" "^0.27.5"
       "@vscode/emmet-helper" "^2.7.0"
-      "@vue/compiler-dom" "^3.2.2"
-      "@vue/compiler-sfc" "^3.2.2"
-      "@vue/reactivity" "^3.2.2"
-      "@vue/shared" "^3.2.2"
+      "@vue/compiler-dom" "^3.2.4"
+      "@vue/compiler-sfc" "^3.2.4"
+      "@vue/reactivity" "^3.2.4"
+      "@vue/shared" "^3.2.4"
       request-light "^0.5.4"
       upath "^2.0.1"
       vscode-css-languageservice "^5.1.4"
@@ -1980,8 +2031,8 @@ Lockfile:
       vscode-json-languageservice "^4.1.5"
       vscode-languageserver "^8.0.0-next.1"
       vscode-languageserver-textdocument "^1.0.1"
-      vscode-pug-languageservice "^0.27.3"
-      vscode-typescript-languageservice "^0.27.3"
+      vscode-pug-languageservice "^0.27.5"
+      vscode-typescript-languageservice "^0.27.5"
   
   vue-tsc@^0.2.3:
     version "0.2.3"
@@ -1989,6 +2040,14 @@ Lockfile:
     integrity sha512-0ahxAnQolmv6EOnv5zxeMi4vCpM4PkhjU70i/EI44OzMWq4OErjLZhEh8EXOLtMx6FBRuuqS5fiBXcuqLpoL7Q==
     dependencies:
       vscode-vue-languageservice "^0.27.0"
+  
+  vue3-video-play@^1.0.9:
+    version "1.0.9"
+    resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.0.9.tgz#79b942277ba2a9ca838418bce8b0956462dcd521"
+    integrity sha512-uPcvpnBKvlhr1iU9f14ISs5aDuAV7FGQ9UTqmuT8a3Y8CHrhQX3PnkpZRycUZVuSFAL9KQWoweWcBQUROxBi3w==
+    dependencies:
+      throttle-debounce "^3.0.1"
+      vue "^3.2.4"
   
   vue@^3.2.1, vue@^3.2.4:
     version "3.2.4"
@@ -2018,10 +2077,15 @@ Lockfile:
   
   yallist@^3.0.2:
     version "3.1.1"
-    resolved "https://registry.nlark.com/yallist/download/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd"
-    integrity sha1-27fa+b/YusmrRev2ArjLrQ1dCP0=
+    resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd"
+    integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
   
   yallist@^4.0.0:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
     integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+  
+  yaml@^2.0.0-6:
+    version "2.0.0-7"
+    resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.0.0-7.tgz#9799d9d85dfc8f01e4cc425e18e09215364beef1"
+    integrity sha512-RbI2Tm3hl9AoHY4wWyWvGvJfFIbHOzuzaxum6ez1A0vve+uXgNor03Wys4t+2sgjJSVSe+B2xerd1/dnvqHlOA==

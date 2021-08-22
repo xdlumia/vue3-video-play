@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 17:13:59
+ * @LastEditTime: 2021-08-22 09:41:09
  * @Description: file content
 */
 
@@ -11,6 +11,7 @@
     class="d-player-wrap"
     ref="refPlayerWrap"
     @mousemove="mouseMovewWarp"
+    :style="playerStyle"
     :class="{ 'web-full-screen': webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
     <!-- 预加载动画 -->
@@ -22,29 +23,31 @@
       ref="refdVideo"
       :controls="false"
       class="d-player-main"
-      :class="{ 'video-mirror': state.mirrorMode }"
+      :class="{ 'video-mirror': state.mirror }"
       v-bind="$attrs"
       @loadstart="loadstart"
       @durationchange="durationchange"
       @progress="progress"
       @canplay="canplay"
       @timeupdate="timeupdate"
+      :volume="state.volume"
+      :muted="state.muted"
       :loop="state.loop"
       width="100%"
       height="100%"
       :poster="state.poster"
     >
-      <source :src="state.source.src" :type="state.source.type" />
+      <source :src="state.source.src || ''" :type="state.source.type || ''" />您的浏览器不支持Video标签。
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
-    <d-player-top v-if="fullScreen"></d-player-top>
+    <d-player-top :source="options.source" v-if="fullScreen"></d-player-top>
     <!-- 状态栏 -->
     <div class="d-player-state" @click="togglePlay">
       <!-- 操作信息通知 -->
       <d-status :state="state"></d-status>
     </div>
     <!-- 播放按钮控制器 -->
-    <div class="d-player-control" v-if="state.control">
+    <div class="d-player-control" ref="refPlayerControl" v-if="state.control">
       <div
         class="d-control-progress"
         @mousemove="onProgressMove"
@@ -60,7 +63,7 @@
         </div>
       </div>
 
-      <div class="d-control-tool" ref="controlWrap">
+      <div class="d-control-tool">
         <div class="d-tool-bar">
           <div class="d-tool-item">
             <d-icon
@@ -88,7 +91,7 @@
                 <li
                   :class="{ 'speed-active': speedActive == row }"
                   @click="playbackRate(row)"
-                  v-for="row of options.speedRate"
+                  v-for="row of state.speedRate"
                   :key="row"
                 >{{ row }}X</li>
               </ul>
@@ -98,7 +101,7 @@
           <div class="d-tool-item">
             <div class="d-tool-item-main volume-box" style="width:52px">
               <div class="volume-main">
-                <span class="volume-text-size">{{ ~~volumeSize }}%</span>
+                <span class="volume-text-size">{{ state.muted ? 0 : ~~(volume * 100) }}%</span>
                 <div
                   ref="refVolumeWrap"
                   class="volume-body"
@@ -106,7 +109,10 @@
                   @touchstart="onVolumeDown"
                 >
                   <div class="volume-line">
-                    <p class="volume-line-range" :style="{ height: `${volumeSize}%` }"></p>
+                    <p
+                      class="volume-line-range"
+                      :style="{ height: `${state.muted ? 0 : (volume * 100)}%` }"
+                    ></p>
                   </div>
                 </div>
               </div>
@@ -114,7 +120,7 @@
             <d-icon
               @click="mutedHandler"
               size="18"
-              :icon="`icon-volume-${volumeSize == 0 ? 'mute' : volumeSize > 50 ? 'up' : 'down'
+              :icon="`icon-volume-${volume == 0 || state.muted ? 'mute' : volume > 0.5 ? 'up' : 'down'
               }`"
             ></d-icon>
           </div>
@@ -126,7 +132,7 @@
                 <!-- :class="{ 'speed-active': speedActive == row }" -->
                 <li>
                   镜像画面
-                  <d-switch v-model="state.mirrorMode" />
+                  <d-switch v-model="state.mirror" />
                 </li>
                 <li>
                   循环播放
@@ -157,17 +163,20 @@
         </div>
       </div>
     </div>
+ 
   </div>
 </template>
 <script lang="ts">
 // import dIcon from "./d-icon";
+// import 'element-plus/lib/theme-chalk/index.css';
 export default {
-  name: "vue3videoPlay",
+  name: "vue3VideoPlay",
 }
+
 
 </script>
 <script setup lang="ts">
-import { reactive, ref, toRefs, nextTick } from 'vue'
+import { reactive, ref, toRefs, nextTick, computed } from 'vue'
 import { debounce } from 'throttle-debounce';
 import DIcon from '../components/d-icon.vue'
 import DPlayerTop from '../components/d-player-top.vue'
@@ -176,24 +185,25 @@ import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
 
+
 // 默认配置
 const defaultOptions = {
   width: '800px',
   height: '450px',
   color: "#409eff",
-  muted: false,
+  muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
   autoPlay: false, //自动播放
   loop: false, //循环播放
-  mirrorMode: false, //镜像画面
+  mirror: false, //镜像画面
   ligthOff: false,  //关灯模式
-  volumeSize: 30, //默认音量大小
+  volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
   source: {
-    title: '鲨鱼集合',
-    type: "video/mp4",
-    src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+    title: '', //视频名称
+    type: "", //视频格式
+    src: "" //视频源
   },
   poster: '', //封面
 
@@ -208,10 +218,12 @@ const emits = defineEmits(['loadstart', 'durationchange', 'progress', 'canplay',
 let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
+let refPlayerControl = ref(null) //控制器
 const state = reactive({
   dVideo: null,
   ...defaultOptions, //默认配置
   ...props.options, //如果有自定义配置就会替换默认配置
+  muted: props.options.autoPlay,
   //标记当前的播放状态
   isPaused: !props.options.autoPlay || !defaultOptions.autoPlay,
   loading: true, //加载动画
@@ -228,7 +240,6 @@ const state = reactive({
   isVideoHovering: true,
   // 是否在拖拽中
   draging: false,
-  cacheVolumeSize: 0, //记录静音之前的大小
   startY: 0,
   speedActive: "1.0", //倍速
   isMultiplesPlay: false, //是否倍速播放
@@ -256,9 +267,10 @@ const keypress = (ev, pressType: any) => {
   // arrowTop  音量+
   else if (keyCode == 38 || keyCode == 'ArrowTop') {
     if (pressType == "keydown") {
+      state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
-      state.volumeSize = (state.volumeSize + 10) > 100 ? 100 : state.volumeSize + 10
+      state.volume = (state.volume + 0.1) > 1 ? 1 : state.volume + 0.1
     }
   }
   // arrowRight
@@ -292,26 +304,14 @@ const keypress = (ev, pressType: any) => {
   // arrowBottom 音量--
   else if (keyCode == 40 || keyCode == 'ArrowDown') {
     if (pressType == "keydown") {
+      state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
-      state.volumeSize = (state.volumeSize - 10) < 0 ? 0 : state.volumeSize - 10
+      state.volume = (state.volume - 0.1) < 0 ? 0 : state.volume - 0.1
     }
   }
 }
 
-// 控制栏鼠标hover
-// toolItemMouseenter(ev) {
-//   ev.preventDefault();
-//   if (ev.target.querySelector(".d-tool-item-main")) {
-//     ev.target.querySelector(".d-tool-item-main").style.display = "flex";
-//   }
-// },
-// toolItemMouseleave(ev) {
-//   ev.preventDefault();
-//   if (ev.target.querySelector(".d-tool-item-main")) {
-//     ev.target.querySelector(".d-tool-item-main").style.display = "none";
-//   }
-// },
 // 播放暂停
 const togglePlay = () => {
   //视频标签（video）原生方法：
@@ -326,7 +326,7 @@ const togglePlay = () => {
 }
 // // 播放
 // const onPlay = (ev) => {
-//   // console.log('播放')
+//   console.log('播放')
 //   emits('play', ev)
 // }
 // // 暂停
@@ -377,12 +377,6 @@ const canplay = (ev) => {
   state.loading = false
   // console.log("可以播放");
   emits('canplay', ev)
-  // 如果静音
-  if (state.muted) {
-    state.dVideo.muted = true;
-  } else {
-    state.dVideo.volume = state.volumeSize / 100;
-  }
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
   if (state.autoPlay) {
     state.isPaused = false;
@@ -402,14 +396,6 @@ const timeupdate = (ev) => {
 // 静音事件
 const mutedHandler = () => {
   state.muted = !state.muted;
-  state.dVideo.muted = state.muted;
-  if (state.muted) {
-    // 缓存静音之前的音量大小
-    state.cacheVolumeSize = state.volumeSize;
-    state.volumeSize = 0;
-  } else {
-    state.volumeSize = state.cacheVolumeSize;
-  }
 }
 
 // 音量按下
@@ -427,13 +413,14 @@ const onVolumeDown = (ev) => {
 }
 // 音量鼠标按下触发
 const onVolumeStart = (ev, type) => {
+  state.muted = false
   state.draging = true;
   if (type == "y") {
     state.startY = ev.clientY - ev.offsetY;
   }
   // 音量大小
   let volume = onDraggFn(ev, refVolumeWrap.value, "y");
-  state.volumeSize = volume * 100;
+  state.volume = volume;
   state.dVideo.volume = volume;
 }
 // 调节音量中
@@ -441,7 +428,7 @@ const onVolumeing = (ev) => {
   if (!state.draging) return;
   // 音量大小
   let volume = onDraggFn(ev, refVolumeWrap.value, "y");
-  state.volumeSize = volume * 100;
+  state.volume = volume;
   state.dVideo.volume = volume;
 }
 // 音量调节完成
@@ -461,12 +448,12 @@ const onVolumeEnd = (ev) => {
     window.removeEventListener("contextmenu", onVolumeEnd);
   }
 }
-// 进度条按下
+// 进度条移动
 const onProgressMove = (ev) => {
-  let playerWrapWidth = refPlayerWrap.value.clientWidth
+  let controlWidth = refPlayerControl.value.clientWidth
   state.progressCursorX = ev.offsetX
   state.progressCursorTime = timeFormat(
-    state.dVideo.duration * (ev.offsetX / playerWrapWidth)
+    state.dVideo.duration * (ev.offsetX / controlWidth)
   );
 }
 // 进度条按下
@@ -491,9 +478,9 @@ const onProgressStart = (ev, type) => {
   // state.dVideo.pause();
   state.draging = true;
   // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerWrap.value) * 100;
+  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
   state.currentTime = timeFormat(
-    ev.target.duration * onDraggFn(ev, refPlayerWrap.value)
+    ev.target.duration * onDraggFn(ev, refPlayerControl.value)
   );
   state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
 }
@@ -502,10 +489,10 @@ const onDraging = (ev) => {
   ev.preventDefault();
   if (!state.draging) return;
   // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerWrap.value) * 100;
+  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
 
   state.currentTime = timeFormat(
-    state.dVideo.duration * onDraggFn(ev, refPlayerWrap.value)
+    state.dVideo.duration * onDraggFn(ev, refPlayerControl.value)
   );
   state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
 }
@@ -528,10 +515,11 @@ const onDraggFn = (ev, evBox, type) => {
   }
   // X轴拖动
   else {
+    // 控制器宽度
     let evBoxClientWidth = evBox.clientWidth;
     // 获取整个播放器宽度
     let offsetX = ev.clientX - refPlayerWrap.value.offsetLeft;
-    let value = offsetX / evBoxClientWidth;
+    let value = ev.offsetX / evBoxClientWidth
     // 鼠标移出播放器做的兼容
     return value < 0 ? 0 : value > 1 ? 1 : value;
   }
@@ -604,16 +592,18 @@ const toggleFullScreenHandle = () => {
   }
 }
 
+const playerStyle = computed(() => ({
+  width: props.options.width || defaultOptions.width,
+  height: props.options.height || defaultOptions.height
+}))
 
-let { webFullScreen, width, height, fullScreen, volumeSize, speedActive, } = toRefs(state)
+let { webFullScreen, fullScreen, volume, speedActive, } = toRefs(state)
 
 </script>
 
 <style lang="less" scoped>
 .d-player-wrap {
   --primary-color: v-bind(hexToRgbaColor);
-  width: v-bind(width);
-  height: v-bind(height);
 }
 @import "../style/reset.less";
 @import "../style/vPlayer.less";

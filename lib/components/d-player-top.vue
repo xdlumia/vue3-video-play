@@ -2,18 +2,19 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 16:59:13
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-19 17:54:34
+ * @LastEditTime: 2021-08-20 22:00:59
  * @Description: file content
 */
 <template>
     <div class="d-player-top">
-        <p class="top-title">机智的上半场</p>
+        <p class="top-title">{{ source.title || '' }}</p>
         <p class="top-title">{{ currTime }}</p>
     </div>
 </template>
 
 <script  setup>
 import { onUnmounted, reactive, ref } from 'vue'
+
 
 Date.prototype.format = function (fmt) {
     let o = {
@@ -28,6 +29,11 @@ Date.prototype.format = function (fmt) {
     }
     return fmt;
 }
+const props = defineProps({
+    source: {
+        default: () => ({})
+    }
+})
 let currTime = ref('00:00:00')
 currTime.value = new Date().format("hh:mm:ss");
 let timeout = null
