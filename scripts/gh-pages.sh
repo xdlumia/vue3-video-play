@@ -3,7 +3,7 @@
  # @Author: web.王晓冬
  # @Date: 2021-08-21 22:18:02
  # @LastEditors: web.王晓冬
- # @LastEditTime: 2021-08-21 22:55:24
+ # @LastEditTime: 2021-08-22 10:35:50
  # @Description: file content
 ### 
 
@@ -11,7 +11,7 @@
 set -e
 
 # 生成静态文件
-# yarn run docs:build
+yarn run docs:build
 
 # 进入生成的文件夹
 cd ../docs/.vitepress/dist
