@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 12:42:35
+ * @LastEditTime: 2021-08-22 20:12:47
  * @Description: file content
 */
 
@@ -11,9 +11,9 @@
     class="d-player-wrap"
     ref="refPlayerWrap"
     @mousemove="mouseMovewWarp"
-    :style="playerStyle"
-    :class="{ 'web-full-screen': webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
+    :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
+    <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
     <!-- 预加载动画 -->
     <d-loading v-show="state.loading" />
     <transition name="d-fade-in">
@@ -37,16 +37,13 @@
       :volume="state.volume"
       :muted="state.muted"
       :loop="state.loop"
-      :preload="options.preload"
+      :preload="preload"
       width="100%"
       height="100%"
-      :poster="state.poster"
-      :src="options.source.src || ''"
-      
-    >您的浏览器不支持Video标签。
-    </video>
+      :src="src"
+    >您的浏览器不支持Video标签。</video>
     <!-- 全屏模式下顶部显示的内容 -->
-    <d-player-top :source="options.source" v-if="fullScreen"></d-player-top>
+    <d-player-top :title="title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
     <!-- 状态栏 -->
     <div class="d-player-state" @click="togglePlay">
       <!-- 操作信息通知 -->
@@ -91,11 +88,11 @@
         </div>
         <div class="d-tool-bar">
           <div class="d-tool-item" style="width:26px">
-            {{ speedActive == "1.0" ? "倍速" : speedActive + "X" }}
+            {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "X" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
                 <li
-                  :class="{ 'speed-active': speedActive == row }"
+                  :class="{ 'speed-active': state.speedActive == row }"
                   @click="playbackRate(row)"
                   v-for="row of state.speedRate"
                   :key="row"
@@ -107,7 +104,7 @@
           <div class="d-tool-item">
             <div class="d-tool-item-main volume-box" style="width:52px">
               <div class="volume-main">
-                <span class="volume-text-size">{{ state.muted ? 0 : ~~(volume * 100) }}%</span>
+                <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
                 <div
                   ref="refVolumeWrap"
                   class="volume-body"
@@ -117,7 +114,7 @@
                   <div class="volume-line">
                     <p
                       class="volume-line-range"
-                      :style="{ height: `${state.muted ? 0 : (volume * 100)}%` }"
+                      :style="{ height: `${state.muted ? 0 : (state.volume * 100)}%` }"
                     ></p>
                   </div>
                 </div>
@@ -126,7 +123,7 @@
             <d-icon
               @click="mutedHandler"
               size="18"
-              :icon="`icon-volume-${volume == 0 || state.muted ? 'mute' : volume > 0.5 ? 'up' : 'down'
+              :icon="`icon-volume-${state.volume == 0 || state.muted ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
               }`"
             ></d-icon>
           </div>
@@ -135,7 +132,7 @@
             <d-icon size="20" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
-                <!-- :class="{ 'speed-active': speedActive == row }" -->
+                <!-- :class="{ 'speed-active': state.speedActive == row }" -->
                 <li>
                   镜像画面
                   <d-switch v-model="state.mirror" />
@@ -157,7 +154,7 @@
             <div class="d-tool-item-main">画中画</div>
           </div>
           <!-- 画中画 -->
-          <div class="d-tool-item" @click="webFullScreen = !webFullScreen">
+          <div class="d-tool-item" @click="state.webFullScreen = !state.webFullScreen">
             <d-icon size="20" icon="icon-web-screen"></d-icon>
             <div class="d-tool-item-main">网页全屏</div>
           </div>
@@ -169,7 +166,6 @@
         </div>
       </div>
     </div>
- 
   </div>
 </template>
 <script lang="ts">
@@ -189,16 +185,13 @@ import DPlayerTop from '../components/d-player-top.vue'
 import DStatus from '../components/d-status.vue' //倍速播放状态
 import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
+import DWaitingLoading from '../components/d-waitingLoading.vue' //loading
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
 
 
 // 默认配置
 const defaultOptions = {
-  width: '800px',
-  height: '450px',
-  color: "#409eff",
-  muted: false, //静音
-  webFullScreen: false,
+
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
   autoPlay: false, //自动播放
   loop: false, //循环播放
@@ -206,34 +199,41 @@ const defaultOptions = {
   ligthOff: false,  //关灯模式
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
-  source: {
-    title: '', //视频名称
-    src: "" //视频源
-  },
-  preload:"auto", //预加载 
-  poster: '', //封面
-
+  title: '', //视频名称
+  src: "", //视频源
+  preload: "auto", //预加载 
 }
 const props = defineProps({
-  options: {
-    type: Object,
-    default: () => ({}),
-  },
+  width: { type: String, default: '800px' },
+  height: { type: String, default: '450px' },
+  color: { type: String, default: '#409eff' },
+  webFullScreen: { type: Boolean, default: false },//网页全屏
+  muted: { type: Boolean, default: false }, //静音
+  speedRate: { type: Array, default: () => ["0.75", "1.0", "1.25", "1.5", "2.0"] }, //播放倍速
+  autoPlay: { type: Boolean, default: false }, //自动播放
+  loop: { type: Boolean, default: false }, //循环播放
+  mirror: { type: Boolean, default: false }, //镜像画面
+  ligthOff: { type: Boolean, default: false },  //关灯模式
+  volume: { type: [String, Number], default: '0.3' }, //默认音量大小
+  control: { type: Boolean, default: true }, //是否显示控制器
+  title: { type: String, default: '' }, //视频名称
+  src: { required: true, type: String, default: '' }, //视频源
+  preload: { type: String, default: 'auto' }, //预加载 
 })
-const propsOptions = props.options
-const emits = defineEmits(['loadstart','playing', 'error','stalled','waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
+const emits = defineEmits(['loadstart', 'playing', 'error', 'stalled', 'waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
 let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
 let refPlayerControl = ref(null) //控制器
 const state = reactive({
   dVideo: null,
-  ...defaultOptions, //默认配置
-  ...props.options, //如果有自定义配置就会替换默认配置
-  muted: props.options.autoPlay,
+  // ...defaultOptions, //默认配置
+  ...props, //如果有自定义配置就会替换默认配置
+  muted: props.autoPlay,
   //标记当前的播放状态
-  isPaused: !props.options.autoPlay || !defaultOptions.autoPlay,
+  isPaused: !props.autoPlay,
   loading: true, //加载动画
+  waitingLoading: true, //缓冲等待
   fullScreen: false,
   handleType: '', //当前操作类型
   //当前播放时间
@@ -342,11 +342,11 @@ const onPlay = (ev) => {
 //   emits('pause', ev)
 // }
 const onPlaying = (ev) => {
-  console.log('playing'); 
+  console.log('playing');
   emits('playing', ev)
 }
 const onWaiting = (ev) => {
-  state.loading = true //缓冲中...
+  state.waitingLoading = true //缓冲中...
   emits('waiting', ev)
 }
 const onError = (ev) => {
@@ -393,6 +393,7 @@ const progress = (ev) => {
 
 const canplay = (ev) => {
   state.loading = false
+  state.waitingLoading = false //缓冲结束.
   // console.log("可以播放");
   emits('canplay', ev)
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
@@ -401,7 +402,7 @@ const canplay = (ev) => {
     state.dVideo.play();
   }
   // 切换视频源的情况下 如果当前是未暂停 则继续播放
-  if(!state.isPaused){
+  if (!state.isPaused) {
     state.dVideo.play();
   }
 }
@@ -614,19 +615,13 @@ const toggleFullScreenHandle = () => {
     state.fullScreen = false
   }
 }
-
-const playerStyle = computed(() => ({
-  width: props.options.width || defaultOptions.width,
-  height: props.options.height || defaultOptions.height
-}))
-
-let { webFullScreen, fullScreen, volume, speedActive, } = toRefs(state)
-
 </script>
 
 <style lang="less" scoped>
 .d-player-wrap {
   --primary-color: v-bind(hexToRgbaColor);
+  width: v-bind(width);
+  height: v-bind(height);
 }
 @import "../style/reset.less";
 @import "../style/vPlayer.less";

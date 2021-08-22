@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 11:39:08
+ * @LastEditTime: 2021-08-22 20:07:35
  * @Description: file content
 -->
 
@@ -124,34 +124,24 @@ const onCanplay = (ev) => {
 ```
 
 # Props
-vue3-video-play 支持video原生所有Attributes
-
-| 参数名称 | 说明     | 类型   | 默认值        |
-| -------- | -------- | ------ | ------------- |
-| options  | 配置对象 | object | 见options配置 |
-
-
-# options 
-options作为props配置项包含众多属性
+vue3-video-play支持video原生所有属性 [video默认属性](https://segmentfault.com/a/1190000008053507)
 
 | 名称          |     说明     |  类型   | 可选值 |                默认值                 |
 | ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
 | width         |  播放器宽度  | string  |   -    |                 800px                 |
 | height        |  播放器高度  | string  |   -    |                 450px                 |
+| title         |   视频名称   | string  |   -    |                   -                   |
+| src           |   视频资源   | string  |   -    |                   -                   |
 | color         | 播放器主色调 | string  |   -    |                #409eff                |
-| muted         |     静音     | boolean |   -    |                 false                 |
 | webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
 | speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
-| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   | boolean |   -    |                 false                 |
 | mirror        |   镜像画面   | boolean |   -    |                 false                 |
 | ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
+| muted         |     静音     | boolean |   -    |                 false                 |
+| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
+| loop          |   循环播放   | boolean |   -    |                 false                 |
 | volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
 | poster        |   视频封面   | string  |   -    |              视频第一帧               |
-| source        |  视频源对象  | object  |   -    |      {title:'',type:'',src:'',}       |
-| source.title  |   视频名称   | string  |   -    |                   -                   |
-| source.src    |   视频资源   | string  |   -    |                   -                   |
-
 
 
 # Events

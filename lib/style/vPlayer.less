@@ -9,19 +9,21 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
   }
 
   .d-player-main {
     position: absolute;
+    transition: .2s;
     z-index: 0;
     background-color: #000;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    &.video-mirror{
+
+    &.video-mirror {
       transform: rotateY(180deg);
     }
   }
@@ -98,7 +100,7 @@
             top: 50%;
             width: 12px;
             height: 12px;
-            transform: translateY(-50%) scale(0,0);
+            transform: translateY(-50%) scale(0, 0);
             border-radius: 50%;
             background: #fff;
             box-shadow: 0 0 0 5px rgba(var(--primary-color), 0.6);
@@ -117,7 +119,7 @@
           height: 100%;
 
           .d-progress-play::before {
-            transform: translateY(-50%) scale(1,1);
+            transform: translateY(-50%) scale(1, 1);
             transition: .2s;
             opacity: 1;
           }

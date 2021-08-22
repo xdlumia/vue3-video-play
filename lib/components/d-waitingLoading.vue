@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 20:09:22
+ * @LastEditTime: 2021-08-22 20:12:08
  * @Description: file content
 */
 <template>
@@ -32,16 +32,15 @@ const props = defineProps({
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 50px;
     top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 1);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 3;
     color: #efefef;
-    font-size: 14px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 </style>

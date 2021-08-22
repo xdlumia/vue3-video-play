@@ -2,16 +2,13 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 12:22:11
+ * @LastEditTime: 2021-08-22 20:02:40
  * @Description: file content
 */
 <template>
   <div style="text-align:center">
-    <button @click="options.source.src = 'http://vjs.zencdn.net/v/oceans.mp4'">{{ options.source.src }}</button>
-    <videoPlay
-      style="display:inline-block"
-      :options="options"
-    />
+    <button @click="options.src = 'http://vjs.zencdn.net/v/oceans.mp4'">{{ options.src }}</button>
+    <videoPlay style="display:inline-block" v-bind="options" />
   </div>
 </template>
 
@@ -32,10 +29,8 @@ const options = reactive({
   ligthOff: false,  //关灯模式
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
-  source: {
-    title: '', //视频名称
-    src: "https://vdn3.vzuu.com/HD/3b323038-8da5-11eb-9b09-a245752d3292-t1-vdAuMVeAmR.mp4?disable_local_cache=1&auth_key=1629609682-0-0-cd193d16b89bb3c8de9be434080aa4e3&f=mp4&bu=http-com&expiration=1629609682&v=tx" //视频源
-  },
+  title: '', //视频名称
+  src: "http://vjs.zencdn.net/v/oceans.mp4", //视频源
   poster: '', //封面
 })
 

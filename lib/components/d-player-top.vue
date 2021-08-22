@@ -2,12 +2,12 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 16:59:13
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 22:00:59
+ * @LastEditTime: 2021-08-22 19:58:18
  * @Description: file content
 */
 <template>
     <div class="d-player-top">
-        <p class="top-title">{{ source.title || '' }}</p>
+        <p class="top-title">{{ title || '' }}</p>
         <p class="top-title">{{ currTime }}</p>
     </div>
 </template>
@@ -30,8 +30,8 @@ Date.prototype.format = function (fmt) {
     return fmt;
 }
 const props = defineProps({
-    source: {
-        default: () => ({})
+    title: {
+        default: ''
     }
 })
 let currTime = ref('00:00:00')

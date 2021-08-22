@@ -171,7 +171,6 @@ options作为props配置项包含众多属性
 | source        |  视频源对象  |              object              |   -    |      {title:'',type:'',src:'',}       |
 | source.title  |   视频名称   |              string              |   -    |                   -                   |
 | source.src    |   视频资源   |              string              |   -    |                   -                   |
-| source.type   |   视频类型   | video/mp4，video/webm，video/ogg |   -    |                   -                   |
 
 
 
