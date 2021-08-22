@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 10:34:03
+ * @LastEditTime: 2021-08-22 11:59:56
  * @Description: file content
 -->
 # 使用指南
@@ -76,7 +76,6 @@ const options = reactive({
   control: true, //是否显示控制器
   source: {
     title: '', //视频名称
-    type: "", //视频格式
     src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
   }
 })
@@ -115,7 +114,6 @@ const options = reactive({
   width: '800px', //播放器高度
   source: {
     title: '', //视频名称
-    type: "", //视频格式
     src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
   },
   poster: '', //封面
@@ -146,7 +144,7 @@ const onCanplay = (ev) => {
 
 
 #### Props
-vue3-video-play 支持video原生所有Attributes  [video默认事件](https://www.w3school.com.cn/jsref/dom_obj_video.asp/)
+vue3-video-play 支持video原生所有Attributes  
 
 | 参数名称 | 说明     | 类型   | 默认值        |
 | -------- | -------- | ------ | ------------- |
@@ -178,7 +176,7 @@ options作为props配置项包含众多属性
 
 
 ## Events
-vue3-video-play支持video原生所有事件 
+vue3-video-play支持video原生所有事件  [video默认事件](https://segmentfault.com/a/1190000008053507)
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
@@ -189,7 +187,7 @@ vue3-video-play支持video原生所有事件
 | play           | 开始播放时触发     | event |
 | pause          | 暂停时触发         | event |
 | loadedmetadata | 成功获取资源长度   | event |
-| loadeddata     |                    | event |
+| loadeddata     | 缓冲中             | event |
 | waiting        | 等待数据，并非错误 | event |
 | playing        | 开始回放           | event |
 | canplay        | 暂停状态下可以播放 | event |

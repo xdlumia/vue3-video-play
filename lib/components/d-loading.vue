@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 13:44:52
+ * @LastEditTime: 2021-08-22 12:26:41
  * @Description: file content
 */
 <template>
@@ -37,7 +37,7 @@ const props = defineProps({
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 3;
     color: #efefef;
     font-size: 14px;

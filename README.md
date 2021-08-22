@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 10:16:35
+ * @LastEditTime: 2021-08-22 11:39:08
  * @Description: file content
 -->
 
@@ -99,7 +99,6 @@ const options = reactive({
   control: true, //是否显示控制器
   source: {
     title: '', //视频名称
-    type: "", //视频格式
     src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
   },
   poster: '', //封面
@@ -135,24 +134,23 @@ vue3-video-play 支持video原生所有Attributes
 # options 
 options作为props配置项包含众多属性
 
-| 名称          |     说明     |               类型               | 可选值 |                默认值                 |
-| ------------- | :----------: | :------------------------------: | :----: | :-----------------------------------: |
-| width         |  播放器宽度  |              string              |   -    |                 800px                 |
-| height        |  播放器高度  |              string              |   -    |                 450px                 |
-| color         | 播放器主色调 |              string              |   -    |                #409eff                |
-| muted         |     静音     |             boolean              |   -    |                 false                 |
-| webFullScreen |   网页全屏   |             boolean              |   -    |                 false                 |
-| speedRate     |   倍速配置   |              array               |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
-| autoPlay      |   自动播放   |             boolean              |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   |             boolean              |   -    |                 false                 |
-| mirror        |   镜像画面   |             boolean              |   -    |                 false                 |
-| ligthOff      |   关灯模式   |             boolean              |   -    |                 false                 |
-| volume        |   默认音量   |               0.3                |  0-1   |                  0.3                  |
-| poster        |   视频封面   |              string              |   -    |              视频第一帧               |
-| source        |  视频源对象  |              object              |   -    |      {title:'',type:'',src:'',}       |
-| source.title  |   视频名称   |              string              |   -    |                   -                   |
-| source.src    |   视频资源   |              string              |   -    |                   -                   |
-| source.type   |   视频类型   | video/mp4，video/webm，video/ogg |   -    |                   -                   |
+| 名称          |     说明     |  类型   | 可选值 |                默认值                 |
+| ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
+| width         |  播放器宽度  | string  |   -    |                 800px                 |
+| height        |  播放器高度  | string  |   -    |                 450px                 |
+| color         | 播放器主色调 | string  |   -    |                #409eff                |
+| muted         |     静音     | boolean |   -    |                 false                 |
+| webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
+| speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
+| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
+| loop          |   循环播放   | boolean |   -    |                 false                 |
+| mirror        |   镜像画面   | boolean |   -    |                 false                 |
+| ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
+| volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
+| poster        |   视频封面   | string  |   -    |              视频第一帧               |
+| source        |  视频源对象  | object  |   -    |      {title:'',type:'',src:'',}       |
+| source.title  |   视频名称   | string  |   -    |                   -                   |
+| source.src    |   视频资源   | string  |   -    |                   -                   |
 
 
 
