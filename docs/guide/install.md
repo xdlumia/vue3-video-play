@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 09:46:39
+ * @LastEditTime: 2021-08-22 10:34:03
  * @Description: file content
 -->
 # 使用指南
@@ -77,9 +77,8 @@ const options = reactive({
   source: {
     title: '', //视频名称
     type: "", //视频格式
-    src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
-  },
-  poster: '', //封面
+    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
+  }
 })
 </script>
 
@@ -117,7 +116,7 @@ const options = reactive({
   source: {
     title: '', //视频名称
     type: "", //视频格式
-    src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
+    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
   },
   poster: '', //封面
 })

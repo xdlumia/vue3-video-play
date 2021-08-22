@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-21 20:52:08
+ * @LastEditTime: 2021-08-22 10:16:35
  * @Description: file content
 -->
 
@@ -20,9 +20,9 @@
 
 适用于vue3编写的视频播放器插件
 
-# 示例
+# 示例 主页
 
-[Example](https://xdlumia.github.io/vue3-video-play.github.io/)
+[Example](https://xdlumia.github.io)
 
 
 
@@ -125,7 +125,7 @@ const onCanplay = (ev) => {
 ```
 
 # Props
-vue3-video-play 支持video原生所有Attributes  [video默认事件](https://www.w3school.com.cn/jsref/dom_obj_video.asp/)
+vue3-video-play 支持video原生所有Attributes
 
 | 参数名称 | 说明     | 类型   | 默认值        |
 | -------- | -------- | ------ | ------------- |
