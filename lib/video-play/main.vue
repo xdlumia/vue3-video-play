@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 09:41:09
+ * @LastEditTime: 2021-08-22 12:42:35
  * @Description: file content
 */
 
@@ -25,6 +25,10 @@
       class="d-player-main"
       :class="{ 'video-mirror': state.mirror }"
       v-bind="$attrs"
+      @waiting="onWaiting"
+      @error="onError"
+      @stalled="stalled"
+      @playing="onPlaying"
       @loadstart="loadstart"
       @durationchange="durationchange"
       @progress="progress"
@@ -33,11 +37,13 @@
       :volume="state.volume"
       :muted="state.muted"
       :loop="state.loop"
+      :preload="options.preload"
       width="100%"
       height="100%"
       :poster="state.poster"
-    >
-      <source :src="state.source.src || ''" :type="state.source.type || ''" />您的浏览器不支持Video标签。
+      :src="options.source.src || ''"
+      
+    >您的浏览器不支持Video标签。
     </video>
     <!-- 全屏模式下顶部显示的内容 -->
     <d-player-top :source="options.source" v-if="fullScreen"></d-player-top>
@@ -202,9 +208,9 @@ const defaultOptions = {
   control: true, //是否显示控制器
   source: {
     title: '', //视频名称
-    type: "", //视频格式
     src: "" //视频源
   },
+  preload:"auto", //预加载 
   poster: '', //封面
 
 }
@@ -214,7 +220,8 @@ const props = defineProps({
     default: () => ({}),
   },
 })
-const emits = defineEmits(['loadstart', 'durationchange', 'progress', 'canplay', 'timeupdate',])
+const propsOptions = props.options
+const emits = defineEmits(['loadstart','playing', 'error','stalled','waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
 let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
 let refVolumeWrap = ref(null)
@@ -325,21 +332,31 @@ const togglePlay = () => {
   state.isPaused = !state.isPaused
 }
 // // 播放
-// const onPlay = (ev) => {
-//   console.log('播放')
-//   emits('play', ev)
-// }
+const onPlay = (ev) => {
+  console.log('播放')
+  emits('play', ev)
+}
 // // 暂停
 // const onPause = (ev) => {
 //   // console.log('暂定')
 //   emits('pause', ev)
 // }
-// const onPlaying = (ev) => {
-//   emits('playing', ev)
-// }
-// const onWaiting = (ev) => {
-//   emits('waiting', ev)
-// }
+const onPlaying = (ev) => {
+  console.log('playing'); 
+  emits('playing', ev)
+}
+const onWaiting = (ev) => {
+  state.loading = true //缓冲中...
+  emits('waiting', ev)
+}
+const onError = (ev) => {
+  emits('error', ev)
+}
+// 网速失速
+const stalled = (ev) => {
+  console.log('网速失速')
+  emits('stalled', ev)
+}
 // 获得播放头文件
 // const loadeddata = (ev) => {
 //   console.log("已获取播放头");
@@ -353,7 +370,7 @@ const togglePlay = () => {
 const loadstart = (ev) => {
   state.loading = true
   emits('loadstart', ev)
-  // console.log("开始加载");
+  console.log("开始加载");
 }
 // 已获得播放时长
 const durationchange = (ev) => {
@@ -363,7 +380,7 @@ const durationchange = (ev) => {
 
 // 缓冲下载中
 const progress = (ev) => {
-  // console.log("开始缓冲");
+  console.log("缓冲中...");
   emits('progress', ev)
   let duration = ev.target.duration; // 媒体总长
   let length = ev.target.buffered.length;
@@ -372,7 +389,8 @@ const progress = (ev) => {
   // console.dir(ev.target.buffered.length);
   // console.dir(ev.target.buffered.end(length - 1));
 }
-// 可以播放
+
+
 const canplay = (ev) => {
   state.loading = false
   // console.log("可以播放");
@@ -380,6 +398,10 @@ const canplay = (ev) => {
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
   if (state.autoPlay) {
     state.isPaused = false;
+    state.dVideo.play();
+  }
+  // 切换视频源的情况下 如果当前是未暂停 则继续播放
+  if(!state.isPaused){
     state.dVideo.play();
   }
 }
@@ -570,6 +592,7 @@ const playbackRate = (row) => {
 const init = async () => {
   await nextTick()
   state.dVideo = refdVideo
+  state.dVideo.load()
   window.addEventListener("keydown", (ev) => {
     keypress(ev, "keydown");
   });

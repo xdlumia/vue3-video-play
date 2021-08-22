@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 10:32:31
+ * @LastEditTime: 2021-08-22 11:39:42
  * @Description: file content
 */
 <template>
@@ -36,7 +36,6 @@
         autoPlay:true,
         source: {
             title: '', //视频名称
-            type: "", //视频格式
             src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
         }
    }     

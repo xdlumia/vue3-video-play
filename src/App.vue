@@ -2,12 +2,12 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 08:21:45
+ * @LastEditTime: 2021-08-22 12:22:11
  * @Description: file content
 */
 <template>
   <div style="text-align:center">
-    <button @click="options.width = '1200px'">{{ options.width }}</button>
+    <button @click="options.source.src = 'http://vjs.zencdn.net/v/oceans.mp4'">{{ options.source.src }}</button>
     <videoPlay
       style="display:inline-block"
       :options="options"
@@ -34,8 +34,7 @@ const options = reactive({
   control: true, //是否显示控制器
   source: {
     title: '', //视频名称
-    type: "", //视频格式
-    src: "http://vjs.zencdn.net/v/oceans.mp4" //视频源
+    src: "https://vdn3.vzuu.com/HD/3b323038-8da5-11eb-9b09-a245752d3292-t1-vdAuMVeAmR.mp4?disable_local_cache=1&auth_key=1629609682-0-0-cd193d16b89bb3c8de9be434080aa4e3&f=mp4&bu=http-com&expiration=1629609682&v=tx" //视频源
   },
   poster: '', //封面
 })
