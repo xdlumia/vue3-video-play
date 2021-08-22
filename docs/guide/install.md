@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 20:41:20
+ * @LastEditTime: 2021-08-22 20:57:18
  * @Description: file content
 -->
 [![GitHub stars](https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/stargazers)
@@ -56,12 +56,12 @@ export default {
 ```
 
 ## 小试牛刀
-:::demo 使用`options`属性来进行配置。
+:::demo 自定义配置 比如自定义poster。
 
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='http://file.dreamwq.com/lingo/images/marvel/02.jpeg'/>
+    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
   </div>
 </template>
 
@@ -102,7 +102,10 @@ const options = reactive({
 <template>
   <div>
       <vue3VideoPlay 
-      v-bind="options" 
+      width="800px"
+      title="钢铁侠"
+      :src="options.src"
+      :poster="options.poster"
       @play="onPlay"
       @pause="onPause" 
       @timeupdate="onTimeupdate" 
@@ -115,8 +118,6 @@ const options = reactive({
 import { reactive } from 'vue';
 
 const options = reactive({
-  width: '800px', //播放器高度
-  title: '', //视频名称
   src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
   poster: '', //封面
 })
