@@ -1,6 +1,6 @@
 {
   "name": "vue3-video-play",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "vue3视频播放器",
   "files": [
     "dist",
@@ -16,8 +16,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "docs:pub": "./scripts/gh-pages.sh",
-    "register:components": "vitepress-rc"
+    "docs:pub": "./scripts/gh-pages.sh"
   },
   "author": {
     "name": "xdlumia",
@@ -48,5 +47,19 @@
     "vue-tsc": "^0.2.3",
     "vue3-video-play": "^1.2.0"
   },
+  "keywords": [
+    "vue 3",
+    "vue3",
+    "vue",
+    "background",
+    "vue-video-player",
+    "vue3-video-play",
+    "vue video player",
+    "vue3 video player",
+    "video player video",
+    "video player",
+    "vue player",
+    "vue video"
+  ],
   "license": "ISC"
 }

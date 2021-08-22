@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 20:39:15
+ * @LastEditTime: 2021-08-22 21:55:32
  * @Description: file content
 */
 <template>
@@ -20,6 +20,18 @@
             <a class="d-button" href="/guide/install">view github</a>
         </div>
         <div>
+            <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">
+                <img
+                    src="https://img.shields.io/npm/v/vue3-video-play.svg?style=flat-square"
+                    alt="Downloads"
+                />
+            </a>
+            <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">
+                <img
+                    src="https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square"
+                    alt="Version"
+                />
+            </a>
             <a href="https://github.com/xdlumia/vue3-video-play/stargazers" target="_blank">
                 <img
                     src="https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square"
