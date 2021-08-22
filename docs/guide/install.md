@@ -2,9 +2,18 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 11:59:56
+ * @LastEditTime: 2021-08-22 20:41:20
  * @Description: file content
 -->
+[![GitHub stars](https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/issues)
+[![GitHub forks](https://img.shields.io/github/forks/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/network)
+[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
+
+
+
+[![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 # 使用指南
 
 ## 安装
@@ -52,9 +61,7 @@ export default {
 ```vue
 <template>
   <div>
-    <ClientOnly>
-      <vue3VideoPlay :options="options" />
-    </ClientOnly>
+    <vue3VideoPlay v-bind="options" poster='http://file.dreamwq.com/lingo/images/marvel/02.jpeg'/>
   </div>
 </template>
 
@@ -65,6 +72,8 @@ const options = reactive({
   width: '800px', //播放器高度
   height: '450px', //播放器高度
   color: "#409eff", //主题色
+  title: '', //视频名称
+  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
   muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
@@ -74,10 +83,6 @@ const options = reactive({
   ligthOff: false,  //关灯模式
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
-  source: {
-    title: '', //视频名称
-    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
-  }
 })
 </script>
 
@@ -97,12 +102,11 @@ const options = reactive({
 <template>
   <div>
       <vue3VideoPlay 
-      :options="options" 
+      v-bind="options" 
       @play="onPlay"
       @pause="onPause" 
       @timeupdate="onTimeupdate" 
       @canplay="onCanplay" />
-    
   </div>
 
 </template>
@@ -112,10 +116,8 @@ import { reactive } from 'vue';
 
 const options = reactive({
   width: '800px', //播放器高度
-  source: {
-    title: '', //视频名称
-    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
-  },
+  title: '', //视频名称
+  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
   poster: '', //封面
 })
 const onPlay = (ev) => {
@@ -142,35 +144,25 @@ const onCanplay = (ev) => {
 
 
 
+## Props
+vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507)
 
-#### Props
-vue3-video-play 支持video原生所有Attributes  
-
-| 参数名称 | 说明     | 类型   | 默认值        |
-| -------- | -------- | ------ | ------------- |
-| options  | 配置对象 | object | 见options配置 |
-
-
-## options配置
-options作为props配置项包含众多属性
-
-| 名称          |     说明     |               类型               | 可选值 |                默认值                 |
-| ------------- | :----------: | :------------------------------: | :----: | :-----------------------------------: |
-| width         |  播放器宽度  |              string              |   -    |                 800px                 |
-| height        |  播放器高度  |              string              |   -    |                 450px                 |
-| color         | 播放器主色调 |              string              |   -    |                #409eff                |
-| muted         |     静音     |             boolean              |   -    |                 false                 |
-| webFullScreen |   网页全屏   |             boolean              |   -    |                 false                 |
-| speedRate     |   倍速配置   |              array               |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
-| autoPlay      |   自动播放   |             boolean              |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   |             boolean              |   -    |                 false                 |
-| mirror        |   镜像画面   |             boolean              |   -    |                 false                 |
-| ligthOff      |   关灯模式   |             boolean              |   -    |                 false                 |
-| volume        |   默认音量   |               0.3                |  0-1   |                  0.3                  |
-| poster        |   视频封面   |              string              |   -    |              视频第一帧               |
-| source        |  视频源对象  |              object              |   -    |      {title:'',type:'',src:'',}       |
-| source.title  |   视频名称   |              string              |   -    |                   -                   |
-| source.src    |   视频资源   |              string              |   -    |                   -                   |
+| 名称          |     说明     |  类型   | 可选值 |                默认值                 |
+| ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
+| width         |  播放器宽度  | string  |   -    |                 800px                 |
+| height        |  播放器高度  | string  |   -    |                 450px                 |
+| title         |   视频名称   | string  |   -    |                   -                   |
+| src           |   视频资源   | string  |   -    |                   -                   |
+| color         | 播放器主色调 | string  |   -    |                #409eff                |
+| webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
+| speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
+| mirror        |   镜像画面   | boolean |   -    |                 false                 |
+| ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
+| muted         |     静音     | boolean |   -    |                 false                 |
+| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
+| loop          |   循环播放   | boolean |   -    |                 false                 |
+| volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
+| poster        |   视频封面   | string  |   -    |              视频第一帧               |
 
 
 

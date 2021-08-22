@@ -2,21 +2,56 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 11:39:42
+ * @LastEditTime: 2021-08-22 20:39:15
  * @Description: file content
 */
 <template>
     <div style="text-align:center;margin-top:20px">
         <div class="video-main">
-            <component :options="options" v-if="dynamicComponent" :is="dynamicComponent"></component>
+            <component v-bind="options" v-if="dynamicComponent" :is="dynamicComponent"></component>
             <!-- <vue3-video-play /> -->
         </div>
         <h1>Vue3-video-play</h1>
         <p>基于Vue3 的视频播放器</p>
-        <p>配置强大,UI还算好看</p>
+        <p>配置强大，UI还算好看</p>
+
         <div class="index-link">
             <a class="d-button primary" href="/guide/install">快速上手</a>
             <a class="d-button" href="/guide/install">view github</a>
+        </div>
+        <div>
+            <a href="https://github.com/xdlumia/vue3-video-play/stargazers" target="_blank">
+                <img
+                    src="https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square"
+                />
+            </a>
+            <a href="https://github.com/xdlumia/vue3-video-play/issues" target="_blank">
+                <img
+                    src="https://img.shields.io/github/issues/xdlumia/vue3-video-play.svg?style=flat-square"
+                />
+            </a>
+            <a href="https://github.com/xdlumia/vue3-video-play/network" target="_blank">
+                <img
+                    src="https://img.shields.io/github/forks/xdlumia/vue3-video-play.svg?style=flat-square"
+                />
+            </a>
+            <a href="https://github.com/xdlumia/vue3-video-play" target="_blank">
+                <img
+                    src="https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square"
+                />
+            </a>
+            <a href="https://github.com/xdlumia/vue3-video-play" target="_blank">
+                <img
+                    src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square"
+                />
+            </a>
+            <p>
+                <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">
+                    <img
+                        src="https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true"
+                    />
+                </a>
+            </p>
         </div>
         <hr />
         <p class="index-footer">
@@ -30,21 +65,18 @@
 </template>
 
 <script setup>
-    import { shallowRef,onMounted,reactive } from 'vue'
-    let dynamicComponent = shallowRef(null)
-    const options={
-        autoPlay:true,
-        source: {
-            title: '', //视频名称
-            src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
-        }
-   }     
-    onMounted(()=>{
-        import('../../lib/index.js').then(module => {
-            dynamicComponent.value = module.default
-        })
-        // import('vue3-video-play')
+import { shallowRef, onMounted, reactive } from 'vue'
+let dynamicComponent = shallowRef(null)
+const options = {
+    autoPlay: true,
+    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
+}
+onMounted(() => {
+    import('../../lib/index.js').then(module => {
+        dynamicComponent.value = module.default
     })
+    // import('vue3-video-play')
+})
 </script>
 
 <style>
