@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-21 21:14:08
+ * @LastEditTime: 2021-08-23 14:24:54
  * @Description: file content
  */
 module.exports = {
@@ -45,6 +45,9 @@ module.exports = {
         }],
         //   侧边导航
         sidebar: [{
+            text: '更新日志',
+            link: '/guide/changelog'
+        }, {
             text: '使用指南',
             link: '/guide/install'
         }],

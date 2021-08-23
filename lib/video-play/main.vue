@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 20:12:47
+ * @LastEditTime: 2021-08-23 15:51:38
  * @Description: file content
 */
 
@@ -13,12 +13,6 @@
     @mousemove="mouseMovewWarp"
     :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
-    <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
-    <!-- 预加载动画 -->
-    <d-loading v-show="state.loading" />
-    <transition name="d-fade-in">
-      <div class="d-player-lightoff" v-show="state.lightOff"></div>
-    </transition>
     <video
       ref="refdVideo"
       :controls="false"
@@ -42,10 +36,16 @@
       height="100%"
       :src="src"
     >您的浏览器不支持Video标签。</video>
+    <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
+    <!-- 预加载动画 -->
+    <d-loading v-show="state.loading" />
+    <transition name="d-fade-in">
+      <div class="d-player-lightoff" v-show="state.lightOff"></div>
+    </transition>
     <!-- 全屏模式下顶部显示的内容 -->
     <d-player-top :title="title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
     <!-- 状态栏 -->
-    <div class="d-player-state" @click="togglePlay">
+    <div class="d-player-state" @dblclick="toggleFullScreenHandle" @click="togglePlay">
       <!-- 操作信息通知 -->
       <d-status :state="state"></d-status>
     </div>
@@ -129,7 +129,7 @@
           </div>
           <!-- 设置 -->
           <div class="d-tool-item">
-            <d-icon size="20" icon="icon-settings"></d-icon>
+            <d-icon size="20" class="rotateHover" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
                 <!-- :class="{ 'speed-active': state.speedActive == row }" -->
@@ -191,7 +191,6 @@ import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from
 
 // 默认配置
 const defaultOptions = {
-
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
   autoPlay: false, //自动播放
   loop: false, //循环播放
@@ -208,6 +207,7 @@ const props = defineProps({
   height: { type: String, default: '450px' },
   color: { type: String, default: '#409eff' },
   webFullScreen: { type: Boolean, default: false },//网页全屏
+  speed: { type: Boolean, default: true },//是否支持快进快退
   muted: { type: Boolean, default: false }, //静音
   speedRate: { type: Array, default: () => ["0.75", "1.0", "1.25", "1.5", "2.0"] }, //播放倍速
   autoPlay: { type: Boolean, default: false }, //自动播放
@@ -266,6 +266,8 @@ const keypress = (ev, pressType: any) => {
   let keyCode = ev.keyCode || ev.code;
   // arrowLeft  快退
   if (keyCode == 37 || keyCode == 'ArrowLeft') {
+    if (!props.speed) return // 如果不支持快进快退
+    ev.preventDefault();
     if (pressType == "keyup") {
       state.dVideo.currentTime = state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
       timeupdate(state.dVideo);
@@ -274,6 +276,7 @@ const keypress = (ev, pressType: any) => {
   // arrowTop  音量+
   else if (keyCode == 38 || keyCode == 'ArrowTop') {
     if (pressType == "keydown") {
+      ev.preventDefault();
       state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
@@ -284,7 +287,10 @@ const keypress = (ev, pressType: any) => {
   else if (keyCode == 39 || keyCode == 'ArrowRight') {
     if (pressType == "keyup") {
       clearTimeout(state.longPressTimeout);
-      if (state.isMultiplesPlay) {
+      ev.preventDefault();
+      // 如果不支持快进快退 如果关闭快进快退必须在没有长按倍速播放的情况下
+      if (!props.speed && !state.longPressTimeout) return
+      if (state.isMultiplesPlay) { //如果倍速播放中
         state.dVideo.playbackRate = state.speedActive;
         state.isMultiplesPlay = false;
       } else {
@@ -294,6 +300,8 @@ const keypress = (ev, pressType: any) => {
       }
       // 如果长按5倍速播放
     } else if (pressType == "keydown") {
+      ev.preventDefault();
+      if (!props.speed) return // 如果不支持快进快退 也不能支持长按倍速播放
       if (state.isMultiplesPlay) {
         clearTimeout(state.longPressTimeout);
       }
@@ -311,6 +319,7 @@ const keypress = (ev, pressType: any) => {
   // arrowBottom 音量--
   else if (keyCode == 40 || keyCode == 'ArrowDown') {
     if (pressType == "keydown") {
+      ev.preventDefault();
       state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
@@ -481,6 +490,8 @@ const onProgressMove = (ev) => {
 }
 // 进度条按下
 const onProgressDown = (ev) => {
+  if (!props.speed) return
+  // if(speed)
   ev.preventDefault();
   onProgressStart(ev);
   // 鼠标移动

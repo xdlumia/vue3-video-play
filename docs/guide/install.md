@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 11:00:02
+ * @LastEditTime: 2021-08-23 16:13:53
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -63,7 +63,9 @@ export default {
 }
 ```
 
-## 小试牛刀
+
+## 举个例子
+提供了丰富了配置功能
 :::demo 自定义配置 比如自定义poster。
 
 ```vue
@@ -98,7 +100,65 @@ const options = reactive({
 </style>
 
 ```
+:::
 
+可以通过`props`的`speed`开启或关闭进度条功能,
+:::demo 通过`speed`关闭进度条拖动功能。
+
+```vue
+<template>
+  <div>
+    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const options = reactive({
+  width: '400px', //播放器高度
+  height: '220px', //播放器高度
+  color: "#409eff", //主题色
+  speed:false, //关闭进度条拖动
+  title: '', //视频名称
+  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+})
+</script>
+
+<style scoped>
+</style>
+
+```
+:::
+
+
+还可以通过`props`的`control`属性 来控制是否显示控制器
+:::demo 通过`control` 来控制是否显示控制器
+
+```vue
+<template>
+  <div>
+    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const options = reactive({
+  width: '400px', //播放器高度
+  height: '220px', //播放器高度
+  color: "#409eff", //主题色
+  control: false, //是否显示控制器
+  title: '', //视频名称
+  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+})
+</script>
+
+<style scoped>
+</style>
+
+```
 :::
 
 
@@ -121,6 +181,7 @@ const options = reactive({
   </div>
 
 </template>
+
 
 <script setup lang="ts">
 import { reactive } from 'vue';
@@ -164,6 +225,7 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | src           |   视频资源   | string  |   -    |                   -                   |
 | color         | 播放器主色调 | string  |   -    |                #409eff                |
 | webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
+| speed |   是否支持快进快退   | boolean |   -    |                 true                 |
 | speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
 | mirror        |   镜像画面   | boolean |   -    |                 false                 |
 | ligthOff      |   关灯模式   | boolean |   -    |                 false                 |

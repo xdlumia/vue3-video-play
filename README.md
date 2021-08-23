@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 11:00:41
+ * @LastEditTime: 2021-08-23 15:59:44
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -82,6 +82,7 @@ const options = reactive({
   color: "#409eff", //主题色
   title: '', //视频名称
   src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  speed:true, //是否支持快进快退
   muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
@@ -164,6 +165,7 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | src           |   视频资源   | string  |   -    |                   -                   |
 | color         | 播放器主色调 | string  |   -    |                #409eff                |
 | webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
+| speed |   是否支持快进快退   | boolean |   -    |                 true                 |
 | speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
 | mirror        |   镜像画面   | boolean |   -    |                 false                 |
 | ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
