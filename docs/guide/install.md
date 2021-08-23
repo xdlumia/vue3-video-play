@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 21:56:27
+ * @LastEditTime: 2021-08-23 11:00:02
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -14,6 +14,14 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
 
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
+
+
+
+# 示例 主页
+
+[https://xdlumia.github.io](https://xdlumia.github.io)
+
+
 # 使用指南
 
 ## 安装
@@ -35,9 +43,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 let app = createApp(App)
 
-import videoPlay from 'vue3-video-play' // 引入组件
+import vue3videoPlay from 'vue3-video-play' // 引入组件
 import 'vue3-video-play/dist/style.css' // 引入css
-app.use(videoPlay)
+app.use(vue3videoPlay)
 
 app.mount('#app')
 ```
@@ -146,7 +154,7 @@ const onCanplay = (ev) => {
 
 
 ## Props
-vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507)
+vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
 | 名称          |     说明     |  类型   | 可选值 |                默认值                 |
 | ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
