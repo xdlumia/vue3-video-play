@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:34:40
+ * @LastEditTime: 2021-08-23 23:36:05
  * @Description: file content
 */
 <template>
@@ -83,7 +83,7 @@ const getPosition = (ev: any) => {
             height: 100%;
             background-color: #409eff;
             &::before {
-                display: none;
+                display: block;
                 content: "";
                 position: absolute;
                 right: -6px;
@@ -110,8 +110,7 @@ const getPosition = (ev: any) => {
                 bottom: 0;
                 width: 100%;
                 &::before {
-                    top: auto;
-                    bottom: -6px;
+                    top: -6px;
                     left: 50%;
                     width: 12px;
                     height: 12px;
