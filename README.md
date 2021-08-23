@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 15:59:44
+ * @LastEditTime: 2021-08-23 16:39:10
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -13,7 +13,13 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play)
 
-[![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
+[![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)(https://www.npmjs.com/package/vue3-video-play)
+
+
+
+在使用的时候遇到任何问题 欢迎各位大佬提[issue](https://github.com/xdlumia/vue3-video-play/issues)或者扫码加我微信我拉你入群
+
+![wechat](https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/wechat.jpg)]
 
 
 
