@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:36:05
+ * @LastEditTime: 2021-08-23 23:41:27
  * @Description: file content
 */
 <template>
@@ -25,7 +25,7 @@ type Nullable<T> = null | T
 const refSlider: Ref<Nullable<HTMLElement>> = ref(null)
 const props = defineProps({
     modelValue: {
-        type: [Number, String],
+        type: [Number],
         default: 0,
     },
     disabled: {
@@ -46,9 +46,9 @@ const state = reactive({
 })
 let siderLoadSize: any = ref(0)
 const sliderBarStyle: any = computed(() => {
-    let style = `width:${siderLoadSize.value * 100}%`
+    let style = `width:${props.modelValue * 100}%`
     if (props.vertical) {
-        style = `height:${siderLoadSize.value * 100}%`
+        style = `height:${props.modelValue * 100}%`
     }
     return style
 })
