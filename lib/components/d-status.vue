@@ -2,22 +2,22 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 13:52:52
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-21 10:22:21
+ * @LastEditTime: 2021-08-23 17:14:11
  * @Description: file content
 */
 <template>
-    <div class="d-message" v-show="state.handleType || state.isMultiplesPlay">
-        <li class="d-message-info" v-show="state.handleType == 'volume'">
+    <div class="d-status" v-show="state.handleType || state.isMultiplesPlay">
+        <li class="d-status-info" v-show="state.handleType == 'volume'">
             <d-icon
                 size="18"
-                class="d-message-icon"
+                class="d-status-icon"
                 :icon="`icon-volume-${state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
                 }`"
             ></d-icon>
             {{ ~~(state.volume * 100) }}%
         </li>
         <li
-            class="d-message-info"
+            class="d-status-info"
             v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay"
         >
             <d-icon size="12" icon="icon-play"></d-icon>
@@ -35,22 +35,23 @@ const props = defineProps(['state'])
 
 <style scoped lang='less'>
 @import "../style/transition.less";
-.d-message {
-    margin-top: 50px;
+.d-status {
     text-align: center;
     font-size: 14px;
     vertical-align: middle;
     background: rgba(0, 0, 0, 0.8);
-    padding: 4px 8px;
+    padding: 0 8px;
+    height: 30px;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: rgba(255, 255, 255, 0.95);
     li {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .d-message-icon {
+    .d-status-icon {
         width: 24px !important;
         display: inline-block;
         margin-right: 5px;

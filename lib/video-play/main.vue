@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 15:51:38
+ * @LastEditTime: 2021-08-23 17:30:25
  * @Description: file content
 */
 
@@ -46,6 +46,11 @@
     <d-player-top :title="title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
     <!-- 状态栏 -->
     <div class="d-player-state" @dblclick="toggleFullScreenHandle" @click="togglePlay">
+      <transition name="d-scale-out">
+        <div class="d-play-btn" v-show="state.isPaused">
+          <d-icon icon="icon-play" :size="40"></d-icon>
+        </div>
+      </transition>
       <!-- 操作信息通知 -->
       <d-status :state="state"></d-status>
     </div>
