@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:41:27
+ * @LastEditTime: 2021-08-23 23:43:47
  * @Description: file content
 */
 <template>
@@ -41,9 +41,7 @@ const props = defineProps({
         default: '10px',
     }
 })
-const state = reactive({
-    startY: 0
-})
+const emits = defineEmits(['update:modelValue',])
 let siderLoadSize: any = ref(0)
 const sliderBarStyle: any = computed(() => {
     let style = `width:${props.modelValue * 100}%`
@@ -54,7 +52,9 @@ const sliderBarStyle: any = computed(() => {
 })
 const mouseDownHandle = (ev: Event) => {
     const value = getPosition(ev)
-    siderLoadSize.value = value
+    console.log(value)
+    emits("update:modelValue", value);
+    // siderLoadSize.value = value
 }
 // import { on, off } from '../utils/dom'
 const getPosition = (ev: any) => {
