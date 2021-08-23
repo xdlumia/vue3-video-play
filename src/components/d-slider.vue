@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:31:14
+ * @LastEditTime: 2021-08-23 23:34:11
  * @Description: file content
 */
 <template>
@@ -58,10 +58,11 @@ const mouseDownHandle = (ev: Event) => {
 }
 // import { on, off } from '../utils/dom'
 const getPosition = (ev: any) => {
-    let value = (ev.offsetX || ev.layerX) / (refSlider.value as HTMLButtonElement).clientWidth
+    let refSliderEl = (refSlider.value as HTMLButtonElement)
+    let value = (ev.offsetX || ev.layerX) / refSliderEl.clientWidth
     if (props.vertical) {
         let clientHeight = (refSlider.value as HTMLButtonElement).clientHeight
-        value = ((refSlider.value.getBoundingClientRect().bottom - ev.clientY) / clientHeight)
+        value = (refSliderEl.getBoundingClientRect().bottom - ev.clientY) / clientHeight)
     }
     return value < 0 ? 0 : value > 1 ? 1 : value;
 }
