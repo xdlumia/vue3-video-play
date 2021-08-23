@@ -1,1 +1,0 @@
-import{a as e,c as r,f as a}from"./app.bf7fe396.js";const d='{"title":"更新日志","description":"","frontmatter":{},"headers":[{"level":3,"title":"1.2.2","slug":"_1-2-2"}],"relativePath":"guide/changelog.md","lastUpdated":1629706724126}',i={},l=[a('',4)];i.render=function(a,d,i,o,t,h){return e(),r("div",null,l)};export{d as __pageData,i as default};
