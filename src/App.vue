@@ -2,12 +2,12 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:29:50
+ * @LastEditTime: 2021-08-24 07:27:24
  * @Description: file content
 */
 <template>
   <div style="height:100px">
-    <d-slider></d-slider>
+    <d-slider v-model="options.volume"></d-slider>
   </div>
   <div style="text-align:center">
     <button @click="options.src = 'http://vjs.zencdn.net/v/oceans.mp4'">{{ options.src }}</button>
@@ -19,6 +19,7 @@
 import { reactive } from 'vue';
 import { videoPlay } from '../lib/index.js';
 import DSlider from './components/d-slider.vue'
+
 const options = reactive({
   width: '800px',
   height: '450px',

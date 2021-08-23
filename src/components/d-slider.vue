@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 23:43:47
+ * @LastEditTime: 2021-08-24 07:39:27
  * @Description: file content
 */
 <template>
@@ -25,6 +25,7 @@ type Nullable<T> = null | T
 const refSlider: Ref<Nullable<HTMLElement>> = ref(null)
 const props = defineProps({
     modelValue: {
+        required: true,
         type: [Number],
         default: 0,
     },
@@ -43,26 +44,26 @@ const props = defineProps({
 })
 const emits = defineEmits(['update:modelValue',])
 let siderLoadSize: any = ref(0)
-const sliderBarStyle: any = computed(() => {
-    let style = `width:${props.modelValue * 100}%`
-    if (props.vertical) {
-        style = `height:${props.modelValue * 100}%`
-    }
-    return style
-})
+const sliderBarStyle: any = computed(() => (props.vertical ? `height:${props.modelValue * 100}%` : `width:${props.modelValue * 100}%`)
+)
 const mouseDownHandle = (ev: Event) => {
-    const value = getPosition(ev)
-    console.log(value)
+    const value = getPosition(ev) //获取当前按下位置
     emits("update:modelValue", value);
+    // on(window, 'mousemove', onDragging)
+    // on(window, 'touchmove', onDragging)
+    // on(window, 'mouseup', onDragEnd)
+    // on(window, 'touchend', onDragEnd)
     // siderLoadSize.value = value
 }
 // import { on, off } from '../utils/dom'
 const getPosition = (ev: any) => {
     let refSliderEl = (refSlider.value as HTMLButtonElement)
-    let value = (ev.offsetX || ev.layerX) / refSliderEl.clientWidth
+    let value = 0
     if (props.vertical) {
         let clientHeight = (refSlider.value as HTMLButtonElement).clientHeight
         value = (refSliderEl.getBoundingClientRect().bottom - ev.clientY) / clientHeight
+    } else {
+        value = (ev.offsetX || ev.layerX) / refSliderEl.clientWidth
     }
     return value < 0 ? 0 : value > 1 ? 1 : value;
 }
