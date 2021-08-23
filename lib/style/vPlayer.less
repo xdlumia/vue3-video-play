@@ -1,7 +1,7 @@
 .d-player-wrap {
   position: relative;
   overflow: hidden;
-  z-index: 999999;
+  background-color: #000;
 
   &.web-full-screen {
     z-index: 9999999;
@@ -16,7 +16,7 @@
     position: absolute;
     transition: .2s;
     z-index: 0;
-    background-color: #000;
+
     top: 0;
     left: 0;
     width: 100%;
@@ -279,7 +279,8 @@
   }
 }
 
-.d-player-state {
+.d-player-state,
+.d-player-input {
   position: absolute;
   left: 0;
   top: 0;
@@ -288,11 +289,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   overflow: hidden;
 }
-.d-play-btn{
-  width:90px;
+
+.d-player-input {
+  width: 100%;
+  border: none;
+  opacity: 0;
+  cursor: default;
+}
+
+.d-play-btn {
+  width: 90px;
   height: 90px;
   color: #fff;
   display: flex;
@@ -301,6 +309,7 @@
   background-color: rgba(0, 0, 0, .7);
   border-radius: 50%;
 }
+
 // 黑幕
 .d-player-lightoff {
   position: fixed;

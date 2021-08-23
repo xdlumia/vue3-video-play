@@ -32,6 +32,7 @@
     "url": "https://github.com/xdlumia/vue3-video-play/issues"
   },
   "dependencies": {
+    "element-plus": "^1.0.2-beta.71",
     "throttle-debounce": "^3.0.1",
     "vue": "^3.2.4"
   },

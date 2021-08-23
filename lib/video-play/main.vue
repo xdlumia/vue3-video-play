@@ -2,14 +2,14 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 17:30:25
+ * @LastEditTime: 2021-08-23 21:09:07
  * @Description: file content
 */
 
 <template>
   <div
-    class="d-player-wrap"
     ref="refPlayerWrap"
+    class="d-player-wrap"
     @mousemove="mouseMovewWarp"
     :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
@@ -18,6 +18,8 @@
       :controls="false"
       class="d-player-main"
       :class="{ 'video-mirror': state.mirror }"
+      :webkit-playsinline="props.playsinline"
+      :playsinline="props.playsinline"
       v-bind="$attrs"
       @waiting="onWaiting"
       @error="onError"
@@ -34,7 +36,7 @@
       :preload="preload"
       width="100%"
       height="100%"
-      :src="src"
+      :src="props.src"
     >您的浏览器不支持Video标签。</video>
     <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
     <!-- 预加载动画 -->
@@ -43,10 +45,11 @@
       <div class="d-player-lightoff" v-show="state.lightOff"></div>
     </transition>
     <!-- 全屏模式下顶部显示的内容 -->
-    <d-player-top :title="title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
+    <d-player-top :title="props.title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
     <!-- 状态栏 -->
-    <div class="d-player-state" @dblclick="toggleFullScreenHandle" @click="togglePlay">
+    <div class="d-player-state">
       <transition name="d-scale-out">
+        <!-- 播放按钮 -->
         <div class="d-play-btn" v-show="state.isPaused">
           <d-icon icon="icon-play" :size="40"></d-icon>
         </div>
@@ -54,6 +57,16 @@
       <!-- 操作信息通知 -->
       <d-status :state="state"></d-status>
     </div>
+    <input
+      type="input"
+      ref="refInput"
+      @dblclick="toggleFullScreenHandle"
+      @click="togglePlay"
+      @keyup="keypress"
+      @keydown="keypress"
+      class="d-player-input"
+      maxlength="0"
+    />
     <!-- 播放按钮控制器 -->
     <div class="d-player-control" ref="refPlayerControl" v-if="state.control">
       <div
@@ -71,7 +84,7 @@
         </div>
       </div>
 
-      <div class="d-control-tool">
+      <div class="d-control-tool" @click="inputFocusHandle">
         <div class="d-tool-bar">
           <div class="d-tool-item">
             <d-icon
@@ -212,7 +225,8 @@ const props = defineProps({
   height: { type: String, default: '450px' },
   color: { type: String, default: '#409eff' },
   webFullScreen: { type: Boolean, default: false },//网页全屏
-  speed: { type: Boolean, default: true },//是否支持快进快退
+  speed: { type: Boolean, default: true },//是否支持快进快退 //移动端不支持
+  playsinline: { type: Boolean, default: false },//ios端 点击播放是否全屏
   muted: { type: Boolean, default: false }, //静音
   speedRate: { type: Array, default: () => ["0.75", "1.0", "1.25", "1.5", "2.0"] }, //播放倍速
   autoPlay: { type: Boolean, default: false }, //自动播放
@@ -226,10 +240,11 @@ const props = defineProps({
   preload: { type: String, default: 'auto' }, //预加载 
 })
 const emits = defineEmits(['loadstart', 'playing', 'error', 'stalled', 'waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
-let refdVideo = ref(null)
 let refPlayerWrap = ref(null)
-let refVolumeWrap = ref(null)
+let refdVideo = ref(null)
+let refVolumeWrap = ref(null) //音量
 let refPlayerControl = ref(null) //控制器
+let refInput = ref(null) //控制器
 const state = reactive({
   dVideo: null,
   // ...defaultOptions, //默认配置
@@ -264,15 +279,15 @@ const state = reactive({
 // 把颜色格式化为rgb格式
 const hexToRgbaColor = hexToRgba(state.color)
 // 清空当前操作类型
-const clearHandleType = debounce(1000, () => {
+const clearHandleType = debounce(500, () => {
   state.handleType = '';
 })
-const keypress = (ev, pressType: any) => {
+const keypress = (ev) => {
+  let pressType = ev.type
   let keyCode = ev.keyCode || ev.code;
   // arrowLeft  快退
   if (keyCode == 37 || keyCode == 'ArrowLeft') {
-    if (!props.speed) return // 如果不支持快进快退
-    ev.preventDefault();
+    if (!props.speed) return // 如果不支持快进快退s
     if (pressType == "keyup") {
       state.dVideo.currentTime = state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
       timeupdate(state.dVideo);
@@ -281,7 +296,6 @@ const keypress = (ev, pressType: any) => {
   // arrowTop  音量+
   else if (keyCode == 38 || keyCode == 'ArrowTop') {
     if (pressType == "keydown") {
-      ev.preventDefault();
       state.muted = false
       state.handleType = 'volume' //操作类型  音量
       clearHandleType() //清空 操作类型
@@ -292,7 +306,6 @@ const keypress = (ev, pressType: any) => {
   else if (keyCode == 39 || keyCode == 'ArrowRight') {
     if (pressType == "keyup") {
       clearTimeout(state.longPressTimeout);
-      ev.preventDefault();
       // 如果不支持快进快退 如果关闭快进快退必须在没有长按倍速播放的情况下
       if (!props.speed && !state.longPressTimeout) return
       if (state.isMultiplesPlay) { //如果倍速播放中
@@ -305,7 +318,6 @@ const keypress = (ev, pressType: any) => {
       }
       // 如果长按5倍速播放
     } else if (pressType == "keydown") {
-      ev.preventDefault();
       if (!props.speed) return // 如果不支持快进快退 也不能支持长按倍速播放
       if (state.isMultiplesPlay) {
         clearTimeout(state.longPressTimeout);
@@ -331,6 +343,9 @@ const keypress = (ev, pressType: any) => {
       state.volume = (state.volume - 0.1) < 0 ? 0 : state.volume - 0.1
     }
   }
+}
+const inputFocusHandle = () => {
+  refInput.value.focus()
 }
 
 // 播放暂停
@@ -425,7 +440,7 @@ const canplay = (ev) => {
 const timeupdate = (ev) => {
   emits('timeupdate', ev)
   let duration = ev.duration || ev.target.duration; // 媒体总长
-  let currentTime = ev.currentTime || ev.target.currentTime; // 当前歌曲播放长度
+  let currentTime = ev.currentTime || ev.target.currentTime; // 当前媒体播放长度
 
   state.playRatio = ((currentTime / duration) * 100).toFixed(2);
   state.currentTime = timeFormat(currentTime);
@@ -450,6 +465,8 @@ const onVolumeDown = (ev) => {
 }
 // 音量鼠标按下触发
 const onVolumeStart = (ev, type) => {
+  console.log(ev);
+
   state.muted = false
   state.draging = true;
   if (type == "y") {
@@ -557,7 +574,7 @@ const onDraggFn = (ev, evBox, type) => {
     // 控制器宽度
     let evBoxClientWidth = evBox.clientWidth;
     // 获取整个播放器宽度
-    let offsetX = ev.clientX - refPlayerWrap.value.offsetLeft;
+    let offsetX = ev.clientX - refPlayerControl.value.offsetLeft;
     let value = ev.offsetX / evBoxClientWidth
     // 鼠标移出播放器做的兼容
     return value < 0 ? 0 : value > 1 ? 1 : value;
@@ -610,15 +627,9 @@ const init = async () => {
   await nextTick()
   state.dVideo = refdVideo
   state.dVideo.load()
-  window.addEventListener("keydown", (ev) => {
-    keypress(ev, "keydown");
-  });
-  window.addEventListener("keyup", (ev) => {
-    keypress(ev, "keyup");
-  });
-
 }
 init()
+
 const requestPictureInPictureHandle = () => {
   requestPictureInPicture(state.dVideo)
 }
