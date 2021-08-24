@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 16:11:38
+ * @LastEditTime: 2021-08-24 16:24:28
  * @Description: file content
 */
 
@@ -47,8 +47,8 @@
     </transition>
     <!-- 全屏模式下顶部显示的内容 -->
     <d-player-top :title="props.title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
-    <!-- 状态栏 -->
-    <div class="d-player-state">
+    <!-- 状态栏 移动端不显示-->
+    <div class="d-player-state" v-if="!isMobile">
       <transition name="d-scale-out">
         <!-- 播放按钮 -->
         <div class="d-play-btn" v-show="state.isPaused">
@@ -58,6 +58,7 @@
       <!-- 操作信息通知 -->
       <d-status :state="state"></d-status>
     </div>
+    <!-- 移动端不显示 -->
     <input
       v-if="!isMobile"
       type="input"
