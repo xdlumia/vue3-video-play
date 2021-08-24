@@ -1,9 +1,21 @@
+<!--
+ * @Author: web.王晓冬
+ * @Date: 2021-08-24 14:50:14
+ * @LastEditors: web.王晓冬
+ * @LastEditTime: 2021-08-24 15:17:51
+ * @Description: file content
+-->
 <style scoped>
 
 </style>
 # 更新日志
 
 
+### 1.2.4
+*2021-08-24*
+
+- Refactors 重构进度条拖动和音量拖动功能，精简代码
+- Chore 处理鼠标移动到进度条上距左或者距右时间显示显示不完整的问题
 ### 1.2.3
 *2021-08-23*
 
