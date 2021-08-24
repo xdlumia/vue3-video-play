@@ -2,13 +2,13 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 07:27:24
+ * @LastEditTime: 2021-08-24 10:51:43
  * @Description: file content
 */
 <template>
-  <div style="height:100px">
+  <!-- <div style="height:150px; margin-top:100px">
     <d-slider v-model="options.volume"></d-slider>
-  </div>
+  </div>-->
   <div style="text-align:center">
     <button @click="options.src = 'http://vjs.zencdn.net/v/oceans.mp4'">{{ options.src }}</button>
     <videoPlay style="display:inline-block" v-bind="options" />

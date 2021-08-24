@@ -48,83 +48,26 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
-        height: 3px;
+        bottom: 0; 
         width: 100%;
-        pointer-events: none;
         transition: height 0.1s;
-        background-color: rgba(51, 51, 51, 1);
-
-        .d-progress-play,
-        .d-progress-load,
-        .d-progress-subtitle {
-          position: absolute;
-          left: 0;
-          top: 0;
+        height: 3px;
+        // pointer-events: none;
+        //对 d-slider内的组件样式修改
+        /deep/ .d-slider__runway{
+          transition: height 0.1s;
           height: 100%;
-        }
-
-        .d-progress-subtitle {
-          display: none;
-          width: 1px;
-          background-color: #fff;
-          left: 90px;
-          z-index: 2;
-
-          .d-progress-cover {
-            position: absolute;
-            white-space: nowrap;
-            z-index: 2;
-            bottom: 14px;
-            left: 50%;
-            padding: 4px;
-            box-sizing: border-box;
-            display: block;
-            font-size: 12px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 3px;
-            transform: translateX(-50%);
-          }
-        }
-
-        .d-progress-play {
-          z-index: 1;
-          // background-color: rgba(var(--primary-color), 1);
-          background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
-
-          &::before {
-            content: "";
-            position: absolute;
-            right: -6px;
-            top: 50%;
-            width: 12px;
-            height: 12px;
+          .d-slider__bar::before{
             transform: translateY(-50%) scale(0, 0);
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 0 0 5px rgba(var(--primary-color), 0.6);
           }
-        }
-
-
-
-        .d-progress-load {
-          background-color: rgba(113, 113, 113, 1);
         }
       }
 
       &:hover {
         .d-progress-bar {
           height: 100%;
-
-          .d-progress-play::before {
-            transform: translateY(-50%) scale(1, 1);
-            transition: .2s;
-            opacity: 1;
-          }
-
-          .d-progress-subtitle {
-            display: block;
+          /deep/ .d-slider__bar::before{
+            transform: translateY(-50%) scale(1, 1) !important;
           }
         }
       }
@@ -201,50 +144,18 @@
         .volume-main {
           height: 90%;
           display: flex;
+          width: 60px;
           flex-direction: column;
           align-items: center;
 
           .volume-text-size {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-size: 12px;
             font-weight: 400;
           }
-        }
-
-        .volume-body {
-          position: relative;
-          width: 10px;
-          height: 100%;
-          text-align: center;
-
-          .volume-line {
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 2px;
-            cursor: pointer;
-            width: 4px;
-            display: inline-block;
-
-            .volume-line-range {
-              position: absolute;
-              bottom: 0;
-              left: 3px;
-              width: 4px;
-              background-color: rgba(var(--primary-color), 1);
-              pointer-events: none;
-
-              &::before {
-                content: "";
-                position: absolute;
-                left: 50%;
-                top: -4px;
-                transform: translateX(-50%);
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: #fff;
-                box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.5);
-              }
+          &.is-muted{
+            /deep/ .d-slider__bar{
+              height:0 !important
             }
           }
         }

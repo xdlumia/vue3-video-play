@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 21:09:07
+ * @LastEditTime: 2021-08-24 14:11:09
  * @Description: file content
 */
 
@@ -69,19 +69,17 @@
     />
     <!-- 播放按钮控制器 -->
     <div class="d-player-control" ref="refPlayerControl" v-if="state.control">
-      <div
-        class="d-control-progress"
-        @mousemove="onProgressMove"
-        @mousedown="onProgressDown"
-        @touchstart="onProgressDown"
-      >
-        <div class="d-progress-bar">
-          <div class="d-progress-subtitle" :style="{ left: state.progressCursorX + 'px' }">
-            <div class="d-progress-cover">{{ state.progressCursorTime }}</div>
-          </div>
-          <div class="d-progress-play" :style="{ width: `${state.playRatio}%` }"></div>
-          <div class="d-progress-load" :style="{ width: `${state.loadRatio}%` }"></div>
-        </div>
+      <div class="d-control-progress">
+        <d-slider
+          class="d-progress-bar"
+          @onMousemove="onProgressMove"
+          @change="progressBarChange"
+          :disabled="!state.speed"
+          style="z-index:1"
+          :hoverText="state.progressCursorTime"
+          v-model="state.playProgress"
+          :preload="state.preloadBar"
+        ></d-slider>
       </div>
 
       <div class="d-control-tool" @click="inputFocusHandle">
@@ -121,21 +119,16 @@
           <!-- 音量 -->
           <div class="d-tool-item">
             <div class="d-tool-item-main volume-box" style="width:52px">
-              <div class="volume-main">
+              <div class="volume-main" :class="{ 'is-muted': state.muted }">
                 <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
-                <div
-                  ref="refVolumeWrap"
-                  class="volume-body"
-                  @mousedown="onVolumeDown"
-                  @touchstart="onVolumeDown"
-                >
-                  <div class="volume-line">
-                    <p
-                      class="volume-line-range"
-                      :style="{ height: `${state.muted ? 0 : (state.volume * 100)}%` }"
-                    ></p>
-                  </div>
-                </div>
+                <!-- @change 如果修改音量则取消静音 -->
+                <d-slider
+                  @change="state.muted = false"
+                  :hover="false"
+                  size="5px"
+                  :vertical="true"
+                  v-model="state.volume"
+                ></d-slider>
               </div>
             </div>
             <d-icon
@@ -204,22 +197,11 @@ import DStatus from '../components/d-status.vue' //倍速播放状态
 import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import DWaitingLoading from '../components/d-waitingLoading.vue' //loading
+import DSlider from '../components/d-slider.vue' // slider
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
 
 
-// 默认配置
-const defaultOptions = {
-  speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
-  autoPlay: false, //自动播放
-  loop: false, //循环播放
-  mirror: false, //镜像画面
-  ligthOff: false,  //关灯模式
-  volume: 0.3, //默认音量大小
-  control: true, //是否显示控制器
-  title: '', //视频名称
-  src: "", //视频源
-  preload: "auto", //预加载 
-}
+
 const props = defineProps({
   width: { type: String, default: '800px' },
   height: { type: String, default: '450px' },
@@ -242,12 +224,10 @@ const props = defineProps({
 const emits = defineEmits(['loadstart', 'playing', 'error', 'stalled', 'waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
 let refPlayerWrap = ref(null)
 let refdVideo = ref(null)
-let refVolumeWrap = ref(null) //音量
 let refPlayerControl = ref(null) //控制器
 let refInput = ref(null) //控制器
 const state = reactive({
   dVideo: null,
-  // ...defaultOptions, //默认配置
   ...props, //如果有自定义配置就会替换默认配置
   muted: props.autoPlay,
   //标记当前的播放状态
@@ -258,20 +238,15 @@ const state = reactive({
   handleType: '', //当前操作类型
   //当前播放时间
   currentTime: "00:00:00",
-  // 当前播放进度比例
-  playRatio: 0,
   // 当前缓冲进度
-  loadRatio: 0,
+  preloadBar: 0,
   //总时长
   totalTime: "00:00:00",
   isVideoHovering: true,
-  // 是否在拖拽中
-  draging: false,
-  startY: 0,
   speedActive: "1.0", //倍速
+  playProgress: 0, //播放进度
   isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
-  progressCursorX: 0, //进度条光标
   progressCursorTime: '00:00:00', //进度条光标时间
 
 })
@@ -414,9 +389,7 @@ const progress = (ev) => {
   let duration = ev.target.duration; // 媒体总长
   let length = ev.target.buffered.length;
   let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
-  state.loadRatio = ((end / duration) * 100).toFixed(2);
-  // console.dir(ev.target.buffered.length);
-  // console.dir(ev.target.buffered.end(length - 1));
+  state.preloadBar = end / duration //缓冲比例
 }
 
 
@@ -439,10 +412,9 @@ const canplay = (ev) => {
 // 当前播放进度
 const timeupdate = (ev) => {
   emits('timeupdate', ev)
-  let duration = ev.duration || ev.target.duration; // 媒体总长
+  let duration = ev.duration || ev.target.duration || 0; // 媒体总长
   let currentTime = ev.currentTime || ev.target.currentTime; // 当前媒体播放长度
-
-  state.playRatio = ((currentTime / duration) * 100).toFixed(2);
+  state.playProgress = currentTime / duration //播放进度比例
   state.currentTime = timeFormat(currentTime);
 }
 // 静音事件
@@ -450,160 +422,21 @@ const mutedHandler = () => {
   state.muted = !state.muted;
 }
 
-// 音量按下
-const onVolumeDown = (ev) => {
-  ev.preventDefault();
-  onVolumeStart(ev, "y");
-  // 鼠标移动
-  window.addEventListener("mousemove", onVolumeing);
-  window.addEventListener("touchmove", onVolumeing);
-  // 鼠标释放
-  window.addEventListener("mouseup", onVolumeEnd);
-  window.addEventListener("touchend", onVolumeEnd);
-  // 点击右键
-  window.addEventListener("contextmenu", onVolumeEnd);
-}
-// 音量鼠标按下触发
-const onVolumeStart = (ev, type) => {
-  console.log(ev);
-
-  state.muted = false
-  state.draging = true;
-  if (type == "y") {
-    state.startY = ev.clientY - ev.offsetY;
-  }
-  // 音量大小
-  let volume = onDraggFn(ev, refVolumeWrap.value, "y");
-  state.volume = volume;
-  state.dVideo.volume = volume;
-}
-// 调节音量中
-const onVolumeing = (ev) => {
-  if (!state.draging) return;
-  // 音量大小
-  let volume = onDraggFn(ev, refVolumeWrap.value, "y");
-  state.volume = volume;
-  state.dVideo.volume = volume;
-}
-// 音量调节完成
-const onVolumeEnd = (ev) => {
-  if (state.draging) {
-    /*
-     * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
-     * 不使用 preventDefault 是因为 mouseup 和 click 没有注册在同一个 DOM 上
-     */
-    setTimeout(() => {
-      state.draging = false;
-    }, 0);
-    window.removeEventListener("mousemove", onVolumeing);
-    window.removeEventListener("touchmove", onVolumeing);
-    window.removeEventListener("mouseup", onVolumeEnd);
-    window.removeEventListener("touchend", onVolumeEnd);
-    window.removeEventListener("contextmenu", onVolumeEnd);
+//进度条事件
+const progressBarChange = (ev: Event, val) => {
+  // emits('timeupdate', ev)
+  let duration = state.dVideo.duration || state.dVideo.target.duration; // 媒体总长
+  state.dVideo.currentTime = duration * val
+  if (state.isPaused) {
+    state.dVideo.play()
+    state.isPaused = false
   }
 }
 // 进度条移动
-const onProgressMove = (ev) => {
-  let controlWidth = refPlayerControl.value.clientWidth
-  state.progressCursorX = ev.offsetX
-  state.progressCursorTime = timeFormat(
-    state.dVideo.duration * (ev.offsetX / controlWidth)
-  );
+const onProgressMove = (ev, val) => {
+  state.progressCursorTime = timeFormat(state.dVideo.duration * val);
 }
-// 进度条按下
-const onProgressDown = (ev) => {
-  if (!props.speed) return
-  // if(speed)
-  ev.preventDefault();
-  onProgressStart(ev);
-  // 鼠标移动
-  window.addEventListener("mousemove", onDraging);
-  window.addEventListener("touchmove", onDraging);
-  // 鼠标释放
-  window.addEventListener("mouseup", onDragEnd);
-  window.addEventListener("touchend", onDragEnd);
-  // 点击右键
-  window.addEventListener("contextmenu", onDragEnd);
-}
-// 进度条鼠标按下触发
-const onProgressStart = (ev, type) => {
-  ev.preventDefault();
-  // state.cacheIsPaused = state.isPaused;
-  // // 拖动之前暂停播放
-  // state.isPaused = true;
-  // state.dVideo.pause();
-  state.draging = true;
-  // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
-  state.currentTime = timeFormat(
-    ev.target.duration * onDraggFn(ev, refPlayerControl.value)
-  );
-  state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
-}
-// 拖拽中
-const onDraging = (ev) => {
-  ev.preventDefault();
-  if (!state.draging) return;
-  // 播放进度条进度
-  state.playRatio = onDraggFn(ev, refPlayerControl.value) * 100;
 
-  state.currentTime = timeFormat(
-    state.dVideo.duration * onDraggFn(ev, refPlayerControl.value)
-  );
-  state.dVideo.currentTime = state.dVideo.duration * (state.playRatio / 100);
-}
-// 获取鼠标拖拽比例
-const onDraggFn = (ev, evBox, type) => {
-  if (ev.type === "touchmove" || ev.type === "touchstart") {
-    ev.clientY = ev.touches[0].clientY;
-    ev.clientX = ev.touches[0].clientX;
-  }
-  // 如果是Y轴拖动
-  if (type == "y") {
-    // console.log(state.startY);
-    let evBoxClientHeight = evBox.clientHeight;
-    // 获取整个播放器宽度
-    // let offsetTop = evBox.offsetTop - ev.offsetX;
-    // console.log(ev.offsetX / evBoxClientHeight);
-    let value =
-      (evBoxClientHeight - (ev.clientY - state.startY)) / evBoxClientHeight;
-    return value < 0 ? 0 : value > 1 ? 1 : value;
-  }
-  // X轴拖动
-  else {
-    // 控制器宽度
-    let evBoxClientWidth = evBox.clientWidth;
-    // 获取整个播放器宽度
-    let offsetX = ev.clientX - refPlayerControl.value.offsetLeft;
-    let value = ev.offsetX / evBoxClientWidth
-    // 鼠标移出播放器做的兼容
-    return value < 0 ? 0 : value > 1 ? 1 : value;
-  }
-}
-// 拖拽结束
-const onDragEnd = (ev) => {
-  // let diff = ev.offsetX / state.dVideo.clientWidth;
-  // // 播放进度条进度
-  // state.dVideo.currentTime = state.dVideo.duration * diff;
-  if (state.draging) {
-    /*
-     * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
-     * 不使用 preventDefault 是因为 mouseup 和 click 没有注册在同一个 DOM 上
-     */
-    setTimeout(() => {
-      state.draging = false;
-      state.dVideo.play();
-      state.isPaused = false;
-
-      // state.hideTooltip();
-    }, 0);
-    window.removeEventListener("mousemove", onDraging);
-    window.removeEventListener("touchmove", onDraging);
-    window.removeEventListener("mouseup", onDragEnd);
-    window.removeEventListener("touchend", onDragEnd);
-    window.removeEventListener("contextmenu", onDragEnd);
-  }
-}
 
 // 隐藏控制器
 const hideControl = debounce(2500, () => {
