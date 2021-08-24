@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 12:50:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 15:04:42
+ * @LastEditTime: 2021-08-24 16:01:37
  * @Description: file content
  */
 
@@ -12,7 +12,7 @@ export const hexToRgba = (hex) => {
         "0x" + hex.slice(3, 5)
     )},${parseInt("0x" + hex.slice(5, 7))}`;
 }
-// 时间格式化
+// 电影时间格式化
 export const timeFormat = (time) => {
     let hh: any = ~~(time / 3600);
     let mm: any = ~~((time % 3600) / 60);
@@ -22,6 +22,8 @@ export const timeFormat = (time) => {
     ss = ss < 10 ? "0" + ss : ss; //个位数补0
     return `${hh}:${mm}:${ss}`;
 }
+// 是否是移动端
+export const isMobile = !!("ontouchstart" in window)
 // 全屏模式
 export const toggleFullScreen = (el) => {
     //如果当前是全屏状态，就退出全屏，否则进入全屏状态

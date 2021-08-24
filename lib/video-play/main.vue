@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 14:11:09
+ * @LastEditTime: 2021-08-24 16:11:38
  * @Description: file content
 */
 
@@ -13,9 +13,10 @@
     @mousemove="mouseMovewWarp"
     :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
+    <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
     <video
       ref="refdVideo"
-      :controls="false"
+      :controls="isMobile && state.speed ? true : false"
       class="d-player-main"
       :class="{ 'video-mirror': state.mirror }"
       :webkit-playsinline="props.playsinline"
@@ -58,7 +59,9 @@
       <d-status :state="state"></d-status>
     </div>
     <input
+      v-if="!isMobile"
       type="input"
+      readonly="readonly"
       ref="refInput"
       @dblclick="toggleFullScreenHandle"
       @click="togglePlay"
@@ -67,8 +70,8 @@
       class="d-player-input"
       maxlength="0"
     />
-    <!-- 播放按钮控制器 -->
-    <div class="d-player-control" ref="refPlayerControl" v-if="state.control">
+    <!-- PC端播放按钮控制器  移动端调用自带控制器-->
+    <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
       <div class="d-control-progress">
         <d-slider
           class="d-progress-bar"
@@ -198,8 +201,7 @@ import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import DWaitingLoading from '../components/d-waitingLoading.vue' //loading
 import DSlider from '../components/d-slider.vue' // slider
-import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen } from '../utils/index'
-
+import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile } from '../utils/util'
 
 
 const props = defineProps({

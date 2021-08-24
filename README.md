@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 14:47:58
+ * @LastEditTime: 2021-08-24 15:51:44
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -19,7 +19,7 @@
 
 在使用的时候遇到任何问题 欢迎各位大佬提[issue](https://github.com/xdlumia/vue3-video-play/issues)或者扫码加我微信我拉你入群
 
-![wechat](https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/wechat.jpg)]
+![wechat](https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/wechat.jpg)
 
 
 
