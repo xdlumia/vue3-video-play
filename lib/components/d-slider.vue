@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 14:43:47
+ * @LastEditTime: 2021-08-25 10:04:44
  * @Description: file content
 */
 <template>
@@ -85,11 +85,11 @@ const hoverStyle: any = computed(() => {
     return props.vertical ? `bottom:${value * 100}%` : `left:${value * 100}%`
 })
 // 阻止右键事件
-const contextmenuHandle = (ev: Event) => {
+const contextmenuHandle = (ev: MouseEvent) => {
     ev.preventDefault()
 }
 // 按下事件
-const mouseDownHandle = (ev: Event) => {
+const mouseDownHandle = (ev: MouseEvent) => {
     if (props.disabled) return
     ev.preventDefault()
     state.dragging = true
@@ -100,7 +100,7 @@ const mouseDownHandle = (ev: Event) => {
     on(window, 'touchend', onDragEnd)
 }
 // 鼠标移动事件
-const mousemoveHandle = (ev: Event) => {
+const mousemoveHandle = (ev: MouseEvent) => {
     if (!props.hover) return
     let val = getPosition(ev)
     emits('onMousemove', ev, val)
@@ -187,8 +187,9 @@ const onDragEnd = (ev: Event) => {
             z-index: 1;
             width: 1px;
             background: #fff;
-
+            pointer-events: none;
             .d-slider__tips {
+                pointer-events: none;
                 color: #fff;
                 position: absolute;
                 white-space: nowrap;

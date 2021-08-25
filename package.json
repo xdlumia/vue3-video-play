@@ -1,6 +1,6 @@
 {
   "name": "vue3-video-play",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "vue3视频播放器",
   "files": [
     "dist",
@@ -32,7 +32,6 @@
     "url": "https://github.com/xdlumia/vue3-video-play/issues"
   },
   "dependencies": {
-    "element-plus": "^1.0.2-beta.71",
     "throttle-debounce": "^3.0.1",
     "vue": "^3.2.4"
   },
@@ -46,7 +45,7 @@
     "vitepress": "^0.16.1",
     "vitepress-theme-demoblock": "^1.1.1",
     "vue-tsc": "^0.2.3",
-    "vue3-video-play": "^1.2.4"
+    "vue3-video-play": "^1.2.5"
   },
   "keywords": [
     "vue 3",

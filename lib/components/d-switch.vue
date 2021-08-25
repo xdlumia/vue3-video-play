@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 09:34:45
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-20 12:27:58
+ * @LastEditTime: 2021-08-25 11:05:33
  * @Description: file content
 */
 <template>
@@ -43,7 +43,7 @@ const props = defineProps({
         default: '#409EFF',
     }
 })
-const emits = defineEmits(['update:modelValue',])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const input = ref(null)
 const checked = computed(() => {
@@ -53,6 +53,7 @@ const handleInput = (): void => {
     nextTick(() => {
         const val = input.value.checked
         emits("update:modelValue", val);
+        emits("change", val);
     })
 
 

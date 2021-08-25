@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 15:51:44
+ * @LastEditTime: 2021-08-25 15:38:27
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -22,7 +22,7 @@
 ![wechat](https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/wechat.jpg)
 
 
-
+<span style="color:#cb3837"> **必须使用 vue@3.2.4及以上版本**</span>
 # 示例 主页
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
@@ -188,6 +188,9 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
+| mirrorChange      | 镜像翻转事件 | val |
+| loopChange      | 循环播放开关事件 | val |
+| lightOffChange      | 关灯模式事件 | val |
 | loadstart      | 客户端开始请求数据 | event |
 | progress       | 客户端正在请求数据 | event |
 | error          | 请求数据时遇到错误 | event |

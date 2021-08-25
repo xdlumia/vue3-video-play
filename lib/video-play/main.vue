@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 22:30:00
+ * @LastEditTime: 2021-08-25 17:03:51
  * @Description: file content
 */
 
@@ -11,7 +11,11 @@
     ref="refPlayerWrap"
     class="d-player-wrap"
     @mousemove="mouseMovewWarp"
-    :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
+    :class="{
+      'web-full-screen': state.webFullScreen,
+      'is-lightoff': state.lightOff,
+      'd-player-wrap-hover': state.playBtnState == 'pause' || state.isVideoHovering
+    }"
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
     <div class="d-player-video">
@@ -32,6 +36,7 @@
         @progress="progress"
         @canplay="canplay"
         @timeupdate="timeupdate"
+        @ended="ended"
         :volume="state.volume"
         :muted="state.muted"
         :loop="state.loop"
@@ -39,12 +44,13 @@
         width="100%"
         height="100%"
         :src="props.src"
+        poster="https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg"
       >您的浏览器不支持Video标签。</video>
     </div>
     <!-- 缓冲动画 -->
-    <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
+    <!-- <d-waitingloading text="正在缓冲..." v-show="state.waitingLoading" /> -->
     <!-- 预加载动画 -->
-    <d-loading v-show="state.loading" />
+    <d-loading :loadType="state.loadStateType" />
     <transition name="d-fade-in">
       <div class="d-player-lightoff" v-show="state.lightOff"></div>
     </transition>
@@ -54,7 +60,7 @@
     <div class="d-player-state" v-if="!isMobile">
       <transition name="d-scale-out">
         <!-- 播放按钮 -->
-        <div class="d-play-btn" v-show="state.isPaused">
+        <div class="d-play-btn" v-show="state.playBtnState == 'play'">
           <d-icon icon="icon-play" :size="40"></d-icon>
         </div>
       </transition>
@@ -75,6 +81,7 @@
       class="d-player-input"
       maxlength="0"
     />
+
     <!-- PC端播放按钮控制器  移动端调用自带控制器-->
     <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
       <div class="d-control-progress">
@@ -93,11 +100,7 @@
       <div class="d-control-tool" @click="inputFocusHandle">
         <div class="d-tool-bar">
           <div class="d-tool-item">
-            <d-icon
-              @click="togglePlay"
-              size="24"
-              :icon="`icon-${state.isPaused ? 'play' : 'pause'}`"
-            ></d-icon>
+            <d-icon @click="togglePlay" size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
           </div>
           <!-- 下一部 -->
           <!-- <div class="d-tool-item">
@@ -139,12 +142,13 @@
                 ></d-slider>
               </div>
             </div>
-            <d-icon
-              @click="mutedHandler"
-              size="18"
-              :icon="`icon-volume-${state.volume == 0 || state.muted ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
-              }`"
-            ></d-icon>
+            <span @click="mutedHandler" style="display:flex">
+              <d-icon
+                size="20"
+                :icon="`icon-volume-${state.volume == 0 || state.muted ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
+                }`"
+              ></d-icon>
+            </span>
           </div>
           <!-- 设置 -->
           <div class="d-tool-item">
@@ -153,15 +157,15 @@
               <ul class="speed-main">
                 <li>
                   镜像画面
-                  <d-switch v-model="state.mirror" />
+                  <d-switch @change="mirrorChange" v-model="state.mirror" />
                 </li>
                 <li>
                   循环播放
-                  <d-switch v-model="state.loop" />
+                  <d-switch @change="loopChange" v-model="state.loop" />
                 </li>
                 <li>
                   关灯模式
-                  <d-switch v-model="state.lightOff" />
+                  <d-switch @change="lightOffChange" v-model="state.lightOff" />
                 </li>
               </ul>
             </div>
@@ -187,47 +191,24 @@
   </div>
 </template>
 <script lang="ts">
-// import dIcon from "./d-icon";
-// import 'element-plus/lib/theme-chalk/index.css';
 export default {
   name: "vue3VideoPlay",
 }
-
-
 </script>
 <script setup lang="ts">
-import { reactive, ref, toRefs, nextTick, computed } from 'vue'
+import { reactive, ref, nextTick, computed } from 'vue'
 import { debounce } from 'throttle-debounce';
 import DIcon from '../components/d-icon.vue'
 import DPlayerTop from '../components/d-player-top.vue'
 import DStatus from '../components/d-status.vue' //倍速播放状态
 import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
-import DWaitingLoading from '../components/d-waitingLoading.vue' //loading
 import DSlider from '../components/d-slider.vue' // slider
-import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile } from '../utils/util.ts'
+import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile } from '../utils/util'
 
-
-const props = defineProps({
-  width: { type: String, default: '800px' },
-  height: { type: String, default: '450px' },
-  color: { type: String, default: '#409eff' },
-  webFullScreen: { type: Boolean, default: false },//网页全屏
-  speed: { type: Boolean, default: true },//是否支持快进快退 //移动端不支持
-  playsinline: { type: Boolean, default: false },//ios端 点击播放是否全屏
-  muted: { type: Boolean, default: false }, //静音
-  speedRate: { type: Array, default: () => ["0.75", "1.0", "1.25", "1.5", "2.0"] }, //播放倍速
-  autoPlay: { type: Boolean, default: false }, //自动播放
-  loop: { type: Boolean, default: false }, //循环播放
-  mirror: { type: Boolean, default: false }, //镜像画面
-  ligthOff: { type: Boolean, default: false },  //关灯模式
-  volume: { type: [String, Number], default: '0.3' }, //默认音量大小
-  control: { type: Boolean, default: true }, //是否显示控制器
-  title: { type: String, default: '' }, //视频名称
-  src: { required: true, type: String, default: '' }, //视频源
-  preload: { type: String, default: 'auto' }, //预加载 
-})
-const emits = defineEmits(['loadstart', 'playing', 'error', 'stalled', 'waiting', 'durationchange', 'progress', 'canplay', 'timeupdate',])
+import { defineEmits, defineProps } from './plugins/index'
+const props = defineProps(defineProps) //props
+const emits = defineEmits(defineEmits)  //emits 
 let refPlayerWrap = ref(null)
 let refdVideo = ref(null)
 let refPlayerControl = ref(null) //控制器
@@ -236,10 +217,10 @@ const state = reactive({
   dVideo: null,
   ...props, //如果有自定义配置就会替换默认配置
   muted: props.autoPlay,
-  //标记当前的播放状态
-  isPaused: !props.autoPlay,
+  playBtnState: props.autoPlay ? 'pause' : 'play',// 播放按钮状态
   loading: true, //加载动画
-  waitingLoading: true, //缓冲等待
+  waitingLoading: false, //缓冲等待
+  loadStateType: '',// 加载状态类型 //init初始化  buffer缓冲 ended播放结束
   fullScreen: false,
   handleType: '', //当前操作类型
   //当前播放时间
@@ -307,7 +288,7 @@ const keypress = (ev) => {
       state.longPressTimeout = setTimeout(() => {
         state.isMultiplesPlay = true;
         state.dVideo.playbackRate = 5;
-        state.isPaused = false;
+        state.playBtnState = 'play'
         state.dVideo.play();
         state.handleType = 'playbackRate' //操作类型 倍速播放
         clearHandleType() //清空 操作类型
@@ -326,8 +307,30 @@ const keypress = (ev) => {
     }
   }
 }
+// 聚焦到播放器
 const inputFocusHandle = () => {
+  if (isMobile) return
   refInput.value.focus()
+}
+// 播放方法
+const playHandle = () => {
+  state.dVideo.play().catch(() => {
+    setTimeout(() => {
+      state.playBtnState = 'play'
+    }, 500)
+
+  });
+  state.playBtnState = 'pause'
+  // 播放后清空状态
+  // state.loadStateType = ''
+}
+// 暂停
+const pauseHandle = () => {
+  // 暂停状态
+  // state.loadStateType = 'pause'
+  state.dVideo.pause();
+  // 暂停后要显示播放按钮
+  state.playBtnState = 'play'
 }
 
 // 播放暂停
@@ -335,38 +338,43 @@ const togglePlay = () => {
   //视频标签（video）原生方法：
   //play():让视频播放
   //pause():让视频暂停
-  if (state.isPaused) {
-    state.dVideo.play();
-  } else {
-    state.dVideo.pause();
+  if (state.playBtnState == 'play' || state.playBtnState == 'replay') {
+    // 点击播放按钮 或 重新播放按钮 后
+    playHandle()
+  } else if (state.playBtnState == 'pause') {
+    // 点击暂停按钮后...
+    pauseHandle()
   }
-  state.isPaused = !state.isPaused
+  // if (state.playBtnState == 'pause' || state.playBtnState == 'replay') { //如果当前是暂停,或者重新播放 点击后继续播放
+  //   state.dVideo.play();
+  //   state.playBtnState = 'pause'
+
+  // } else {
+  //   state.dVideo.play();
+  //   state.playBtnState = 'play'
+  // }
+
+
 }
-// // 播放
-// const onPlay = (ev) => {
-//   console.log('播放')
-//   emits('play', ev)
-// }
-// // 暂停
-// const onPause = (ev) => {
-//   // console.log('暂定')
-//   emits('pause', ev)
-// }
+
+
 const onPlaying = (ev) => {
-  console.log('playing');
+  // console.log('playing');
   emits('playing', ev)
 }
 const onWaiting = (ev) => {
-  state.waitingLoading = true //缓冲中...
+  state.loadStateType = 'buffer' //缓冲中...
   emits('waiting', ev)
 }
 const onError = (ev) => {
   console.log('error')
+  state.loadStateType = 'error'
   emits('error', ev)
 }
 // 网速失速
 const stalled = (ev) => {
   console.log('网速失速')
+  state.loadStateType = 'stalled'
   emits('stalled', ev)
 }
 // 获得播放头文件
@@ -377,10 +385,15 @@ const stalled = (ev) => {
 //   console.log("可持续播放");
 // }
 // // 播放结束
-// const ended = () => { }
+const ended = (ev) => {
+  state.loadStateType = 'ended' //当前是播放结束状态
+  state.playBtnState = 'replay' //此时的控制按钮应该显示重新播放
+  emits('ended', ev)
+  // console.log('播放结束')
+}
 //开始加载
 const loadstart = (ev) => {
-  state.loading = true
+  state.loadStateType = 'init'
   emits('loadstart', ev)
   console.log("开始加载");
 }
@@ -402,19 +415,18 @@ const progress = (ev) => {
 
 
 const canplay = (ev) => {
-  state.loading = false
-  state.waitingLoading = false //缓冲结束.
+  state.loadStateType = ''
   // console.log("可以播放");
   emits('canplay', ev)
   // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
-  if (state.autoPlay) {
-    state.isPaused = false;
+  if (state.autoPlay) { //如果是自动播放 则显示暂停按钮
     state.dVideo.play();
+    state.playBtnState = 'pause'
   }
   // 切换视频源的情况下 如果当前是未暂停 则继续播放
-  if (!state.isPaused) {
-    state.dVideo.play();
-  }
+  // if (state.playBtnState != 'pause') {
+  //   state.dVideo.play();
+  // }
 }
 
 // 当前播放进度
@@ -428,6 +440,10 @@ const timeupdate = (ev) => {
 // 静音事件
 const mutedHandler = () => {
   state.muted = !state.muted;
+  // 如果之前音量调整为0 取消静音时会把音量设置为5
+  if (state.volume == 0) {
+    state.volume = 0.05
+  }
 }
 
 //进度条事件
@@ -435,9 +451,9 @@ const progressBarChange = (ev: Event, val) => {
   // emits('timeupdate', ev)
   let duration = state.dVideo.duration || state.dVideo.target.duration; // 媒体总长
   state.dVideo.currentTime = duration * val
-  if (state.isPaused) {
+  if (state.playBtnState == 'play') {
     state.dVideo.play()
-    state.isPaused = false
+    state.playBtnState = 'pause'
   }
 }
 // 进度条移动
@@ -462,7 +478,21 @@ const playbackRate = (row) => {
   state.speedActive = row;
   state.dVideo.playbackRate = row;
 }
-
+//镜像画面事件
+const mirrorChange = (val) => {
+  // console.log(val)
+  emits('mirrorChange', val, state.dVideo)
+}
+// 是否循环事件
+const loopChange = (val) => {
+  // console.log(val)
+  emits('loopChange', val, state.dVideo)
+}
+// 关灯事件
+const lightOffChange = (val) => {
+  // console.log(val)
+  emits('lightOffChange', val, state.dVideo)
+}
 // 初始化
 const init = async () => {
   await nextTick()
@@ -484,6 +514,11 @@ const toggleFullScreenHandle = () => {
     state.fullScreen = false
   }
 }
+defineExpose({
+  play: playHandle, //播放
+  pause: pauseHandle, //暂停
+  togglePlay, //暂停或播放
+})
 </script>
 
 <style lang="less" scoped>

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 16:13:53
+ * @LastEditTime: 2021-08-25 15:40:53
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -16,7 +16,7 @@
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 
 
-
+<span style="color:#cb3837"> **必须使用 vue@3.2.4及以上版本**</span>
 # 示例 主页
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
@@ -68,7 +68,7 @@ export default {
 提供了丰富了配置功能
 :::demo 自定义配置 比如自定义poster。
 
-```vue
+```html
 <template>
   <div>
     <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
@@ -105,7 +105,7 @@ const options = reactive({
 可以通过`props`的`speed`开启或关闭进度条功能,
 :::demo 通过`speed`关闭进度条拖动功能。
 
-```vue
+```html
 <template>
   <div>
     <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
@@ -226,7 +226,7 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | color         | 播放器主色调 | string  |   -    |                #409eff                |
 | webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
 | speed |   是否支持快进快退   | boolean |   -    |                 true                 |
-| speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
+| speedRate     |   倍速配置   |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
 | mirror        |   镜像画面   | boolean |   -    |                 false                 |
 | ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
 | muted         |     静音     | boolean |   -    |                 false                 |
@@ -242,6 +242,9 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
+| mirrorChange      | 镜像翻转事件 | val |
+| loopChange      | 循环播放开关事件 | val |
+| lightOffChange      | 关灯模式事件 | val |
 | loadstart      | 客户端开始请求数据 | event |
 | progress       | 客户端正在请求数据 | event |
 | error          | 请求数据时遇到错误 | event |
