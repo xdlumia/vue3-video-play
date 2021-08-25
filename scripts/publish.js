@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:19:20
+ * @LastEditTime: 2021-08-25 20:24:29
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -25,12 +25,31 @@ let currentBranch = shell.exec('git symbolic-ref --short -q HEAD', {
     async: false,
     silent: true
 }).stdout.trim();
-console.log(currentBranch)
 if (currentBranch != 'dev') {
     errorLog(`当前是${currentBranch}分支 请切换到dev分支`)
     // shell.echo("\033[1;31m Error: 当前是 " + currentBranch + " 分支 请切换到dev分支\033[0m");
     return
 }
+
+shell.exec('git add .');
+shell.exec('git commit -m "auto commit"');
+shell.exec('git push');
+
+shell.exec('git checkout main');
+shell.exec('git pull');
+shell.exec('git merge dev');
+if (shell.exec('git push origin main --tags').code != 0) {
+    // shell.echo("\033[1;31mError: git push ogigin main 失败! 已退出\033[0m");
+    errorLog(`git push ogigin main 失败! 已退出 已`)
+    shell.exec('git checkout dev');
+    shell.exit()
+    return
+}
+
+shell.exec('git checkout dev');
+// shell.exec('git push origin dev');
+shell.exit() //
+
 
 // 新版本
 var confirm = readlineSync.question(`Current is "v${currentVersion}".\n\
@@ -54,23 +73,7 @@ else if (confirm.trim().toLowerCase() == 's') {
 }
 
 shell.exec('yarn build');
-// shell.exec('git commit -m `auto commit`');
-// shell.exec('git push');
 
-// shell.exec('git checkout main');
-// shell.exec('git pull');
-// shell.exec('git merge dev');
-// if (shell.exec('git push origin main --tags').code != 0) {
-//     // shell.echo("\033[1;31mError: git push ogigin main 失败! 已退出\033[0m");
-//     errorLog(`git push ogigin main 失败! 已退出 已`)
-//     shell.exec('git checkout dev');
-//     shell.exit()
-//     return
-// }
-
-// shell.exec('git checkout dev');
-// // shell.exec('git push origin dev');
-// shell.exit() //
 if (shell.exec('npm publish').code != 0) {
     shell.echo("\033[1;31mError: npm publish 失败! 已退出\033[0m");
     shell.exit()

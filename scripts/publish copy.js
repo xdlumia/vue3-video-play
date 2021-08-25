@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:07:52
+ * @LastEditTime: 2021-08-25 20:22:03
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -50,15 +50,15 @@ else if (confirm.trim().toLowerCase() == 's') {
     shell.exit()
 }
 
-// shell.exec('git checkout master');
-// shell.exec('git pull');
-// shell.exec('git merge dev');
-// if (shell.exec('git push origin master --tags').code != 0) {
-//     shell.echo("\033[1;31mError: git push ogigin master 失败! 已退出\033[0m");
-//     shell.exec('git checkout dev');
-//     shell.exit()
-//     return
-// }
+shell.exec('git checkout master');
+shell.exec('git pull');
+shell.exec('git merge dev');
+if (shell.exec('git push origin master --tags').code != 0) {
+    shell.echo("\033[1;31mError: git push ogigin master 失败! 已退出\033[0m");
+    shell.exec('git checkout dev');
+    shell.exit()
+    return
+}
 
 shell.exec('git checkout dev');
 shell.exec('git rebase master');
