@@ -12,19 +12,22 @@
     height: 100vh !important;
   }
 
-  .d-player-main {
-    position: absolute;
-    transition: .2s;
-    z-index: 0;
+  .d-player-video {
 
-    top: 0;
-    left: 0;
+    z-index: 0;
     width: 100%;
     height: 100%;
 
-    &.video-mirror {
-      transform: rotateY(180deg);
+    .d-player-video-main {
+      width: 100%;
+      height: 100%;
+      transition: .2s;
+
+      &.video-mirror {
+        transform: rotateY(180deg);
+      }
     }
+
   }
 
   .d-player-control {
@@ -48,16 +51,18 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 0; 
+        bottom: 0;
         width: 100%;
         transition: height 0.1s;
         height: 3px;
+
         // pointer-events: none;
         //对 d-slider内的组件样式修改
-        :deep(.d-slider__runway){
+        :deep(.d-slider__runway) {
           transition: height 0.1s;
           height: 100%;
-          .d-slider__bar::before{
+
+          .d-slider__bar::before {
             transform: translateY(-50%) scale(0, 0);
           }
         }
@@ -66,7 +71,8 @@
       &:hover {
         .d-progress-bar {
           height: 100%;
-          :deep(.d-slider__bar::before){
+
+          :deep(.d-slider__bar::before) {
             transform: translateY(-50%) scale(1, 1) !important;
           }
         }
@@ -153,9 +159,10 @@
             font-size: 12px;
             font-weight: 400;
           }
-          &.is-muted{
-            :deep(.d-slider__bar){
-              height:0 !important
+
+          &.is-muted {
+            :deep(.d-slider__bar) {
+              height: 0 !important
             }
           }
         }

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 16:24:28
+ * @LastEditTime: 2021-08-24 22:30:00
  * @Description: file content
 */
 
@@ -14,38 +14,41 @@
     :class="{ 'web-full-screen': state.webFullScreen, 'd-player-wrap-hover': state.isPaused || state.isVideoHovering }"
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
-    <video
-      ref="refdVideo"
-      :controls="isMobile && state.speed ? true : false"
-      class="d-player-main"
-      :class="{ 'video-mirror': state.mirror }"
-      :webkit-playsinline="props.playsinline"
-      :playsinline="props.playsinline"
-      v-bind="$attrs"
-      @waiting="onWaiting"
-      @error="onError"
-      @stalled="stalled"
-      @playing="onPlaying"
-      @loadstart="loadstart"
-      @durationchange="durationchange"
-      @progress="progress"
-      @canplay="canplay"
-      @timeupdate="timeupdate"
-      :volume="state.volume"
-      :muted="state.muted"
-      :loop="state.loop"
-      :preload="preload"
-      width="100%"
-      height="100%"
-      :src="props.src"
-    >您的浏览器不支持Video标签。</video>
+    <div class="d-player-video">
+      <video
+        ref="refdVideo"
+        class="d-player-video-main"
+        :controls="isMobile && state.speed ? true : false"
+        :class="{ 'video-mirror': state.mirror }"
+        :webkit-playsinline="props.playsinline"
+        :playsinline="props.playsinline"
+        v-bind="$attrs"
+        @waiting="onWaiting"
+        @error="onError"
+        @stalled="stalled"
+        @playing="onPlaying"
+        @loadstart="loadstart"
+        @durationchange="durationchange"
+        @progress="progress"
+        @canplay="canplay"
+        @timeupdate="timeupdate"
+        :volume="state.volume"
+        :muted="state.muted"
+        :loop="state.loop"
+        :preload="preload"
+        width="100%"
+        height="100%"
+        :src="props.src"
+      >您的浏览器不支持Video标签。</video>
+    </div>
+    <!-- 缓冲动画 -->
     <d-waitingLoading text="正在缓冲..." v-show="state.waitingLoading" />
     <!-- 预加载动画 -->
     <d-loading v-show="state.loading" />
     <transition name="d-fade-in">
       <div class="d-player-lightoff" v-show="state.lightOff"></div>
     </transition>
-    <!-- 全屏模式下顶部显示的内容 -->
+    <!-- 全屏模式&&鼠标滑过 顶部显示的内容 -->
     <d-player-top :title="props.title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
     <!-- 状态栏 移动端不显示-->
     <div class="d-player-state" v-if="!isMobile">
@@ -66,6 +69,7 @@
       ref="refInput"
       @dblclick="toggleFullScreenHandle"
       @click="togglePlay"
+      @keyup.space="togglePlay"
       @keyup="keypress"
       @keydown="keypress"
       class="d-player-input"
@@ -147,7 +151,6 @@
             <d-icon size="20" class="rotateHover" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
-                <!-- :class="{ 'speed-active': state.speedActive == row }" -->
                 <li>
                   镜像画面
                   <d-switch v-model="state.mirror" />
@@ -202,7 +205,7 @@ import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import DWaitingLoading from '../components/d-waitingLoading.vue' //loading
 import DSlider from '../components/d-slider.vue' // slider
-import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile } from '../utils/util'
+import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile } from '../utils/util.ts'
 
 
 const props = defineProps({
@@ -261,9 +264,10 @@ const clearHandleType = debounce(500, () => {
   state.handleType = '';
 })
 const keypress = (ev) => {
+
   let pressType = ev.type
   let keyCode = ev.keyCode || ev.code;
-  // arrowLeft  快退
+  // Space  空格暂停/播放
   if (keyCode == 37 || keyCode == 'ArrowLeft') {
     if (!props.speed) return // 如果不支持快进快退s
     if (pressType == "keyup") {
@@ -339,10 +343,10 @@ const togglePlay = () => {
   state.isPaused = !state.isPaused
 }
 // // 播放
-const onPlay = (ev) => {
-  console.log('播放')
-  emits('play', ev)
-}
+// const onPlay = (ev) => {
+//   console.log('播放')
+//   emits('play', ev)
+// }
 // // 暂停
 // const onPause = (ev) => {
 //   // console.log('暂定')
@@ -357,6 +361,7 @@ const onWaiting = (ev) => {
   emits('waiting', ev)
 }
 const onError = (ev) => {
+  console.log('error')
   emits('error', ev)
 }
 // 网速失速
@@ -463,6 +468,7 @@ const init = async () => {
   await nextTick()
   state.dVideo = refdVideo
   state.dVideo.load()
+  inputFocusHandle()
 }
 init()
 
