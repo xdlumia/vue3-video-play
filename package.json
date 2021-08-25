@@ -1,6 +1,6 @@
 {
   "name": "vue3-video-play",
-  "version": "1.2.50",
+  "version": "1.2.51",
   "description": "vue3视频播放器",
   "files": [
     "dist",
