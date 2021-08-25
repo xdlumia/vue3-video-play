@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:33:57
+ * @LastEditTime: 2021-08-25 20:41:31
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -48,7 +48,6 @@ if (shell.exec('git push origin main --tags').code != 0) {
 successLog('main分支提交成功')
 shell.exec('git checkout dev');
 // shell.exec('git push origin dev');
-shell.exit() //
 
 
 // 新版本
@@ -79,5 +78,6 @@ if (shell.exec('npm publish').code != 0) {
     shell.exit()
     return
 }
-shell.echo("\033[1;32mSuccess Publish success!\033[0m");
+// shell.echo("\033[1;32mSuccess Publish success!\033[0m");
+successLog('Publish success!')
 shell.exit()
