@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:24:29
+ * @LastEditTime: 2021-08-25 20:29:28
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -34,10 +34,11 @@ if (currentBranch != 'dev') {
 shell.exec('git add .');
 shell.exec('git commit -m "auto commit"');
 shell.exec('git push');
-
+successLog('dev分支提交成功')
 shell.exec('git checkout main');
 shell.exec('git pull');
 shell.exec('git merge dev');
+defaultLog('dev分支合并到main分支')
 if (shell.exec('git push origin main --tags').code != 0) {
     // shell.echo("\033[1;31mError: git push ogigin main 失败! 已退出\033[0m");
     errorLog(`git push ogigin main 失败! 已退出 已`)
@@ -45,7 +46,7 @@ if (shell.exec('git push origin main --tags').code != 0) {
     shell.exit()
     return
 }
-
+successLog('main分支提交成功')
 shell.exec('git checkout dev');
 // shell.exec('git push origin dev');
 shell.exit() //
