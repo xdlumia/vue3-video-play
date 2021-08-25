@@ -11,12 +11,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "pub": "vue-tsc --noEmit && vite build",
+    "pub": "node ./scripts/publish.js",
     "serve": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "docs:pub": "./scripts/gh-pages.sh"
+    "docs:pub": "sh ./scripts/gh-pages.sh"
   },
   "author": {
     "name": "xdlumia",
@@ -38,8 +38,11 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.4.0",
     "@vue/compiler-sfc": "^3.2.2",
+    "chalk": "^4.1.2",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
+    "readline-sync": "^1.4.10",
+    "shelljs": "^0.8.4",
     "typescript": "^4.3.5",
     "vite": "^2.5.0",
     "vitepress": "^0.16.1",

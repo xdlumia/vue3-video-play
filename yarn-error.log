@@ -1,35 +1,30 @@
 Arguments: 
-  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add ElementPlus
+  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js pub2
 
 PATH: 
-  c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Users\admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\AppData\Roaming\nrm;
 
 Yarn version: 
-  1.21.1
+  1.22.11
 
 Node version: 
-  12.18.2
+  14.17.1
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/ElementPlus: Not found
-      at Request.params.callback [as _callback] (c:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
-      at Request.self.callback (c:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
-      at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (_stream_readable.js:1221:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  SyntaxError: E:\github\vue3-video-play\package.json: Unexpected string in JSON at position 337
+      at JSON.parse (<anonymous>)
+      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
     "name": "vue3-video-play",
-    "version": "1.1.0",
+    "version": "1.2.5",
     "description": "vue3视频播放器",
     "files": [
       "dist",
@@ -40,20 +35,20 @@ npm manifest:
     "scripts": {
       "dev": "vite",
       "build": "vue-tsc --noEmit && vite build",
-      "pub": "vue-tsc --noEmit && vite build",
+      "pub": "node scipts/publish.js",
+      "pub2": "node shell"
       "serve": "vite preview",
       "docs:dev": "vitepress dev docs",
       "docs:build": "vitepress build docs",
       "docs:serve": "vitepress serve docs",
-      "docs:pub": "./scripts/gh-pages.sh",
-      "register:components": "vitepress-rc"
+      "docs:pub": "sh ./scripts/gh-pages.sh"
     },
     "author": {
       "name": "xdlumia",
       "email": "214005111@qq.com",
       "url": "https://dreamwq.com"
     },
-    "homepage": "https://xdlumia.github.io/vue3-video-play.github.io",
+    "homepage": "https://xdlumia.github.io",
     "repository": {
       "type": "git",
       "url": "https://github.com/xdlumia/vue3-video-play.git"
@@ -64,20 +59,35 @@ npm manifest:
     "dependencies": {
       "throttle-debounce": "^3.0.1",
       "vue": "^3.2.4"
-    
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.4.0",
       "@vue/compiler-sfc": "^3.2.2",
       "less": "^4.1.1",
       "less-loader": "^10.0.1",
+      "readline-sync": "^1.4.10",
+      "shelljs": "^0.8.4",
       "typescript": "^4.3.5",
       "vite": "^2.5.0",
       "vitepress": "^0.16.1",
       "vitepress-theme-demoblock": "^1.1.1",
       "vue-tsc": "^0.2.3",
-      "vue3-video-play": "^1.0.9"
+      "vue3-video-play": "^1.2.5"
     },
+    "keywords": [
+      "vue 3",
+      "vue3",
+      "vue",
+      "background",
+      "vue-video-player",
+      "vue3-video-play",
+      "vue video player",
+      "vue3 video player",
+      "video player video",
+      "video player",
+      "vue player",
+      "vue video"
+    ],
     "license": "ISC"
   }
 
@@ -547,6 +557,11 @@ Lockfile:
     dependencies:
       "@babel/types" "^7.9.6"
   
+  balanced-match@^1.0.0:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
+    integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+  
   base64-js@^1.3.1:
     version "1.5.1"
     resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
@@ -570,6 +585,14 @@ Lockfile:
     version "3.7.2"
     resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
     integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
+  
+  brace-expansion@^1.1.7:
+    version "1.1.11"
+    resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
+    integrity sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
+    dependencies:
+      balanced-match "^1.0.0"
+      concat-map "0.0.1"
   
   braces@^3.0.1:
     version "3.0.2"
@@ -672,6 +695,11 @@ Lockfile:
       on-headers "~1.0.2"
       safe-buffer "5.1.2"
       vary "~1.1.2"
+  
+  concat-map@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
+    integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   
   consolidate@^0.16.0:
     version "0.16.0"
@@ -871,6 +899,11 @@ Lockfile:
       jsonfile "^6.0.1"
       universalify "^2.0.0"
   
+  fs.realpath@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+    integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
+  
   fsevents@~2.3.2:
     version "2.3.2"
     resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
@@ -903,6 +936,18 @@ Lockfile:
     integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
     dependencies:
       is-glob "^4.0.1"
+  
+  glob@^7.0.0:
+    version "7.1.7"
+    resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.7.tgz#3b193e9233f01d42d0b3f78294bbeeb418f94a90"
+    integrity sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
+    dependencies:
+      fs.realpath "^1.0.0"
+      inflight "^1.0.4"
+      inherits "2"
+      minimatch "^3.0.4"
+      once "^1.3.0"
+      path-is-absolute "^1.0.0"
   
   globby@^11.0.2, globby@^11.0.3:
     version "11.0.4"
@@ -1007,10 +1052,23 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
     integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
   
-  inherits@^2.0.3, inherits@^2.0.4:
+  inflight@^1.0.4:
+    version "1.0.6"
+    resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
+    integrity sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=
+    dependencies:
+      once "^1.3.0"
+      wrappy "1"
+  
+  inherits@2, inherits@^2.0.3, inherits@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
     integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
+  
+  interpret@^1.0.0:
+    version "1.4.0"
+    resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
+    integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
   
   is-core-module@^2.2.0:
     version "2.6.0"
@@ -1316,6 +1374,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
     integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
   
+  minimatch@^3.0.4:
+    version "3.0.4"
+    resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
+    integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
+    dependencies:
+      brace-expansion "^1.1.7"
+  
   minimist@^1.2.0, minimist@^1.2.5:
     version "1.2.5"
     resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
@@ -1365,6 +1430,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
     integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   
+  once@^1.3.0:
+    version "1.4.0"
+    resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
+    integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
+    dependencies:
+      wrappy "1"
+  
   onetime@^5.1.0:
     version "5.1.2"
     resolved "https://registry.yarnpkg.com/onetime/-/onetime-5.1.2.tgz#d0e96ebb56b07476df1dd9c4806e5237985ca45e"
@@ -1391,6 +1463,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/parse-node-version/-/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"
     integrity sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==
+  
+  path-is-absolute@^1.0.0:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
+    integrity sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
   
   path-parse@^1.0.6:
     version "1.0.7"
@@ -1628,12 +1705,24 @@ Lockfile:
       string_decoder "^1.1.1"
       util-deprecate "^1.0.1"
   
+  readline-sync@^1.4.10:
+    version "1.4.10"
+    resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.10.tgz#41df7fbb4b6312d673011594145705bf56d8873b"
+    integrity sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==
+  
+  rechoir@^0.6.2:
+    version "0.6.2"
+    resolved "https://registry.yarnpkg.com/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
+    integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
+    dependencies:
+      resolve "^1.1.6"
+  
   request-light@^0.5.4:
     version "0.5.4"
     resolved "https://registry.yarnpkg.com/request-light/-/request-light-0.5.4.tgz#497a98c6d8ae49536417a5e2d7f383b934f3e38c"
     integrity sha512-t3566CMweOFlUk7Y1DJMu5OrtpoZEb6aSTsLQVT3wtrIEJ5NhcY9G/Oqxvjllzl4a15zXfFlcr9q40LbLVQJqw==
   
-  resolve@^1.15.1, resolve@^1.20.0:
+  resolve@^1.1.6, resolve@^1.15.1, resolve@^1.20.0:
     version "1.20.0"
     resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
     integrity sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==
@@ -1700,6 +1789,15 @@ Lockfile:
     version "5.7.1"
     resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
     integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
+  
+  shelljs@^0.8.4:
+    version "0.8.4"
+    resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.8.4.tgz#de7684feeb767f8716b326078a8a00875890e3c2"
+    integrity sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==
+    dependencies:
+      glob "^7.0.0"
+      interpret "^1.0.0"
+      rechoir "^0.6.2"
   
   signal-exit@^3.0.2:
     version "3.0.3"
@@ -2041,10 +2139,10 @@ Lockfile:
     dependencies:
       vscode-vue-languageservice "^0.27.0"
   
-  vue3-video-play@^1.0.9:
-    version "1.0.9"
-    resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.0.9.tgz#79b942277ba2a9ca838418bce8b0956462dcd521"
-    integrity sha512-uPcvpnBKvlhr1iU9f14ISs5aDuAV7FGQ9UTqmuT8a3Y8CHrhQX3PnkpZRycUZVuSFAL9KQWoweWcBQUROxBi3w==
+  vue3-video-play@^1.2.5:
+    version "1.2.5"
+    resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.2.5.tgz#48c4233e4b092bfd8bf44121f41ec07552199106"
+    integrity sha512-tcAIYV6v/1dk9TcSr57hsQwBblHhD2fUep7XZGeVXq9Lv+8BHLlX66guGqAlxkBX05fAO4dPbwmgdlXFDox/EA==
     dependencies:
       throttle-debounce "^3.0.1"
       vue "^3.2.4"
@@ -2074,6 +2172,11 @@ Lockfile:
       "@babel/types" "^7.9.6"
       assert-never "^1.2.1"
       babel-walk "3.0.0-canary-5"
+  
+  wrappy@1:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
+    integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
   
   yallist@^3.0.2:
     version "3.1.1"

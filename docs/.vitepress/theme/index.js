@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 15:12:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 16:43:09
+ * @LastEditTime: 2021-08-25 17:24:47
  * @Description: file content
  */
 import theme from 'vitepress/dist/client/theme-default'
@@ -25,7 +25,7 @@ export default {
       // await import('vue3-video-play').then((m) => {
       //   app.use(m.default)
       // })
-      await import('../../../lib/index.js').then((m) => {
+      await import('../../../lib/main.js').then((m) => {
         app.use(m.default)
       })
     }
