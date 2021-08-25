@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:29:28
+ * @LastEditTime: 2021-08-25 20:33:57
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -19,7 +19,7 @@ const successLog = (log) => console.log(chalk.green(`------${log}-----`))
 // 当前版本
 const currentVersion = packageJSON.version
 // 版本标识
-const [vrsionFlag] = process.argv.slice(2)
+const [commitInfo] = process.argv.slice(2) || 'auto commit'
 // 获取git当前分支
 let currentBranch = shell.exec('git symbolic-ref --short -q HEAD', {
     async: false,
@@ -30,9 +30,8 @@ if (currentBranch != 'dev') {
     // shell.echo("\033[1;31m Error: 当前是 " + currentBranch + " 分支 请切换到dev分支\033[0m");
     return
 }
-
 shell.exec('git add .');
-shell.exec('git commit -m "auto commit"');
+shell.exec(`git commit -m ${commitInfo}`);
 shell.exec('git push');
 successLog('dev分支提交成功')
 shell.exec('git checkout main');
