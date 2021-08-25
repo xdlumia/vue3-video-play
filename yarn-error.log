@@ -1,25 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js pub2
+  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;C:\Users\admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\AppData\Roaming\nrm;
+  c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
 
 Yarn version: 
-  1.22.11
+  1.21.1
 
 Node version: 
-  14.17.1
+  12.18.2
 
 Platform: 
   win32 x64
 
 Trace: 
-  SyntaxError: E:\github\vue3-video-play\package.json: Unexpected string in JSON at position 337
-      at JSON.parse (<anonymous>)
-      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
-      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+  Error: https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.2.5.tgz: Request failed "404 Not Found"
+      at ResponseError.ExtendableBuiltin (c:\Program Files (x86)\Yarn\lib\cli.js:696:66)
+      at new ResponseError (c:\Program Files (x86)\Yarn\lib\cli.js:802:124)
+      at Request.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:66126:16)
+      at Request.emit (events.js:315:20)
+      at Request.module.exports.Request.onRequestResponse (c:\Program Files (x86)\Yarn\lib\cli.js:141542:10)
+      at ClientRequest.emit (events.js:315:20)
+      at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:596:27)
+      at HTTPParser.parserOnHeadersComplete (_http_common.js:119:17)
+      at TLSSocket.socketOnData (_http_client.js:469:22)
+      at TLSSocket.emit (events.js:315:20)
 
 npm manifest: 
   {
@@ -35,8 +40,7 @@ npm manifest:
     "scripts": {
       "dev": "vite",
       "build": "vue-tsc --noEmit && vite build",
-      "pub": "node scipts/publish.js",
-      "pub2": "node shell"
+      "pub": "node ./scripts/publish.js",
       "serve": "vite preview",
       "docs:dev": "vitepress dev docs",
       "docs:build": "vitepress build docs",
@@ -63,6 +67,7 @@ npm manifest:
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.4.0",
       "@vue/compiler-sfc": "^3.2.2",
+      "chalk": "^4.1.2",
       "less": "^4.1.1",
       "less-loader": "^10.0.1",
       "readline-sync": "^1.4.10",
@@ -627,7 +632,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
     integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
   
-  chalk@^4.1.0, chalk@^4.1.1:
+  chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
     version "4.1.2"
     resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
     integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
