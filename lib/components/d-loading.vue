@@ -2,19 +2,19 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 16:41:51
+ * @LastEditTime: 2021-08-26 07:58:35
  * @Description: file content
 */
 <template>
-    <div class="d-loading" :style="loadingStyle" v-show="loadType">
+    <div class="d-loading" :style="loadingStyle" v-show="loadType != 'canplay'">
         <div>
             <!-- 初始化加载 -->
-            <span v-if="loadType == 'init'">
+            <span v-if="loadType == 'loadstart'">
                 <d-icon class="rotating" icon="icon-loading" :size="50"></d-icon>
                 <p>{{ text }}</p>
             </span>
             <!-- 缓冲中 -->
-            <span v-show="loadType == 'buffer'">
+            <span v-show="loadType == 'waiting'">
                 <d-icon class="rotating" icon="icon-loading" :size="50"></d-icon>
                 <p>正在缓冲...</p>
             </span>

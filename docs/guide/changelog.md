@@ -2,13 +2,16 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-24 14:50:14
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 16:19:53
+ * @LastEditTime: 2021-08-25 20:50:52
  * @Description: file content
 -->
 <style scoped>
 
 </style>
 # 更新日志
+
+### 1.2.51
+*2021-08-25*
 
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
 - 新增: 倍速播放默认配置,增加`0.5`倍速播放
@@ -19,11 +22,6 @@
 - 优化: svg图标更换成字体图标,总体减少8KB
 - 优化: 如果音量为0关闭静音按钮 音量设置为5
 
-### 1.2.5
-*2021-08-24*
-
-- Refactors 重构进度条拖动和音量拖动功能，精简代码
-- Chore 处理鼠标移动到进度条上距左或者距右时间显示显示不完整的问题
 
 ### 1.2.4
 *2021-08-24*

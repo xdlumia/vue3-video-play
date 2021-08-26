@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 15:38:27
+ * @LastEditTime: 2021-08-25 20:48:22
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -26,6 +26,20 @@
 # 示例 主页
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
+
+
+#### 近期更新 v1.2.51 (2021-08-25)
+- 新增: `mirrorChange` `loopChange` `lightOffChange` 事件 <br>
+- 新增: 倍速播放默认配置,增加`0.5`倍速播放
+- 新增: 资源播放失败错误状态
+- 新增: 非循环播放状态下播放结束增加重新播放按钮
+- 新增: 增加空格快捷键 `播放/暂停` 的操作
+- 修复: 关灯模式不能覆盖菜单栏区域
+- 优化: svg图标更换成字体图标,总体减少8KB
+- 优化: 如果音量为0关闭静音按钮 音量设置为5
+
+
+
 
 
 # 使用指南
@@ -163,23 +177,23 @@ const onCanplay = (ev) => {
 ## Props
 vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
-| 名称          |     说明     |  类型   | 可选值 |                默认值                 |
-| ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
-| width         |  播放器宽度  | string  |   -    |                 800px                 |
-| height        |  播放器高度  | string  |   -    |                 450px                 |
-| title         |   视频名称   | string  |   -    |                   -                   |
-| src           |   视频资源   | string  |   -    |                   -                   |
-| color         | 播放器主色调 | string  |   -    |                #409eff                |
-| webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
-| speed |   是否支持快进快退   | boolean |   -    |                 true                 |
-| speedRate     |   倍速配置   |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
-| mirror        |   镜像画面   | boolean |   -    |                 false                 |
-| ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
-| muted         |     静音     | boolean |   -    |                 false                 |
-| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   | boolean |   -    |                 false                 |
-| volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
-| poster        |   视频封面   | string  |   -    |              视频第一帧               |
+| 名称          |       说明       |  类型   | 可选值 |                默认值                 |
+| ------------- | :--------------: | :-----: | :----: | :-----------------------------------: |
+| width         |    播放器宽度    | string  |   -    |                 800px                 |
+| height        |    播放器高度    | string  |   -    |                 450px                 |
+| title         |     视频名称     | string  |   -    |                   -                   |
+| src           |     视频资源     | string  |   -    |                   -                   |
+| color         |   播放器主色调   | string  |   -    |                #409eff                |
+| webFullScreen |     网页全屏     | boolean |   -    |                 false                 |
+| speed         | 是否支持快进快退 | boolean |   -    |                 true                  |
+| speedRate     |     倍速配置     |  array  |   -    | ["0.75", "1.0", "1.25", "1.5", "2.0"] |
+| mirror        |     镜像画面     | boolean |   -    |                 false                 |
+| ligthOff      |     关灯模式     | boolean |   -    |                 false                 |
+| muted         |       静音       | boolean |   -    |                 false                 |
+| autoPlay      |     自动播放     | boolean |   -    |       false,为true时会自动静音        |
+| loop          |     循环播放     | boolean |   -    |                 false                 |
+| volume        |     默认音量     |   0.3   |  0-1   |                  0.3                  |
+| poster        |     视频封面     | string  |   -    |              视频第一帧               |
 
 
 
@@ -188,9 +202,9 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
-| mirrorChange      | 镜像翻转事件 | val |
-| loopChange      | 循环播放开关事件 | val |
-| lightOffChange      | 关灯模式事件 | val |
+| mirrorChange   | 镜像翻转事件       | val   |
+| loopChange     | 循环播放开关事件   | val   |
+| lightOffChange | 关灯模式事件       | val   |
 | loadstart      | 客户端开始请求数据 | event |
 | progress       | 客户端正在请求数据 | event |
 | error          | 请求数据时遇到错误 | event |

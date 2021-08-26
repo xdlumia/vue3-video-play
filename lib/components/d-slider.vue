@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 10:04:44
+ * @LastEditTime: 2021-08-25 22:18:57
  * @Description: file content
 */
 <template>
@@ -37,7 +37,7 @@ import { reactive, ref, Ref, computed } from 'vue'
 import { on, off } from '../utils/dom'
 import type { PropType } from 'vue'
 type Nullable<T> = null | T
-const refSlider: Ref<Nullable<HTMLElement>> = ref(null)
+const refSlider: Ref<HTMLElement> = ref(null)
 const refTips: Ref<Nullable<HTMLElement>> = ref(null)
 const props = defineProps({
     modelValue: {

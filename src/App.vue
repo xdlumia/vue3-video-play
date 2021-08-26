@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 15:33:58
+ * @LastEditTime: 2021-08-25 23:21:26
  * @Description: file content
 */
 <template>
@@ -12,9 +12,10 @@
   <div style="text-align:center">
     <button>{{ options.src }}</button>
     <videoPlay
-      @mirrorChange="clickHandle"
+      @playing="clickHandle"
+      @play="play"
       ref="video"
-      style="display:inline-block"
+      style="display:inline-block; width:100%"
       v-bind="options"
     />
   </div>
@@ -42,6 +43,10 @@ const options = reactive({
   poster: '', //封面
 })
 const video = ref(null)
+const play = (val, ev) => {
+  console.log('APP 开始播放')
+}
+// video.value.play()
 const clickHandle = (val, ev) => {
   console.log(val, ev)
   // video.value.play()

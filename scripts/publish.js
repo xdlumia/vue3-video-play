@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 20:41:31
+ * @LastEditTime: 2021-08-25 20:44:46
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -73,7 +73,7 @@ else if (confirm.trim().toLowerCase() == 's') {
 
 shell.exec('yarn build');
 
-if (shell.exec('npm publish').code != 0) {
+if (shell.exec('npm pub').code != 0) {
     shell.echo("\033[1;31mError: npm publish 失败! 已退出\033[0m");
     shell.exit()
     return

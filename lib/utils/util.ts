@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 12:50:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-24 16:01:37
+ * @LastEditTime: 2021-08-25 22:39:56
  * @Description: file content
  */
 
@@ -12,6 +12,7 @@ export const hexToRgba = (hex) => {
         "0x" + hex.slice(3, 5)
     )},${parseInt("0x" + hex.slice(5, 7))}`;
 }
+export const firstUpperCase = (str) => str.charAt(0).toUpperCase() + str.slice(1)
 // 电影时间格式化
 export const timeFormat = (time) => {
     let hh: any = ~~(time / 3600);

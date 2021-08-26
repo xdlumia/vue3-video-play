@@ -2,11 +2,13 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 13:15:56
+ * @LastEditTime: 2021-08-25 23:19:33
  * @Description: file content
  */
-export const defineEmits = [
+export const videoEmits = [
     'loadstart',
+    'play',
+    'pause',
     'playing',
     'error',
     'stalled',
@@ -16,9 +18,7 @@ export const defineEmits = [
     'canplay',
     'timeupdate',
     'ended',
-    'mirrorChange',
-    'loopChange',
-    'lightOffChange',
+
 ]
 export const defineProps = {
     width: { type: String, default: '800px' },
