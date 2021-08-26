@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 18:02:05
+ * @LastEditTime: 2021-08-26 20:29:52
  * @Description: file content
 */
 <template>
@@ -140,7 +140,7 @@ const filterReset = () => {
 const keydownHandle = (ev) => {
     // ev.preventDefault()
     if (ev.key == 'Escape') {
-        contextmenuHide()
+        contextmenuHide(0)
     }
 
 }
@@ -177,9 +177,9 @@ const contextmenuHide = (ev) => {
             copyText.value = window.location.href
             copyText.select()
             document.execCommand("copy");
-            state.dialogType = false
+            state.dialogType = ''
         } else if (keycode == 'version') {
-            state.dialogType = false
+            state.dialogType = ''
         }
     }
     state.show = false
@@ -210,8 +210,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang='less'>
-@import "../style/transition.less";
 @import "../style/reset.less";
+@import "../style/base.less";
+@import "../style/animate.less";
+@import "../style/transition.less";
 .d-player-contextmenu,
 .d-player-dialog {
     position: absolute;
@@ -229,7 +231,7 @@ onUnmounted(() => {
         position: absolute;
         border-radius: 5px;
         font-size: 12px;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.8);
         color: #efefef;
         padding: 0;
         text-align: left;
@@ -258,7 +260,9 @@ onUnmounted(() => {
             font-size: 14px;
             font-weight: normal;
             margin: 0;
-            padding: 14px 0px;
+            padding: 12px 0px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 10px;
             .icon-close {
                 position: absolute;
                 right: 0px;

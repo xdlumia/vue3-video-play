@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 15:40:53
+ * @LastEditTime: 2021-08-26 20:53:15
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -67,8 +67,7 @@ export default {
 ## 举个例子
 提供了丰富了配置功能
 :::demo 自定义配置 比如自定义poster。
-
-```html
+```vue
 <template>
   <div>
     <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
@@ -102,10 +101,12 @@ const options = reactive({
 ```
 :::
 
-可以通过`props`的`speed`开启或关闭进度条功能,
-:::demo 通过`speed`关闭进度条拖动功能。
 
-```html
+可以通过`props`的`speed`开启或关闭进度条功能,
+
+
+:::demo 通过`speed`关闭进度条拖动功能。
+```vue
 <template>
   <div>
     <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
@@ -134,7 +135,6 @@ const options = reactive({
 
 还可以通过`props`的`control`属性 来控制是否显示控制器
 :::demo 通过`control` 来控制是否显示控制器
-
 ```vue
 <template>
   <div>
@@ -164,8 +164,8 @@ const options = reactive({
 
 
 ## 事件示例
-:::demo `vue3-video-play` 支持原生`video`所有事件。
-
+丰富的事件支持
+:::demo
 ```vue
 <template>
   <div>
@@ -174,10 +174,7 @@ const options = reactive({
       title="钢铁侠"
       :src="options.src"
       :poster="options.poster"
-      @play="onPlay"
-      @pause="onPause" 
-      @timeupdate="onTimeupdate" 
-      @canplay="onCanplay" />
+      />
   </div>
 
 </template>
@@ -209,31 +206,29 @@ const onCanplay = (ev) => {
 </style>
 
 ```
-
 :::
 
 
-
 ## Props
-vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
+vue3-video-play 支持众多属性配置
 
-| 名称          |     说明     |  类型   | 可选值 |                默认值                 |
-| ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
-| width         |  播放器宽度  | string  |   -    |                 800px                 |
-| height        |  播放器高度  | string  |   -    |                 450px                 |
-| title         |   视频名称   | string  |   -    |                   -                   |
-| src           |   视频资源   | string  |   -    |                   -                   |
-| color         | 播放器主色调 | string  |   -    |                #409eff                |
-| webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
-| speed |   是否支持快进快退   | boolean |   -    |                 true                 |
-| speedRate     |   倍速配置   |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
-| mirror        |   镜像画面   | boolean |   -    |                 false                 |
-| ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
-| muted         |     静音     | boolean |   -    |                 false                 |
-| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   | boolean |   -    |                 false                 |
-| volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
-| poster        |   视频封面   | string  |   -    |              视频第一帧               |
+| 名称          |       说明       |  类型   | 可选值 |                    默认值                    |
+| ------------- | :--------------: | :-----: | :----: | :------------------------------------------: |
+| width         |    播放器宽度    | string  |   -    |                    800px                     |
+| height        |    播放器高度    | string  |   -    |                    450px                     |
+| title         |     视频名称     | string  |   -    |                      -                       |
+| src           |     视频资源     | string  |   -    |                      -                       |
+| color         |   播放器主色调   | string  |   -    |                   #409eff                    |
+| webFullScreen |     网页全屏     | boolean |   -    |                    false                     |
+| speed         | 是否支持快进快退 | boolean |   -    |                     true                     |
+| speedRate     |     倍速配置     |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
+| mirror        |     镜像画面     | boolean |   -    |                    false                     |
+| ligthOff      |     关灯模式     | boolean |   -    |                    false                     |
+| muted         |       静音       | boolean |   -    |                    false                     |
+| autoPlay      |     自动播放     | boolean |   -    |           false,为true时会自动静音           |
+| loop          |     循环播放     | boolean |   -    |                    false                     |
+| volume        |     默认音量     |   0.3   |  0-1   |                     0.3                      |
+| poster        |     视频封面     | string  |   -    |                  视频第一帧                  |
 
 
 
@@ -242,9 +237,9 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
-| mirrorChange      | 镜像翻转事件 | val |
-| loopChange      | 循环播放开关事件 | val |
-| lightOffChange      | 关灯模式事件 | val |
+| mirrorChange   | 镜像翻转事件       | val   |
+| loopChange     | 循环播放开关事件   | val   |
+| lightOffChange | 关灯模式事件       | val   |
 | loadstart      | 客户端开始请求数据 | event |
 | progress       | 客户端正在请求数据 | event |
 | error          | 请求数据时遇到错误 | event |

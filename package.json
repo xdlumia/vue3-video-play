@@ -32,8 +32,10 @@
     "url": "https://github.com/xdlumia/vue3-video-play/issues"
   },
   "dependencies": {
+    "hls.js": "^1.0.10",
     "throttle-debounce": "^3.0.1",
     "vue": "^3.2.4"
+   
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.4.0",
@@ -47,6 +49,7 @@
     "vite": "^2.5.0",
     "vitepress": "^0.16.1",
     "vitepress-theme-demoblock": "^1.1.1",
+    "vue3-video-play": "^1.2.51",
     "vue-tsc": "^0.2.3"
   },
   "keywords": [

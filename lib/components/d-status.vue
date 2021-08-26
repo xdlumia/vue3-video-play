@@ -2,12 +2,12 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 13:52:52
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-23 17:14:11
+ * @LastEditTime: 2021-08-26 20:27:29
  * @Description: file content
 */
 <template>
     <div class="d-status" v-show="state.handleType || state.isMultiplesPlay">
-        <li class="d-status-info" v-show="state.handleType == 'volume'">
+        <li class="d-flex-center" v-show="state.handleType == 'volume'">
             <d-icon
                 size="18"
                 class="d-status-icon"
@@ -17,7 +17,7 @@
             {{ ~~(state.volume * 100) }}%
         </li>
         <li
-            class="d-status-info"
+            class="d-flex-center"
             v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay"
         >
             <d-icon size="12" icon="icon-play"></d-icon>
@@ -34,7 +34,7 @@ const props = defineProps(['state'])
 </script>
 
 <style scoped lang='less'>
-@import "../style/transition.less";
+@import "../style/base.less";
 .d-status {
     text-align: center;
     font-size: 14px;
@@ -46,11 +46,7 @@ const props = defineProps(['state'])
     display: flex;
     align-items: center;
     color: rgba(255, 255, 255, 0.95);
-    li {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
     .d-status-icon {
         width: 24px !important;
         display: inline-block;

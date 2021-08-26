@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 17:12:33
+ * @LastEditTime: 2021-08-27 07:29:27
  * @Description: file content
 */
 
@@ -70,7 +70,7 @@
       @click="togglePlay"
       @keydown.space="togglePlay"
       @keyup="keypress"
-      @keyup.arrow-left="keydownLeft"
+      @keydown.arrow-left="keydownLeft"
       @keydown.arrow-up.arrow-down="volumeKeydown"
       @keydown="keypress"
       class="d-player-input"
@@ -188,8 +188,9 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { reactive, ref, Ref, nextTick, computed, toRefs, useAttrs } from 'vue'
+import { reactive, ref, Ref, nextTick, computed, onMounted, useAttrs } from 'vue'
 import { debounce } from 'throttle-debounce';
+import Hls2 from 'hls.js';
 import DIcon from '../components/d-icon.vue'
 import DPlayerTop from '../components/d-player-top.vue'
 import DStatus from '../components/d-status.vue' //倍速播放状态
@@ -197,7 +198,6 @@ import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import DSlider from '../components/d-slider.vue' // slider
 import DContextmenu from '../components/d-contextmenu.vue' // slider
-
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile, firstUpperCase } from '../utils/util'
 import { videoEmits, defineProps } from './plugins/index'
 const props = defineProps(defineProps) //props
@@ -230,12 +230,6 @@ const state = reactive({
 
 })
 const compose = (...args) => (value) => args.reverse().reduce((acc, fn) => fn(acc), value);
-const aaa = (cb) => {
-  cb('ev')
-}
-const fn = (ev) => {
-  console.log('fn')
-}
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`
@@ -289,7 +283,6 @@ let attrs = useAttrs()
 for (let emit in attrs) {
   videoEvents[emit] = attrs[emit]
 }
-console.log(videoEvents)
 
 // 把颜色格式化为rgb格式
 const hexToRgbaColor = hexToRgba(state.color)
@@ -314,11 +307,13 @@ const keydownLeft = (ev) => {
   if (!props.speed) return // 如果不支持快进快退s
   state.dVideo.currentTime = state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
   videoEvents.onTimeupdate(state.dVideo);
+  playHandle()
 }
 const keypress = (ev) => {
   ev.preventDefault()
   let pressType = ev.type
   if (ev.key == 'ArrowRight') {
+    playHandle()
     if (pressType == "keyup") {
       clearTimeout(state.longPressTimeout);
       // 如果不支持快进快退 如果关闭快进快退必须在没有长按倍速播放的情况下
@@ -340,8 +335,6 @@ const keypress = (ev) => {
       state.longPressTimeout = setTimeout(() => {
         state.isMultiplesPlay = true;
         state.dVideo.playbackRate = 5;
-        state.playBtnState = 'play'
-        state.dVideo.play();
         state.handleType = 'playbackRate' //操作类型 倍速播放
         clearHandleType() //清空 操作类型
       }, 500)
@@ -446,14 +439,6 @@ const lightOffChange = (val) => {
   // console.log(val)
   emits('lightOffChange', val, state.dVideo)
 }
-// 初始化
-const init = async () => {
-  await nextTick()
-  state.dVideo = refdVideo
-  state.dVideo.load()
-  inputFocusHandle()
-}
-init()
 
 const requestPictureInPictureHandle = () => {
   requestPictureInPicture(state.dVideo)
@@ -462,6 +447,25 @@ const requestPictureInPictureHandle = () => {
 const toggleFullScreenHandle = () => {
   state.fullScreen = toggleFullScreen(refPlayerWrap.value)
 }
+
+onMounted(() => {
+  // 初始化
+  var Hls = new Hls2();
+  console.log(Hls)
+  state.dVideo = refdVideo
+  state.dVideo.load()
+
+  // var src = 'https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8';
+  var src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+  Hls.loadSource(src)
+  Hls.attachMedia(state.dVideo)
+  // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  //   console.log(11)
+
+  // });
+
+  inputFocusHandle()
+})
 defineExpose({
   play: playHandle, //播放
   pause: pauseHandle, //暂停
@@ -469,13 +473,16 @@ defineExpose({
 })
 </script>
 
+
 <style lang="less" scoped>
+@import "../style/reset.less";
+@import "../style/transition.less";
+@import "../style/animate.less";
+@import "../style/base.less";
 .d-player-wrap {
   --primary-color: v-bind(hexToRgbaColor);
   width: v-bind(width);
   height: v-bind(height);
 }
-@import "../style/reset.less";
 @import "../style/vPlayer.less";
-@import "../style/transition.less";
 </style>
