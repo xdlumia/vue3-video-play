@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 18:05:46
+ * @LastEditTime: 2021-08-26 18:36:31
  * @Description: file content
 */
 <template>
@@ -199,6 +199,7 @@ onMounted(() => {
     off(refPlayerWrap, 'contextmenu', contextmenuShow)
     // 开启右键菜单
     on(refPlayerWrap, 'contextmenu', contextmenuShow)
+
 })
 onUnmounted(() => {
     let refPlayerWrap = document.querySelector('#refPlayerWrap')

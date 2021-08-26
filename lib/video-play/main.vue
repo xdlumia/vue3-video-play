@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 17:12:33
+ * @LastEditTime: 2021-08-26 18:30:14
  * @Description: file content
 */
 
@@ -51,7 +51,7 @@
     <div class="d-player-state" v-if="!isMobile">
       <transition name="d-scale-out">
         <!-- 播放按钮 -->
-        <div class="d-play-btn" v-show="state.playBtnState == 'play'">
+        <div class="d-play-btn" v-show="state.loadStateType == 'pause'">
           <d-icon icon="icon-play" :size="40"></d-icon>
         </div>
       </transition>
@@ -230,12 +230,7 @@ const state = reactive({
 
 })
 const compose = (...args) => (value) => args.reverse().reduce((acc, fn) => fn(acc), value);
-const aaa = (cb) => {
-  cb('ev')
-}
-const fn = (ev) => {
-  console.log('fn')
-}
+
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`
