@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 18:02:05
+ * @LastEditTime: 2021-08-26 18:05:46
  * @Description: file content
 */
 <template>
@@ -152,10 +152,12 @@ const contextmenuShow = (ev) => {
     let refPlayerWrap = document.querySelector('#refPlayerWrap')
     let clientWidth = refPlayerWrap.clientWidth
     let clientHeight = refPlayerWrap.clientHeight
-    state.mouseX = ev.clientX - refPlayerWrap.getBoundingClientRect().left
-    if ((clientWidth - state.mouseX) < 130) {
-        state.mouseX = state.mouseX + (clientWidth - state.mouseX - 130)
+    let mouseX = ev.clientX - refPlayerWrap.getBoundingClientRect().left
+    if ((clientWidth - mouseX) < 130) {
+        state.mouseX = mouseX + (clientWidth - mouseX - 130)
         // state.mouseX = state.mouseX - (clientWidth - state.mouseX)
+    } else {
+        state.mouseX = mouseX
     }
 
     state.mouseY = ev.clientY - refPlayerWrap.getBoundingClientRect().top
