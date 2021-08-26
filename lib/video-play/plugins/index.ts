@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 23:19:33
+ * @LastEditTime: 2021-08-26 10:12:25
  * @Description: file content
  */
 export const videoEmits = [
@@ -10,14 +10,16 @@ export const videoEmits = [
     'play',
     'pause',
     'playing',
-    'error',
-    'stalled',
+    'seeking',
+    'seeked',
     'waiting',
     'durationchange',
     'progress',
     'canplay',
     'timeupdate',
     'ended',
+    'error',
+    'stalled',
 
 ]
 export const defineProps = {

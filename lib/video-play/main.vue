@@ -2,19 +2,20 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 07:56:54
+ * @LastEditTime: 2021-08-26 17:12:33
  * @Description: file content
 */
 
 <template>
   <div
     ref="refPlayerWrap"
+    id="refPlayerWrap"
     class="d-player-wrap"
     @mousemove="mouseMovewWarp"
     :class="{
       'web-full-screen': state.webFullScreen,
       'is-lightoff': state.lightOff,
-      'd-player-wrap-hover': state.playBtnState == 'pause' || state.isVideoHovering
+      'd-player-wrap-hover': state.playBtnState == 'play' || state.isVideoHovering
     }"
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
@@ -22,6 +23,7 @@
       <video
         ref="refdVideo"
         class="d-player-video-main"
+        id="dPlayerVideoMain"
         :controls="isMobile && state.speed ? true : false"
         :class="{ 'video-mirror': state.mirror }"
         :webkit-playsinline="props.playsinline"
@@ -39,13 +41,12 @@
     </div>
     <!-- 缓冲动画 -->
     <!-- <d-waitingloading text="正在缓冲..." v-show="state.waitingLoading" /> -->
-    <!-- 预加载动画 -->
-    <d-loading :loadType="state.loadStateType" />
+
     <transition name="d-fade-in">
       <div class="d-player-lightoff" v-show="state.lightOff"></div>
     </transition>
     <!-- 全屏模式&&鼠标滑过 顶部显示的内容 -->
-    <d-player-top :title="props.title" v-if="state.fullScreen && state.isVideoHovering"></d-player-top>
+    <d-player-top :title="props.title" v-if="state.fullScreen"></d-player-top>
     <!-- 状态栏 移动端不显示-->
     <div class="d-player-state" v-if="!isMobile">
       <transition name="d-scale-out">
@@ -64,6 +65,8 @@
       readonly="readonly"
       ref="refInput"
       @dblclick="toggleFullScreenHandle"
+      @keyup.f="toggleFullScreenHandle"
+      @keyup.esc="state.webFullScreen = false"
       @click="togglePlay"
       @keydown.space="togglePlay"
       @keyup="keypress"
@@ -73,7 +76,9 @@
       class="d-player-input"
       maxlength="0"
     />
-
+    <!-- 预加载动画 -->
+    <d-loading :loadType="state.loadStateType" />
+    <d-contextmenu />
     <!-- PC端播放按钮控制器  移动端调用自带控制器-->
     <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
       <div class="d-control-progress">
@@ -183,7 +188,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { reactive, ref, nextTick, computed } from 'vue'
+import { reactive, ref, Ref, nextTick, computed, toRefs, useAttrs } from 'vue'
 import { debounce } from 'throttle-debounce';
 import DIcon from '../components/d-icon.vue'
 import DPlayerTop from '../components/d-player-top.vue'
@@ -191,7 +196,8 @@ import DStatus from '../components/d-status.vue' //倍速播放状态
 import DSwitch from '../components/d-switch.vue' //switch
 import DLoading from '../components/d-loading.vue' //loading
 import DSlider from '../components/d-slider.vue' // slider
-import { on, off } from '../utils/dom'
+import DContextmenu from '../components/d-contextmenu.vue' // slider
+
 import { hexToRgba, timeFormat, requestPictureInPicture, toggleFullScreen, isMobile, firstUpperCase } from '../utils/util'
 import { videoEmits, defineProps } from './plugins/index'
 const props = defineProps(defineProps) //props
@@ -223,72 +229,67 @@ const state = reactive({
   progressCursorTime: '00:00:00', //进度条光标时间
 
 })
-var compose = function (f, g) {
-  return function () {
-
-    return f(g());
-  };
-};
+const compose = (...args) => (value) => args.reverse().reduce((acc, fn) => fn(acc), value);
+const aaa = (cb) => {
+  cb('ev')
+}
+const fn = (ev) => {
+  console.log('fn')
+}
 // 收集video事件
-const videoEvents = {}
-videoEmits.forEach(emit => {
+const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`
-  videoEvents[name] = (ev) => {
-    // 当前状态
+  events[name] = (ev) => {
     state.loadStateType = emit
     emits(emit, ev)
   }
-  // videoEvents['onPlay']
+  return events
+}, {})
 
-  videoEvents['onPlay'] = (ev) => {
-    emits(emit, 'play')
-  }
-  videoEvents['onPause'] = (ev) => {
-    emits(emit, 'pause')
-  }
-  // // 播放结束
-  videoEvents['onEnded'] = (ev) => {
-    state.loadStateType = 'ended' //当前是播放结束状态
-    state.playBtnState = 'replay' //此时的控制按钮应该显示重新播放
-    emits(emit, ev)
-    // console.log('播放结束')
-  }
 
-  // 已获得播放时长
-  videoEvents['onDurationchanged'] = (ev) => {
-    emits('durationchange', ev)
-    state.totalTime = timeFormat(ev.target.duration);
-  }
-
-  // 缓冲下载中
-  videoEvents['onProgress'] = (ev) => {
-    console.log("缓冲中...");
-    emits(emit, ev)
-    let duration = ev.target.duration; // 媒体总长
-    let length = ev.target.buffered.length;
-    let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
-    state.preloadBar = end / duration //缓冲比例
-  }
-
-  videoEvents['onCanplay'] = (ev) => {
-    state.loadStateType = 'canplay'
-    // console.log("可以播放");
-    emits(emit, ev)
-    // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
-    if (state.autoPlay) { //如果是自动播放 则显示暂停按钮
-      state.dVideo.play();
-      state.playBtnState = 'pause'
-    }
+// 播放结束// 合并函数
+videoEvents['onEnded'] = compose(videoEvents['onEnded'], () => {
+  state.playBtnState = 'replay' //此时的控制按钮应该显示重新播放
+})
+// 可以播放
+videoEvents['onCanplay'] = compose(videoEvents['onCanplay'], () => {
+  if (state.autoPlay) { //如果是自动播放 则显示暂停按钮
+    state.dVideo.play();
+    state.playBtnState = 'pause'
   }
 })
+// 资源长度改变
+videoEvents['onDurationchange'] = (ev) => {
+  emits('durationchange', ev)
+  state.totalTime = timeFormat(ev.target.duration);
+}
+
+// 缓冲下载中
+videoEvents['onProgress'] = (ev) => {
+  console.log("缓冲中...");
+  emits('progress', ev)
+  let duration = ev.target.duration; // 媒体总长
+  let length = ev.target.buffered.length;
+  let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
+  state.preloadBar = end / duration //缓冲比例
+}
+
+
+// 当前播放进度
+videoEvents['onTimeupdate'] = (ev) => {
+  emits('timeupdate', ev)
+  let duration = ev.duration || ev.target.duration || 0; // 媒体总长
+  let currentTime = ev.currentTime || ev.target.currentTime; // 当前媒体播放长度
+  state.playProgress = currentTime / duration //播放进度比例
+  state.currentTime = timeFormat(currentTime);
+}
+
+// 获取用户自定义事件
+let attrs = useAttrs()
+for (let emit in attrs) {
+  videoEvents[emit] = attrs[emit]
+}
 console.log(videoEvents)
-// const videoEvents = videoEmits.reduce((obj, emit) => {
-//   let name = `on${firstUpperCase(emit)}`
-//   obj[name] = (ev) => {
-//     emits(emit, ev)
-//   }
-//   return obj
-// }, {})
 
 // 把颜色格式化为rgb格式
 const hexToRgbaColor = hexToRgba(state.color)
@@ -312,7 +313,7 @@ const volumeKeydown = (ev) => {
 const keydownLeft = (ev) => {
   if (!props.speed) return // 如果不支持快进快退s
   state.dVideo.currentTime = state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
-  timeupdate(state.dVideo);
+  videoEvents.onTimeupdate(state.dVideo);
 }
 const keypress = (ev) => {
   ev.preventDefault()
@@ -328,7 +329,7 @@ const keypress = (ev) => {
       } else {
         // 进度加10s
         state.dVideo.currentTime = state.dVideo.currentTime + 10;
-        timeupdate(state.dVideo);
+        videoEvents.onTimeupdate(state.dVideo);
       }
       // 如果长按5倍速播放
     } else if (pressType == "keydown") {
@@ -389,14 +390,7 @@ const togglePlay = (ev) => {
 
 
 
-// 当前播放进度
-const timeupdate = (ev) => {
-  emits('timeupdate', ev)
-  let duration = ev.duration || ev.target.duration || 0; // 媒体总长
-  let currentTime = ev.currentTime || ev.target.currentTime; // 当前媒体播放长度
-  state.playProgress = currentTime / duration //播放进度比例
-  state.currentTime = timeFormat(currentTime);
-}
+
 // 静音事件
 const mutedHandler = () => {
   state.muted = !state.muted;
@@ -408,7 +402,6 @@ const mutedHandler = () => {
 
 //进度条事件
 const progressBarChange = (ev: Event, val) => {
-  // emits('timeupdate', ev)
   let duration = state.dVideo.duration || state.dVideo.target.duration; // 媒体总长
   state.dVideo.currentTime = duration * val
   if (state.playBtnState == 'play') {
@@ -467,12 +460,7 @@ const requestPictureInPictureHandle = () => {
 }
 // 全屏按钮
 const toggleFullScreenHandle = () => {
-  toggleFullScreen(refPlayerWrap.value)
-  if (!document.webkitIsFullScreen) {
-    state.fullScreen = true
-  } else {
-    state.fullScreen = false
-  }
+  state.fullScreen = toggleFullScreen(refPlayerWrap.value)
 }
 defineExpose({
   play: playHandle, //播放

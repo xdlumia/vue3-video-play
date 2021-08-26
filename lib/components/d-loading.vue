@@ -2,11 +2,11 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 07:58:35
+ * @LastEditTime: 2021-08-26 10:34:47
  * @Description: file content
 */
 <template>
-    <div class="d-loading" :style="loadingStyle" v-show="loadType != 'canplay'">
+    <div class="d-loading" :style="loadingStyle" v-show="LOAD_TYPE.includes(loadType)">
         <div>
             <!-- 初始化加载 -->
             <span v-if="loadType == 'loadstart'">
@@ -36,9 +36,9 @@
 
 <script setup lang='ts'>
 import { getCurrentInstance, reactive, computed, } from 'vue'
-
 import DIcon from './d-icon.vue'
 const { proxy } = getCurrentInstance()
+const LOAD_TYPE = ['loadstart', 'waiting', 'ended', 'error', 'stalled']
 const props = defineProps({
     loadType: String,
     text: {

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 12:50:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 22:39:56
+ * @LastEditTime: 2021-08-26 09:50:44
  * @Description: file content
  */
 
@@ -42,6 +42,7 @@ export const toggleFullScreen = (el) => {
         //退出全屏状态要使用document
         exitFun.call(documentEL);
     }
+    return !isFullscreen
 
 }
 // 画中画模式

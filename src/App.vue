@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 23:21:26
+ * @LastEditTime: 2021-08-26 10:53:14
  * @Description: file content
 */
 <template>
@@ -14,6 +14,8 @@
     <videoPlay
       @playing="clickHandle"
       @play="play"
+      @pause="pause"
+      @ended="ended"
       ref="video"
       style="display:inline-block; width:100%"
       v-bind="options"
@@ -45,6 +47,12 @@ const options = reactive({
 const video = ref(null)
 const play = (val, ev) => {
   console.log('APP 开始播放')
+}
+const pause = (val, ev) => {
+  console.log('APP 暂停播放')
+}
+const ended = (val, ev) => {
+  console.log('APP ended')
 }
 // video.value.play()
 const clickHandle = (val, ev) => {
