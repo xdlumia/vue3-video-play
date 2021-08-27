@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 10:45:30
+ * @LastEditTime: 2021-08-27 10:47:08
  * @Description: file content
 -->
 
@@ -18,7 +18,7 @@
 
 在使用的时候遇到任何问题 欢迎各位大佬提[issue](https://github.com/xdlumia/vue3-video-play/issues)或者扫码加我微信我拉你入群
 
-![wechat](https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/wechat.jpg)
+![wechat](https://xdlumia.gitee.io/lib/images/wechat.jpeg)
 
 <span style="color:#cb3837"> **必须使用 vue@3.2.4及以上版本**</span>
 
