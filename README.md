@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 10:47:08
+ * @LastEditTime: 2021-08-27 10:53:12
  * @Description: file content
 -->
 
@@ -26,12 +26,12 @@
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
 
-#### 即将支持
+## 即将支持 🎉
 
 - 支持 hls 直播视频
 - 支持弹幕
 
-#### 近期更新 v1.2.52 (2021-08-27)
+## 近期更新 v1.2.52 (2021-08-27) 🎉
 
 - 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
