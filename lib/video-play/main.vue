@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 12:28:27
+ * @LastEditTime: 2021-08-27 17:28:35
  * @Description: file content
 */
 
@@ -245,7 +245,7 @@ const emits = defineEmits([
   "loopChange",
   "lightOffChange",
 ]); //emits
-const Hls = new Hls2();
+const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
 const refPlayerWrap: Ref<HTMLElement> = ref(null); //wrap
 const refdVideo: Ref<HTMLElement> = ref(null); // 视频播放器
 const refPlayerControl: Ref<HTMLElement> = ref(null); //播放器控制器
@@ -486,22 +486,21 @@ const toggleFullScreenHandle = () => {
 
 onMounted(() => {
   // 初始化
-
   state.dVideo = refdVideo;
   state.dVideo.load();
-
   // var src =
   //   "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
-  var src =
-    "https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8";
-  Hls.loadSource(src);
-  Hls.attachMedia(state.dVideo);
-  console.log(Hls);
-  console.log(Hls.on);
-  console.log(111, state.dVideo.webkitDecodedFrameCount);
-  // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  //   console.log(11)
+  var src = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+  if (Hls2.isSupported()) {
+    Hls.loadSource(src);
+    Hls.attachMedia(state.dVideo);
+    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e) => {
+      console.log(Hls2.isSupported());
+    });
+  }
 
+  // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  //   console.log(11);
   // });
 
   inputFocusHandle();
