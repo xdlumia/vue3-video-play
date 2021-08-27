@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 22:07:31
+ * @LastEditTime: 2021-08-28 07:25:30
  * @Description: file content
 */
 
@@ -38,9 +38,7 @@
         height="100%"
         :src="props.src"
         poster="https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg"
-      >
-        您的浏览器不支持Video标签。
-      </video>
+      >您的浏览器不支持Video标签。</video>
     </div>
     <!-- 缓冲动画 -->
     <!-- <d-waitingloading text="正在缓冲..." v-show="state.waitingLoading" /> -->
@@ -83,11 +81,7 @@
     <d-loading :loadType="state.loadStateType" />
     <d-contextmenu />
     <!-- PC端播放按钮控制器  移动端调用自带控制器-->
-    <div
-      class="d-player-control"
-      ref="refPlayerControl"
-      v-if="!isMobile && state.control"
-    >
+    <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
       <div class="d-control-progress">
         <d-slider
           class="d-progress-bar"
@@ -103,11 +97,7 @@
       <div class="d-control-tool" @click="inputFocusHandle">
         <div class="d-tool-bar">
           <div class="d-tool-item">
-            <d-icon
-              @click="togglePlay"
-              size="24"
-              :icon="`icon-${state.playBtnState}`"
-            ></d-icon>
+            <d-icon @click="togglePlay" size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
           </div>
           <div class="d-tool-item d-tool-time">
             <span>{{ state.currentTime }}</span>
@@ -125,9 +115,7 @@
                   @click="playbackRate(row)"
                   v-for="row of state.speedRate"
                   :key="row"
-                >
-                  {{ row }}x
-                </li>
+                >{{ row }}x</li>
               </ul>
             </div>
           </div>
@@ -135,9 +123,7 @@
           <div class="d-tool-item">
             <div class="d-tool-item-main volume-box" style="width: 52px">
               <div class="volume-main" :class="{ 'is-muted': state.muted }">
-                <span class="volume-text-size"
-                  >{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span
-                >
+                <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
                 <!-- @change 如果修改音量则取消静音 -->
                 <d-slider
                   @change="state.muted = false"
@@ -151,12 +137,11 @@
             <span @click="mutedHandler" style="display: flex">
               <d-icon
                 size="20"
-                :icon="`icon-volume-${
-                  state.volume == 0 || state.muted
-                    ? 'mute'
-                    : state.volume > 0.5
-                    ? 'up'
-                    : 'down'
+                :icon="`icon-volume-${state.volume == 0 || state.muted
+                ? 'mute'
+                : state.volume > 0.5
+                  ? 'up'
+                  : 'down'
                 }`"
               ></d-icon>
             </span>
@@ -187,10 +172,7 @@
             <div class="d-tool-item-main">画中画</div>
           </div>
           <!-- 画中画 -->
-          <div
-            class="d-tool-item"
-            @click="state.webFullScreen = !state.webFullScreen"
-          >
+          <div class="d-tool-item" @click="state.webFullScreen = !state.webFullScreen">
             <d-icon size="20" icon="icon-web-screen"></d-icon>
             <div class="d-tool-item-main">网页全屏</div>
           </div>
@@ -215,8 +197,6 @@ import {
   reactive,
   ref,
   Ref,
-  nextTick,
-  computed,
   onMounted,
   useAttrs,
 } from "vue";
@@ -273,8 +253,8 @@ const state = reactive({
 });
 const compose =
   (...args) =>
-  (value) =>
-    args.reverse().reduce((acc, fn) => fn(acc), value);
+    (value) =>
+      args.reverse().reduce((acc, fn) => fn(acc), value);
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`;
@@ -309,8 +289,11 @@ videoEvents["onProgress"] = (ev) => {
   console.log("缓冲中...");
   emits("progress", ev);
   let duration = ev.target.duration; // 媒体总长
-  let length = ev.target.buffered.length;
+  let length = ev.target.buffered;
   let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
+  console.log(ev.target.buffered.start(0))
+  console.log(ev.target.buffered)
+
   state.preloadBar = end / duration; //缓冲比例
 };
 
@@ -495,15 +478,15 @@ onMounted(() => {
   // 初始化
   state.dVideo = refdVideo;
   state.dVideo.load();
-  // var src =
-  //   "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
-  var src = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+  var src =
+    "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
+  // var src = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
   if (Hls2.isSupported()) {
     Hls.loadSource(src);
     Hls.attachMedia(state.dVideo);
-    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e, media) => {});
+    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e, media) => { });
   }
-  state.dVideo.src = "http://vjs.zencdn.net/v/oceans.mp4";
+  // state.dVideo.src = "http://vjs.zencdn.net/v/oceans.mp4";
   // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   //   console.log(11);
   // });

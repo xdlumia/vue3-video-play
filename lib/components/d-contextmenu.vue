@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 09:25:35
+ * @LastEditTime: 2021-08-28 07:14:42
  * @Description: file content
 */
 <template>
@@ -15,67 +15,37 @@
             <i @click="state.dialogType = false" class="icon icon-close">X</i>
           </h5>
           <!-- 快捷键说明 -->
-          <ul
-            class="d-player-hotkey-panel"
-            v-show="state.dialogType == 'hotkey'"
-          >
-            <li
-              class="d-player-hotkey-panel-item"
-              v-for="item of hotkeyList"
-              :key="item.key"
-            >
+          <ul class="d-player-hotkey-panel" v-show="state.dialogType == 'hotkey'">
+            <li class="d-player-hotkey-panel-item" v-for="item of hotkeyList" :key="item.key">
               <span>{{ item.key }}</span>
               <span>{{ item.label }}</span>
             </li>
           </ul>
           <!-- 色彩调整 -->
-          <ul
-            class="d-player-filter-panel"
-            v-show="state.dialogType == 'filter'"
-          >
+          <ul class="d-player-filter-panel" v-show="state.dialogType == 'filter'">
             <li class="d-player-filter-panel-item">
               <span>饱和度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.saturate"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.saturate"></d-slider>
               <span>{{ Math.round(filter.saturate * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>亮度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.brightness"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.brightness"></d-slider>
               <span>{{ Math.round(filter.brightness * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>对比度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.contrast"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.contrast"></d-slider>
               <span>{{ Math.round(filter.contrast * 255) }}</span>
             </li>
-            <span
-              @click="filterReset"
-              title="重置"
-              aria-label="重置"
-              class="d-player-filter-reset"
-              >重置</span
-            >
+            <span @click="filterReset" title="重置" aria-label="重置" class="d-player-filter-reset">重置</span>
           </ul>
         </div>
       </div>
     </transition>
     <div class="d-player-contextmenu" v-if="state.show">
       <ul class="d-player-contextmenu-body" :style="menuStyle">
-        <li :dplayerKeyCode="item.key" v-for="item of menuList" :key="item.key">
-          {{ item.label }}
-        </li>
+        <li :dplayerKeyCode="item.key" v-for="item of menuList" :key="item.key">{{ item.label }}</li>
       </ul>
       <input class="d-player-copyText" />
     </div>
@@ -84,8 +54,6 @@
 
 <script setup lang='ts'>
 import {
-  ref,
-  Ref,
   watch,
   reactive,
   onMounted,

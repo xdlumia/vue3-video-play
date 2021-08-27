@@ -1,5 +1,5 @@
 Arguments: 
-  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js
+  c:\program files\nodejs\node.exe c:\Program Files (x86)\Yarn\bin\yarn.js add vue3-video-paly
 
 PATH: 
   c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files (x86)\yarn\bin\;c:\program files\git\cmd;c:\program files\nodejs\;c:\program files\nvidia corporation\nvidia nvdlisr;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\wxd\AppData\Local\Microsoft\WindowsApps;C:\Users\wxd\AppData\Local\Yarn\bin;;C:\Users\wxd\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wxd\AppData\Roaming\npm;C:\Users\wxd\AppData\Local\Programs\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
@@ -14,23 +14,23 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.2.5.tgz: Request failed "404 Not Found"
-      at ResponseError.ExtendableBuiltin (c:\Program Files (x86)\Yarn\lib\cli.js:696:66)
-      at new ResponseError (c:\Program Files (x86)\Yarn\lib\cli.js:802:124)
-      at Request.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:66126:16)
+  Error: https://registry.yarnpkg.com/vue3-video-paly: Not found
+      at Request.params.callback [as _callback] (c:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
+      at Request.self.callback (c:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
       at Request.emit (events.js:315:20)
-      at Request.module.exports.Request.onRequestResponse (c:\Program Files (x86)\Yarn\lib\cli.js:141542:10)
-      at ClientRequest.emit (events.js:315:20)
-      at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:596:27)
-      at HTTPParser.parserOnHeadersComplete (_http_common.js:119:17)
-      at TLSSocket.socketOnData (_http_client.js:469:22)
-      at TLSSocket.emit (events.js:315:20)
+      at Request.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (c:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1221:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
     "name": "vue3-video-play",
-    "version": "1.2.5",
-    "description": "vue3视频播放器",
+    "version": "1.2.52",
+    "description": "hls.js player component for Vue3",
     "files": [
       "dist",
       "lib"
@@ -61,8 +61,9 @@ npm manifest:
       "url": "https://github.com/xdlumia/vue3-video-play/issues"
     },
     "dependencies": {
+      "hls.js": "^1.0.10",
       "throttle-debounce": "^3.0.1",
-      "vue": "^3.2.4"
+      "vue": "^3.2.2"
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.4.0",
@@ -77,15 +78,15 @@ npm manifest:
       "vitepress": "^0.16.1",
       "vitepress-theme-demoblock": "^1.1.1",
       "vue-tsc": "^0.2.3",
-      "vue3-video-play": "^1.2.5"
+      "vue3-video-play": "^1.2.52"
     },
     "keywords": [
       "vue 3",
       "vue3",
       "vue",
-      "background",
-      "vue-video-player",
       "vue3-video-play",
+      "hlsjs",
+      "hls.js",
       "vue video player",
       "vue3 video player",
       "video player video",
@@ -218,15 +219,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
     integrity sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==
   
-  "@babel/parser@^7.12.0", "@babel/parser@^7.13.9", "@babel/parser@^7.6.0", "@babel/parser@^7.9.6":
+  "@babel/parser@^7.12.0", "@babel/parser@^7.13.9", "@babel/parser@^7.15.0", "@babel/parser@^7.6.0", "@babel/parser@^7.9.6":
     version "7.15.3"
-    resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.15.3.tgz#3416d9bea748052cfcb63dbcc27368105b1ed862"
-    integrity sha512-O0L6v/HvqbdJawj0iBEfVQMc3/6WP+AeOsovsIgBFyJaG+W2w7eqvZB7puddATmWuARlm1SX7DwxJ/JJUnDpEA==
+    resolved "https://registry.nlark.com/@babel/parser/download/@babel/parser-7.15.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Fparser%2Fdownload%2F%40babel%2Fparser-7.15.3.tgz#3416d9bea748052cfcb63dbcc27368105b1ed862"
+    integrity sha1-NBbZvqdIBSz8tj28wnNoEFse2GI=
   
-  "@babel/types@^7.12.0", "@babel/types@^7.13.0", "@babel/types@^7.6.1", "@babel/types@^7.9.6":
+  "@babel/types@^7.12.0", "@babel/types@^7.13.0", "@babel/types@^7.15.0", "@babel/types@^7.6.1", "@babel/types@^7.9.6":
     version "7.15.0"
-    resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.15.0.tgz#61af11f2286c4e9c69ca8deb5f4375a73c72dcbd"
-    integrity sha512-OBvfqnllOIdX4ojTHpwZbpvz4j3EWyjkZEdmjH0/cgsd6QOdSgU8rLSk6ard/pcW7rlmjdVSX/AWOaORR1uNOQ==
+    resolved "https://registry.nlark.com/@babel/types/download/@babel/types-7.15.0.tgz#61af11f2286c4e9c69ca8deb5f4375a73c72dcbd"
+    integrity sha1-Ya8R8ihsTpxpyo3rX0N1pzxy3L0=
     dependencies:
       "@babel/helper-validator-identifier" "^7.14.9"
       to-fast-properties "^2.0.0"
@@ -407,6 +408,17 @@ Lockfile:
       estree-walker "^2.0.1"
       source-map "^0.6.1"
   
+  "@vue/compiler-core@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/compiler-core/download/@vue/compiler-core-3.2.6.tgz?cache=0&sync_timestamp=1629824327277&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fcompiler-core%2Fdownload%2F%40vue%2Fcompiler-core-3.2.6.tgz#7162bb0670273f04566af0d353009187ab577915"
+    integrity sha1-cWK7BnAnPwRWavDTUwCRh6tXeRU=
+    dependencies:
+      "@babel/parser" "^7.15.0"
+      "@babel/types" "^7.15.0"
+      "@vue/shared" "3.2.6"
+      estree-walker "^2.0.2"
+      source-map "^0.6.1"
+  
   "@vue/compiler-dom@3.2.4", "@vue/compiler-dom@^3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.4.tgz#3a43de243eba127abbe57e796a0b969d2df78c08"
@@ -414,6 +426,14 @@ Lockfile:
     dependencies:
       "@vue/compiler-core" "3.2.4"
       "@vue/shared" "3.2.4"
+  
+  "@vue/compiler-dom@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/compiler-dom/download/@vue/compiler-dom-3.2.6.tgz?cache=0&sync_timestamp=1629824326003&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fcompiler-dom%2Fdownload%2F%40vue%2Fcompiler-dom-3.2.6.tgz#3764d7fe1a696e39fb2a3c9d638da0749e369b2d"
+    integrity sha1-N2TX/hppbjn7KjydY42gdJ42my0=
+    dependencies:
+      "@vue/compiler-core" "3.2.6"
+      "@vue/shared" "3.2.6"
   
   "@vue/compiler-sfc@^3.2.1", "@vue/compiler-sfc@^3.2.2", "@vue/compiler-sfc@^3.2.4":
     version "3.2.4"
@@ -453,6 +473,13 @@ Lockfile:
     dependencies:
       "@vue/shared" "3.2.4"
   
+  "@vue/reactivity@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/reactivity/download/@vue/reactivity-3.2.6.tgz?cache=0&sync_timestamp=1629824924140&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Freactivity%2Fdownload%2F%40vue%2Freactivity-3.2.6.tgz#b8993fa6f48545178e588e25a9c9431a1c1b7d50"
+    integrity sha1-uJk/pvSFRReOWI4lqclDGhwbfVA=
+    dependencies:
+      "@vue/shared" "3.2.6"
+  
   "@vue/runtime-core@3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.4.tgz#da5dde3dc1e48df99dd31ea9a972f5c02acdc3f5"
@@ -461,6 +488,14 @@ Lockfile:
       "@vue/reactivity" "3.2.4"
       "@vue/shared" "3.2.4"
   
+  "@vue/runtime-core@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/runtime-core/download/@vue/runtime-core-3.2.6.tgz?cache=0&sync_timestamp=1629824921272&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fruntime-core%2Fdownload%2F%40vue%2Fruntime-core-3.2.6.tgz#376baeef7fe02a62377d46d0d0a8ab9510db1d8e"
+    integrity sha1-N2uu73/gKmI3fUbQ0KirlRDbHY4=
+    dependencies:
+      "@vue/reactivity" "3.2.6"
+      "@vue/shared" "3.2.6"
+  
   "@vue/runtime-dom@3.2.4":
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.4.tgz#1025595f2ae99a12fe0e1e6bce8df6761efec24b"
@@ -468,6 +503,15 @@ Lockfile:
     dependencies:
       "@vue/runtime-core" "3.2.4"
       "@vue/shared" "3.2.4"
+      csstype "^2.6.8"
+  
+  "@vue/runtime-dom@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/runtime-dom/download/@vue/runtime-dom-3.2.6.tgz?cache=0&sync_timestamp=1629824925767&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fruntime-dom%2Fdownload%2F%40vue%2Fruntime-dom-3.2.6.tgz#0f74dbca84d56c222fbfbd53415b260386859a3b"
+    integrity sha1-D3TbyoTVbCIvv71TQVsmA4aFmjs=
+    dependencies:
+      "@vue/runtime-core" "3.2.6"
+      "@vue/shared" "3.2.6"
       csstype "^2.6.8"
   
   "@vue/server-renderer@^3.2.1":
@@ -482,6 +526,11 @@ Lockfile:
     version "3.2.4"
     resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.4.tgz#ba2a09527afff27b28d08f921b4a597e9504ca7a"
     integrity sha512-j2j1MRmjalVKr3YBTxl/BClSIc8UQ8NnPpLYclxerK65JIowI4O7n8O8lElveEtEoHxy1d7BelPUDI0Q4bumqg==
+  
+  "@vue/shared@3.2.6":
+    version "3.2.6"
+    resolved "https://registry.nlark.com/@vue/shared/download/@vue/shared-3.2.6.tgz?cache=0&sync_timestamp=1629824947203&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.2.6.tgz#2c22bae88fe2b7b59fa68a9c9c4cd60bae2c1794"
+    integrity sha1-LCK66I/it7WfpoqcnEzWC64sF5Q=
   
   accepts@~1.3.5:
     version "1.3.7"
@@ -858,10 +907,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
     integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
   
-  estree-walker@^2.0.1:
+  estree-walker@^2.0.1, estree-walker@^2.0.2:
     version "2.0.2"
-    resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
-    integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
+    resolved "https://registry.nlark.com/estree-walker/download/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
+    integrity sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=
   
   extend-shallow@^2.0.1:
     version "2.0.1"
@@ -1014,6 +1063,11 @@ Lockfile:
     version "10.7.3"
     resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
     integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
+  
+  hls.js@^1.0.10:
+    version "1.0.10"
+    resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.0.10.tgz#2626c19e0a32904c1915a842c591f9b0a9f5066b"
+    integrity sha512-P+o/wjGJsnqwdXXYfWvopOceXEXFV0H8vs/T+ApsscP/GlpUtdIRWie7qc+jbml95ThjE6+FVci9VGaD51r/6Q==
   
   htmlparser2@^6.1.0:
     version "6.1.0"
@@ -2144,10 +2198,10 @@ Lockfile:
     dependencies:
       vscode-vue-languageservice "^0.27.0"
   
-  vue3-video-play@^1.2.5:
-    version "1.2.5"
-    resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.2.5.tgz#48c4233e4b092bfd8bf44121f41ec07552199106"
-    integrity sha512-tcAIYV6v/1dk9TcSr57hsQwBblHhD2fUep7XZGeVXq9Lv+8BHLlX66guGqAlxkBX05fAO4dPbwmgdlXFDox/EA==
+  vue3-video-play@^1.2.51:
+    version "1.2.51"
+    resolved "https://registry.nlark.com/vue3-video-play/download/vue3-video-play-1.2.51.tgz#1ed77d231d4179212477567e6792bf47bf5774b8"
+    integrity sha1-Htd9Ix1BeSEkd1Z+Z5K/R79XdLg=
     dependencies:
       throttle-debounce "^3.0.1"
       vue "^3.2.4"
@@ -2160,6 +2214,15 @@ Lockfile:
       "@vue/compiler-dom" "3.2.4"
       "@vue/runtime-dom" "3.2.4"
       "@vue/shared" "3.2.4"
+  
+  vue@^3.2.2:
+    version "3.2.6"
+    resolved "https://registry.nlark.com/vue/download/vue-3.2.6.tgz?cache=0&sync_timestamp=1629824252933&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-3.2.6.tgz#c71445078751f458648fd8fb3a2da975507d03d2"
+    integrity sha1-xxRFB4dR9Fhkj9j7Oi2pdVB9A9I=
+    dependencies:
+      "@vue/compiler-dom" "3.2.6"
+      "@vue/runtime-dom" "3.2.6"
+      "@vue/shared" "3.2.6"
   
   wcwidth@^1.0.1:
     version "1.0.1"
