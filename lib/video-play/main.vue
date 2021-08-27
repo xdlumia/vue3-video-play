@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 09:18:51
+ * @LastEditTime: 2021-08-27 12:28:27
  * @Description: file content
 */
 
@@ -221,7 +221,7 @@ import {
   useAttrs,
 } from "vue";
 import { debounce } from "throttle-debounce";
-// import Hls2 from "hls.js";
+import Hls2 from "hls.js";
 import DIcon from "../components/d-icon.vue";
 import DPlayerTop from "../components/d-player-top.vue";
 import DStatus from "../components/d-status.vue"; //倍速播放状态
@@ -245,7 +245,7 @@ const emits = defineEmits([
   "loopChange",
   "lightOffChange",
 ]); //emits
-
+const Hls = new Hls2();
 const refPlayerWrap: Ref<HTMLElement> = ref(null); //wrap
 const refdVideo: Ref<HTMLElement> = ref(null); // 视频播放器
 const refPlayerControl: Ref<HTMLElement> = ref(null); //播放器控制器
@@ -486,15 +486,19 @@ const toggleFullScreenHandle = () => {
 
 onMounted(() => {
   // 初始化
-  // var Hls = new Hls2();
-  // console.log(Hls)
+
   state.dVideo = refdVideo;
   state.dVideo.load();
 
-  // var src = 'https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8';
-  // var src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-  // Hls.loadSource(src)
-  // Hls.attachMedia(state.dVideo)
+  // var src =
+  //   "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
+  var src =
+    "https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8";
+  Hls.loadSource(src);
+  Hls.attachMedia(state.dVideo);
+  console.log(Hls);
+  console.log(Hls.on);
+  console.log(111, state.dVideo.webkitDecodedFrameCount);
   // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   //   console.log(11)
 
