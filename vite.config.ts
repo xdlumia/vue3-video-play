@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 10:25:40
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 17:13:07
+ * @LastEditTime: 2021-08-27 09:46:19
  * @Description: file content
  */
 const path = require('path')
@@ -31,6 +31,7 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    }
+    },
+    // hmr: { overlay: false }
   }
 })
