@@ -1,6 +1,6 @@
 {
   "name": "vue3-video-play",
-  "version": "1.2.51",
+  "version": "1.2.52",
   "description": "hls.js player component for Vue3",
   "files": [
     "dist",
