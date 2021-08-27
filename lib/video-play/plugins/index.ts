@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-26 10:12:25
+ * @LastEditTime: 2021-08-27 21:18:06
  * @Description: file content
  */
 export const videoEmits = [
@@ -30,7 +30,7 @@ export const defineProps = {
     speed: { type: Boolean, default: true },//是否支持快进快退 //移动端不支持
     playsinline: { type: Boolean, default: false },//ios端 点击播放是否全屏
     muted: { type: Boolean, default: false }, //静音
-    speedRate: { type: Array, default: () => ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5",] }, //播放倍速
+    speedRate: { type: Array, default: () => ["2.0",  "1.5", "1.25","1.0", "0.75", "0.5",] }, //播放倍速
     autoPlay: { type: Boolean, default: false }, //自动播放
     loop: { type: Boolean, default: false }, //循环播放
     mirror: { type: Boolean, default: false }, //镜像画面

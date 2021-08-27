@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 17:28:35
+ * @LastEditTime: 2021-08-27 22:07:31
  * @Description: file content
 */
 
@@ -117,7 +117,7 @@
         </div>
         <div class="d-tool-bar">
           <div class="d-tool-item" style="width: 26px">
-            {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "X" }}
+            {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
                 <li
@@ -126,7 +126,7 @@
                   v-for="row of state.speedRate"
                   :key="row"
                 >
-                  {{ row }}X
+                  {{ row }}x
                 </li>
               </ul>
             </div>
@@ -282,13 +282,9 @@ const videoEvents = videoEmits.reduce((events, emit) => {
     state.loadStateType = emit;
     emits(emit, ev);
   };
+
   return events;
 }, {});
-
-// 播放结束// 合并函数
-videoEvents["onEnded"] = compose(videoEvents["onEnded"], () => {
-  state.playBtnState = "replay"; //此时的控制按钮应该显示重新播放
-});
 // 可以播放
 videoEvents["onCanplay"] = compose(videoEvents["onCanplay"], () => {
   if (state.autoPlay) {
@@ -297,6 +293,11 @@ videoEvents["onCanplay"] = compose(videoEvents["onCanplay"], () => {
     state.playBtnState = "pause";
   }
 });
+// 播放结束// 合并函数
+videoEvents["onEnded"] = compose(videoEvents["onEnded"], () => {
+  state.playBtnState = "replay"; //此时的控制按钮应该显示重新播放
+});
+
 // 资源长度改变
 videoEvents["onDurationchange"] = (ev) => {
   emits("durationchange", ev);
@@ -321,6 +322,10 @@ videoEvents["onTimeupdate"] = (ev) => {
   state.playProgress = currentTime / duration; //播放进度比例
   state.currentTime = timeFormat(currentTime);
 };
+// error
+videoEvents["onError"] = compose(videoEvents["onError"], () => {
+  state.playBtnState = "replay"; //此时的控制按钮应该显示重新播放
+});
 
 // 获取用户自定义事件
 let attrs = useAttrs();
@@ -394,9 +399,11 @@ const inputFocusHandle = () => {
 
 // 播放方法
 const playHandle = () => {
+  state.loadStateType = "play";
   state.dVideo.play().catch(() => {
     setTimeout(() => {
-      state.playBtnState = "play";
+      state.playBtnState = "replay";
+      state.loadStateType = "error";
     }, 500);
   });
   state.playBtnState = "pause";
@@ -494,11 +501,9 @@ onMounted(() => {
   if (Hls2.isSupported()) {
     Hls.loadSource(src);
     Hls.attachMedia(state.dVideo);
-    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e) => {
-      console.log(Hls2.isSupported());
-    });
+    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e, media) => {});
   }
-
+  state.dVideo.src = "http://vjs.zencdn.net/v/oceans.mp4";
   // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   //   console.log(11);
   // });
