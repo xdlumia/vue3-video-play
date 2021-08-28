@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 06:52:17
+ * @LastEditTime: 2021-08-28 09:35:28
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -71,7 +71,7 @@ export default {
 ```html
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
   </div>
 </template>
 
@@ -83,7 +83,7 @@ const options = reactive({
   height: '450px', //播放器高度
   color: "#409eff", //主题色
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
   muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
@@ -121,7 +121,7 @@ const options = reactive({
   color: "#409eff", //主题色
   speed:false, //关闭进度条拖动
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
 })
 </script>
 
@@ -151,7 +151,7 @@ const options = reactive({
   color: "#409eff", //主题色
   control: false, //是否显示控制器
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
 })
 </script>
 
@@ -187,7 +187,7 @@ const options = reactive({
 import { reactive } from 'vue';
 
 const options = reactive({
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
   poster: '', //封面
 })
 const onPlay = (ev) => {

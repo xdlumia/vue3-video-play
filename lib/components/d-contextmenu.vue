@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 07:14:42
+ * @LastEditTime: 2021-08-28 10:22:39
  * @Description: file content
 */
 <template>
@@ -100,7 +100,7 @@ const menuStyle = computed(() => ({
 }));
 
 watch(filter, (val) => {
-  let dPlayerVideoMain = document.querySelector(".d-player-video");
+  let dPlayerVideoMain = document.querySelector("#dPlayerVideo");
   let saturate = (val.saturate * 2.55).toFixed(2);
   let brightness = (val.brightness * 2.55).toFixed(2);
   let contrast = (val.contrast * 2.55).toFixed(2);

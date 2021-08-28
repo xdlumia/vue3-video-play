@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 07:25:30
+ * @LastEditTime: 2021-08-28 10:35:48
  * @Description: file content
 */
 
@@ -20,7 +20,7 @@
     }"
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
-    <div class="d-player-video">
+    <div class="d-player-video" id="dPlayerVideo">
       <video
         ref="refdVideo"
         class="d-player-video-main"
@@ -233,7 +233,7 @@ const refInput: Ref<HTMLElement> = ref(null); //快捷键操作
 const state = reactive({
   dVideo: null,
   ...props, //如果有自定义配置就会替换默认配置
-  muted: props.autoPlay,
+  muted: props.muted,
   playBtnState: props.autoPlay ? "pause" : "play", // 播放按钮状态
   loadStateType: "loadstart", // 加载状态类型 //loadstart初始化  waiting缓冲 ended播放结束
   fullScreen: false,
@@ -291,9 +291,6 @@ videoEvents["onProgress"] = (ev) => {
   let duration = ev.target.duration; // 媒体总长
   let length = ev.target.buffered;
   let end = ev.target.buffered.length && ev.target.buffered.end(length - 1);
-  console.log(ev.target.buffered.start(0))
-  console.log(ev.target.buffered)
-
   state.preloadBar = end / duration; //缓冲比例
 };
 
@@ -478,15 +475,26 @@ onMounted(() => {
   // 初始化
   state.dVideo = refdVideo;
   state.dVideo.load();
-  var src =
-    "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
+  // alert(Hls2.isSupported())
+  // var src =
+  //   "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
   // var src = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
-  if (Hls2.isSupported()) {
-    Hls.loadSource(src);
+  // 如果支持 html5video标签直接播放  或者是苹果设备
+  console.log(state.dVideo.canPlayType('audio/mpeg'))
+  console.log(state.dVideo.canPlayType(props.type))
+  if (state.dVideo.canPlayType(props.type) || state.dVideo.canPlayType('application/vnd.apple.mpegurl')) {
+    console.log(22)
+    state.dVideo.load();
+    state.muted = props.autoPlay || state.muted
+    state.dVideo.src = props.src
+  }
+  // // 使用hls解码
+  else if (Hls2.isSupported()) {
+    Hls.loadSource(props.src);
     Hls.attachMedia(state.dVideo);
     Hls.on(Hls2.Events.MEDIA_ATTACHED, (e, media) => { });
   }
-  // state.dVideo.src = "http://vjs.zencdn.net/v/oceans.mp4";
+  // state.dVideo.src = "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
   // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   //   console.log(11);
   // });
