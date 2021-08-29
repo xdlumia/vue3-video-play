@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:35:48
+ * @LastEditTime: 2021-08-29 10:58:20
  * @Description: file content
 */
 
@@ -106,6 +106,21 @@
           </div>
         </div>
         <div class="d-tool-bar">
+          <!-- 清晰度 -->
+          <div class="d-tool-item" style="width: 26px">
+            高清
+            <div class="d-tool-item-main">
+              <ul class="speed-main" style="text-align:center">
+                <li
+                  :class="{ 'speed-active': state.levelsActive == index }"
+                  @click="qualityLevelsHandle(row, index)"
+                  v-for="(row,index) of state.qualityLevels"
+                  :key="row"
+                >{{ row.height }}P</li>
+              </ul>
+            </div>
+          </div>
+          <!-- 倍速播放 -->
           <div class="d-tool-item" style="width: 26px">
             {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
             <div class="d-tool-item-main">
@@ -250,6 +265,7 @@ const state = reactive({
   isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
   progressCursorTime: "00:00:00", //进度条光标时间
+  qualityLevels: []
 });
 const compose =
   (...args) =>
@@ -281,7 +297,9 @@ videoEvents["onEnded"] = compose(videoEvents["onEnded"], () => {
 // 资源长度改变
 videoEvents["onDurationchange"] = (ev) => {
   emits("durationchange", ev);
-  state.totalTime = timeFormat(ev.target.duration);
+  state.dVideo.currentTime = props.currentTime
+  //更新当前时长的所有状态
+  videoEvents.onTimeupdate(ev)
 };
 
 // 缓冲下载中
@@ -301,6 +319,7 @@ videoEvents["onTimeupdate"] = (ev) => {
   let currentTime = ev.currentTime || ev.target.currentTime; // 当前媒体播放长度
   state.playProgress = currentTime / duration; //播放进度比例
   state.currentTime = timeFormat(currentTime);
+  state.totalTime = timeFormat(duration);
 };
 // error
 videoEvents["onError"] = compose(videoEvents["onError"], () => {
@@ -318,7 +337,7 @@ const hexToRgbaColor = hexToRgba(state.color);
 // 清空当前操作类型
 const clearHandleType = debounce(500, () => {
   state.handleType = "";
-});
+})
 // 音量 +++ --
 const volumeKeydown = (ev) => {
   ev.preventDefault();
@@ -337,7 +356,7 @@ const keydownLeft = (ev) => {
     state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
   videoEvents.onTimeupdate(state.dVideo);
   playHandle();
-};
+}
 const keypress = (ev) => {
   ev.preventDefault();
   let pressType = ev.type;
@@ -376,7 +395,6 @@ const inputFocusHandle = () => {
   if (isMobile) return;
   refInput.value.focus();
 };
-
 // 播放方法
 const playHandle = () => {
   state.loadStateType = "play";
@@ -443,6 +461,13 @@ const mouseMovewWarp = (ev) => {
 };
 
 // 播放速度
+const qualityLevelsHandle = (row, index) => {
+  state.levelsActive = index
+  Hls.currentLevel = index
+  // state.levelsActive = row;
+  // state.dVideo.playbackRate = row;
+};
+// 播放速度
 const playbackRate = (row) => {
   state.speedActive = row;
   state.dVideo.playbackRate = row;
@@ -471,34 +496,41 @@ const toggleFullScreenHandle = () => {
   state.fullScreen = toggleFullScreen(refPlayerWrap.value);
 };
 
-onMounted(() => {
-  // 初始化
-  state.dVideo = refdVideo;
-  state.dVideo.load();
-  // alert(Hls2.isSupported())
-  // var src =
-  //   "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
-  // var src = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
-  // 如果支持 html5video标签直接播放  或者是苹果设备
-  console.log(state.dVideo.canPlayType('audio/mpeg'))
-  console.log(state.dVideo.canPlayType(props.type))
+const init = (): void => {
   if (state.dVideo.canPlayType(props.type) || state.dVideo.canPlayType('application/vnd.apple.mpegurl')) {
-    console.log(22)
+    state.muted = props.autoPlay
     state.dVideo.load();
-    state.muted = props.autoPlay || state.muted
-    state.dVideo.src = props.src
   }
   // // 使用hls解码
   else if (Hls2.isSupported()) {
     Hls.loadSource(props.src);
     Hls.attachMedia(state.dVideo);
-    Hls.on(Hls2.Events.MEDIA_ATTACHED, (e, media) => { });
-  }
-  // state.dVideo.src = "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8";
-  // Hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  //   console.log(11);
-  // });
 
+    // 加载可用质量级别
+    Hls.on(Hls2.Events.MANIFEST_PARSED, (ev, data) => {
+      console.log(data)
+      state.qualityLevels = Hls.levels || []
+      console.log(Hls)
+      // state.dVideo.load();
+    });
+    Hls.on(Hls2.Events.LEVEL_SWITCHING, (ev, data) => {
+      console.log(data)
+      // state.qualityLevels = Hls.levels || []
+      console.log('LEVEL_SWITCHING')
+      // state.dVideo.load();
+    });
+    Hls.on(Hls2.Events.LEVEL_SWITCHED, (ev, data) => {
+      console.log(data)
+      // state.qualityLevels = Hls.levels || []
+      console.log('LEVEL_SWITCHED')
+      // state.dVideo.load();
+    });
+  }
+}
+onMounted(() => {
+  state.dVideo = refdVideo;
+  // 初始化
+  init()
   inputFocusHandle();
 });
 defineExpose({

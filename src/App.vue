@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:47:02
+ * @LastEditTime: 2021-08-29 11:09:35
  * @Description: file content
 */
 <template>
@@ -35,6 +35,7 @@ const options = reactive({
   muted: false, //静音
   webFullScreen: false,
   autoPlay: true, //自动播放
+  currentTime: 20,
   loop: false, //循环播放
   mirror: false, //镜像画面
   ligthOff: false, //关灯模式
@@ -48,17 +49,17 @@ const options = reactive({
 });
 const video = ref(null);
 const play = (val, ev) => {
-  console.log("APP 开始播放");
+  // console.log("APP 开始播放");
 };
 const pause = (val, ev) => {
-  console.log("APP 暂停播放");
+  // console.log("APP 暂停播放");
 };
 const ended = (val, ev) => {
-  console.log("APP ended");
+  // console.log("APP ended");
 };
 // video.value.play()
 const clickHandle = (val, ev) => {
-  console.log(val, ev);
+  // console.log(val, ev);
   // video.value.play()
 };
 nextTick(() => {

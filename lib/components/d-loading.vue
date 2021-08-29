@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 07:14:53
+ * @LastEditTime: 2021-08-28 10:50:59
  * @Description: file content
 */
 <template>
@@ -21,13 +21,13 @@
             <!-- 播放结束 -->
             <span v-show="loadType == 'ended'">
                 <p @click="replayHandle" class="d-flex-x d-pointer">
-                    <d-icon icon="icon-replay" :size="24" style="mrgin-right:5px"></d-icon>重新播放
+                    <d-icon icon="icon-replay" :size="24" class="mr5"></d-icon>重新播放
                 </p>
             </span>
             <!-- 播放错误 -->
             <span v-show="loadType == 'error' || loadType == 'stalled'">
                 <p @click="replayHandle" class="d-flex-x d-pointer">
-                    <d-icon icon="icon-replay" :size="24" style="mrgin-right:5px"></d-icon>请求错误
+                    <d-icon icon="icon-replay" :size="24" class="mr5"></d-icon>请求错误
                 </p>
             </span>
         </div>

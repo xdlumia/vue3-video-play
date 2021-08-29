@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:22:39
+ * @LastEditTime: 2021-08-28 12:33:51
  * @Description: file content
 */
 <template>
@@ -206,7 +206,7 @@ onUnmounted(() => {
     text-align: left;
     width: 130px;
     box-sizing: border-box;
-    padding: 10px 0;
+    padding: 5px 0;
     li {
       padding: 8px 20px;
       margin: 0;

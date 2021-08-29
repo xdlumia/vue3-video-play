@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:32:06
+ * @LastEditTime: 2021-08-28 23:48:02
  * @Description: file content
  */
 export const videoEmits = [
@@ -31,6 +31,7 @@ export const defineProps = {
     title: { type: String, default: '' }, //视频名称
     webFullScreen: { type: Boolean, default: false },//网页全屏
     speed: { type: Boolean, default: true },//是否支持快进快退 //移动端不支持
+    currentTime: { type: Number, default: 0 }, //当前播放时间
     playsinline: { type: Boolean, default: false },//ios端 点击播放是否全屏
     muted: { type: Boolean, default: false }, //静音
     speedRate: { type: Array, default: () => ["2.0", "1.5", "1.25", "1.0", "0.75", "0.5",] }, //播放倍速
@@ -40,6 +41,5 @@ export const defineProps = {
     ligthOff: { type: Boolean, default: false },  //关灯模式
     volume: { type: [String, Number], default: 0.3 }, //默认音量大小
     control: { type: Boolean, default: true }, //是否显示控制器
-
     preload: { type: String, default: 'auto' }, //预加载 
 }
