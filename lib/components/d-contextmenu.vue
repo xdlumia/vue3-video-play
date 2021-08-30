@@ -2,11 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
  * @LastEditors: web.王晓冬
-<<<<<<< HEAD
- * @LastEditTime: 2021-08-26 18:36:31
-=======
- * @LastEditTime: 2021-08-28 12:33:51
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
+ * @LastEditTime: 2021-08-30 09:25:09
  * @Description: file content
 */
 <template>
@@ -123,26 +119,6 @@ const keydownHandle = (ev) => {
 };
 // 显示菜单
 const contextmenuShow = (ev) => {
-<<<<<<< HEAD
-    ev.preventDefault()
-    on(window, 'keydown', keydownHandle) //启用快捷键 
-    on(window, 'click', contextmenuHide) //启用点击键
-    let refPlayerWrap = document.querySelector('#refPlayerWrap')
-    let clientWidth = refPlayerWrap.clientWidth
-    let clientHeight = refPlayerWrap.clientHeight
-    let mouseX = ev.clientX - refPlayerWrap.getBoundingClientRect().left
-    if ((clientWidth - mouseX) < 130) {
-        state.mouseX = mouseX + (clientWidth - mouseX - 130)
-        // state.mouseX = state.mouseX - (clientWidth - state.mouseX)
-    } else {
-        state.mouseX = mouseX
-    }
-
-    state.mouseY = ev.clientY - refPlayerWrap.getBoundingClientRect().top
-    state.show = true
-
-}
-=======
   ev.preventDefault();
   on(window, "keydown", keydownHandle); //启用快捷键
   on(window, "click", contextmenuHide); //启用点击键
@@ -154,7 +130,6 @@ const contextmenuShow = (ev) => {
     state.mouseX = state.mouseX + (clientWidth - state.mouseX - 130);
     // state.mouseX = state.mouseX - (clientWidth - state.mouseX)
   }
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
 
   state.mouseY = ev.clientY - refPlayerWrap.getBoundingClientRect().top;
   state.show = true;
@@ -187,17 +162,6 @@ const contextmenuHide = (ev) => {
 };
 
 onMounted(() => {
-<<<<<<< HEAD
-    let refPlayerWrap = document.querySelector('#refPlayerWrap')
-    // 卸载快捷键
-    off(window, 'keydown', keydownHandle)
-    off(window, 'click', contextmenuHide) //启用点击键
-    off(refPlayerWrap, 'contextmenu', contextmenuShow)
-    // 开启右键菜单
-    on(refPlayerWrap, 'contextmenu', contextmenuShow)
-
-})
-=======
   let refPlayerWrap = document.querySelector("#refPlayerWrap");
   // 卸载快捷键
   off(window, "keydown", keydownHandle);
@@ -206,7 +170,6 @@ onMounted(() => {
   // 开启右键菜单
   on(refPlayerWrap, "contextmenu", contextmenuShow);
 });
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
 onUnmounted(() => {
   let refPlayerWrap = document.querySelector("#refPlayerWrap");
   off(window, "keydown", keydownHandle);

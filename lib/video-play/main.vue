@@ -2,11 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
-<<<<<<< HEAD
- * @LastEditTime: 2021-08-26 18:30:14
-=======
- * @LastEditTime: 2021-08-29 10:58:20
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
+ * @LastEditTime: 2021-08-30 09:25:32
  * @Description: file content
 */
 
@@ -268,13 +264,6 @@ const state = reactive({
   playProgress: 0, //播放进度
   isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
-<<<<<<< HEAD
-  progressCursorTime: '00:00:00', //进度条光标时间
-
-})
-const compose = (...args) => (value) => args.reverse().reduce((acc, fn) => fn(acc), value);
-
-=======
   progressCursorTime: "00:00:00", //进度条光标时间
   qualityLevels: []
 });
@@ -282,7 +271,6 @@ const compose =
   (...args) =>
     (value) =>
       args.reverse().reduce((acc, fn) => fn(acc), value);
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`;
