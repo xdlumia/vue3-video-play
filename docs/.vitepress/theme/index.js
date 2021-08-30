@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 15:12:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 17:24:47
+ * @LastEditTime: 2021-08-26 20:54:35
  * @Description: file content
  */
 import theme from 'vitepress/dist/client/theme-default'
@@ -22,12 +22,12 @@ export default {
     siteData
   }) {
     if (isClient) {
-      // await import('vue3-video-play').then((m) => {
-      //   app.use(m.default)
-      // })
-      await import('../../../lib/main.js').then((m) => {
+      await import('vue3-video-play').then((m) => {
         app.use(m.default)
       })
+      // await import('../../../lib/index.js').then((m) => {
+      //   app.use(m.default)
+      // })
     }
     // app is the Vue 3 app instance from createApp()
     // router is VitePress' custom router (see `lib/app/router.js`)

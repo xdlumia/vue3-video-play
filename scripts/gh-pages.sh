@@ -3,7 +3,7 @@
  # @Author: web.王晓冬
  # @Date: 2021-08-21 22:18:02
  # @LastEditors: web.王晓冬
- # @LastEditTime: 2021-08-25 17:46:25
+ # @LastEditTime: 2021-08-27 10:41:23
  # @Description: file content
 ### 
 
@@ -27,3 +27,4 @@ git commit -m 'deploy to the gh-pages'
 # git push -f git@github.com:xdlumia/vue3-video-play.git gh-pages
 # git push -f git@github.com:xdlumia/vue3-video-play.git master:gh-pages
 git push -f git@github.com:xdlumia/xdlumia.github.io.git master:gh-pages
+git push -f https://github.com/xdlumia/vue3-video-play.git master:gh-pages

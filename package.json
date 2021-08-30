@@ -1,7 +1,7 @@
 {
   "name": "vue3-video-play",
-  "version": "1.2.51",
-  "description": "vue3视频播放器",
+  "version": "1.2.52",
+  "description": "hls.js player component for Vue3",
   "files": [
     "dist",
     "lib"
@@ -32,8 +32,9 @@
     "url": "https://github.com/xdlumia/vue3-video-play/issues"
   },
   "dependencies": {
+    "hls.js": "^1.0.10",
     "throttle-debounce": "^3.0.1",
-    "vue": "^3.2.4"
+    "vue": "^3.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.4.0",
@@ -47,15 +48,16 @@
     "vite": "^2.5.0",
     "vitepress": "^0.16.1",
     "vitepress-theme-demoblock": "^1.1.1",
-    "vue-tsc": "^0.2.3"
+    "vue-tsc": "^0.2.3",
+    "vue3-video-play": "^1.2.52"
   },
   "keywords": [
     "vue 3",
     "vue3",
     "vue",
-    "background",
-    "vue-video-player",
     "vue3-video-play",
+    "hlsjs",
+    "hls.js",
     "vue video player",
     "vue3 video player",
     "video player video",

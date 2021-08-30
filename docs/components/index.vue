@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-22 21:55:32
+ * @LastEditTime: 2021-08-28 10:28:30
  * @Description: file content
 */
 <template>
@@ -81,7 +81,7 @@ import { shallowRef, onMounted, reactive } from 'vue'
 let dynamicComponent = shallowRef(null)
 const options = {
     autoPlay: true,
-    src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4" //视频源
+    src: "https://go.dreamwq.com/videos/IronMan.mp4" //视频源
 }
 onMounted(() => {
     import('../../lib/index.js').then(module => {

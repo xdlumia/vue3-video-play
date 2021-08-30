@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-25 15:40:53
+ * @LastEditTime: 2021-08-28 09:35:28
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -71,7 +71,7 @@ export default {
 ```html
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
   </div>
 </template>
 
@@ -83,7 +83,7 @@ const options = reactive({
   height: '450px', //播放器高度
   color: "#409eff", //主题色
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
   muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
@@ -121,7 +121,7 @@ const options = reactive({
   color: "#409eff", //主题色
   speed:false, //关闭进度条拖动
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
 })
 </script>
 
@@ -151,7 +151,7 @@ const options = reactive({
   color: "#409eff", //主题色
   control: false, //是否显示控制器
   title: '', //视频名称
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
 })
 </script>
 
@@ -187,7 +187,7 @@ const options = reactive({
 import { reactive } from 'vue';
 
 const options = reactive({
-  src: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/IronMan.mp4", //视频源
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
   poster: '', //封面
 })
 const onPlay = (ev) => {
@@ -217,23 +217,23 @@ const onCanplay = (ev) => {
 ## Props
 vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
-| 名称          |     说明     |  类型   | 可选值 |                默认值                 |
-| ------------- | :----------: | :-----: | :----: | :-----------------------------------: |
-| width         |  播放器宽度  | string  |   -    |                 800px                 |
-| height        |  播放器高度  | string  |   -    |                 450px                 |
-| title         |   视频名称   | string  |   -    |                   -                   |
-| src           |   视频资源   | string  |   -    |                   -                   |
-| color         | 播放器主色调 | string  |   -    |                #409eff                |
-| webFullScreen |   网页全屏   | boolean |   -    |                 false                 |
-| speed |   是否支持快进快退   | boolean |   -    |                 true                 |
-| speedRate     |   倍速配置   |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
-| mirror        |   镜像画面   | boolean |   -    |                 false                 |
-| ligthOff      |   关灯模式   | boolean |   -    |                 false                 |
-| muted         |     静音     | boolean |   -    |                 false                 |
-| autoPlay      |   自动播放   | boolean |   -    |       false,为true时会自动静音        |
-| loop          |   循环播放   | boolean |   -    |                 false                 |
-| volume        |   默认音量   |   0.3   |  0-1   |                  0.3                  |
-| poster        |   视频封面   | string  |   -    |              视频第一帧               |
+| 名称          |       说明       |  类型   | 可选值 |                    默认值                    |
+| ------------- | :--------------: | :-----: | :----: | :------------------------------------------: |
+| width         |    播放器宽度    | string  |   -    |                    800px                     |
+| height        |    播放器高度    | string  |   -    |                    450px                     |
+| title         |     视频名称     | string  |   -    |                      -                       |
+| src           |     视频资源     | string  |   -    |                      -                       |
+| color         |   播放器主色调   | string  |   -    |                   #409eff                    |
+| webFullScreen |     网页全屏     | boolean |   -    |                    false                     |
+| speed         | 是否支持快进快退 | boolean |   -    |                     true                     |
+| speedRate     |     倍速配置     |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
+| mirror        |     镜像画面     | boolean |   -    |                    false                     |
+| ligthOff      |     关灯模式     | boolean |   -    |                    false                     |
+| muted         |       静音       | boolean |   -    |                    false                     |
+| autoPlay      |     自动播放     | boolean |   -    |           false,为true时会自动静音           |
+| loop          |     循环播放     | boolean |   -    |                    false                     |
+| volume        |     默认音量     |   0.3   |  0-1   |                     0.3                      |
+| poster        |     视频封面     | string  |   -    |                  视频第一帧                  |
 
 
 
@@ -242,9 +242,9 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
-| mirrorChange      | 镜像翻转事件 | val |
-| loopChange      | 循环播放开关事件 | val |
-| lightOffChange      | 关灯模式事件 | val |
+| mirrorChange   | 镜像翻转事件       | val   |
+| loopChange     | 循环播放开关事件   | val   |
+| lightOffChange | 关灯模式事件       | val   |
 | loadstart      | 客户端开始请求数据 | event |
 | progress       | 客户端正在请求数据 | event |
 | error          | 请求数据时遇到错误 | event |
@@ -265,14 +265,15 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 
 ## 快捷键说明
 支持快捷键操作
-| 键名      | 说明                |
-| --------- | ------------------- |
-| 方向左键← | 快退10s             |
-| 方向右键→ | 快进10s             |
-| 方向上键↑ | 音量+0.1            |
-| 方向下键↓ | 音量-0.1            |
-| 长按右键→ | 5x倍速播放          |
-| 空格键    | 暂停/播放(暂未实现) |
+| 键名       | 说明                          |
+| ---------- | ----------------------------- |
+| Space      | 暂停/播放                     |
+| 方向右键 → | 单次快进 10s，长按 5 倍速播放 |
+| 方向左键 ← | 快退 10s                      |
+| 方向上键 ↑ | 音量+10%                      |
+| 方向下键 ↓ | 音量-10%                      |
+| Esc        | 退出全屏/退出网页全屏         |
+| F          | 全屏/退出全屏                 |
 # Author
 
 [xdlumia](https://dreamwq.com)
