@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 11:35:49
+ * @LastEditTime: 2021-08-31 15:19:16
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -16,7 +16,7 @@
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 
 
-<span style="color:#cb3837"> **必须使用 vue@3.2.4及以上版本**</span>
+<span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
 
 ## 功能一览
 1. 支持快捷键操作
@@ -24,23 +24,23 @@
 3. 支持镜像画面设置
 4. 支持关灯模式设置
 5. 支持画中画模式播放
-6. 支持全屏播放
-7. 支持网页全屏播放
+6. 支持全屏/网页全屏播放
+6. 支持从固定时间开始播放
 8. 支持移动端，移动端会自动调用自带视频播放器
 9. 支持hls视频流播放，支持直播
-9. 支持清晰度切换
+10. hls播放支持清晰度切换
 # 主页示例
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
 
 
-## rc版本 v1.3.0-rc.2 (2021-08-29) 🎉
+## rc版本 v1.3.0-rc.4 🎉
 - 新增: 支持hls视频流播放 
 - 新增: 新增画质切换，需视频流支持
 - 新增: 新增画音视切换，需视频流支持
 - 新增: props参数增加`currentTime`属性，可跳转到固定时间播放
 - 新增: props参数增加`type`属性，视频格式
-## 近期更新 v1.2.52 (2021-08-27) 🎉
+## 近期更新 v1.2.52 🎉
 
 - 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
@@ -62,7 +62,7 @@ yarn add vue3-video-play --save
 
 #### 全局使用
 
-``` javascript
+``` js
 import { createApp } from 'vue'
 import App from './App.vue'
 let app = createApp(App)
@@ -92,7 +92,7 @@ export default {
 提供了丰富了配置功能
 :::demo 自定义配置 比如自定义poster。
 
-```html
+```vue
 <template>
   <div>
     <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
@@ -101,7 +101,6 @@ export default {
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-
 const options = reactive({
   width: '800px', //播放器高度
   height: '450px', //播放器高度
@@ -122,42 +121,13 @@ const options = reactive({
 
 <style scoped>
 </style>
-
 ```
+
 :::
 
-可以通过`props`的`speed`开启或关闭进度条功能,
-:::demo 通过`speed`关闭进度条拖动功能。
+可以通过`props`的`speed`开启或关闭进度条功能, 并且通过 `currentTime`属性控制从60秒开始播放
 
-```html
-<template>
-  <div>
-    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { reactive } from 'vue';
-
-const options = reactive({
-  width: '400px', //播放器高度
-  height: '220px', //播放器高度
-  color: "#409eff", //主题色
-  speed:false, //关闭进度条拖动
-  title: '', //视频名称
-  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
-})
-</script>
-
-<style scoped>
-</style>
-
-```
-:::
-
-
-还可以通过`props`的`control`属性 来控制是否显示控制器
-:::demo 通过`control` 来控制是否显示控制器
+:::demo  通过`speed`关闭进度条拖动功能。 并且通过 `currentTime`属性控制从60秒开始播放
 
 ```vue
 <template>
@@ -170,8 +140,39 @@ const options = reactive({
 import { reactive } from 'vue';
 
 const options = reactive({
-  width: '400px', //播放器高度
-  height: '220px', //播放器高度
+  width: '500px', //播放器高度
+  height: '260px', //播放器高度
+  color: "#409eff", //主题色
+  currentTime:60,
+  speed:false, //关闭进度条拖动
+  title: '', //视频名称
+  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
+})
+</script>
+
+<style scoped>
+</style>
+```
+
+:::
+
+
+
+还可以通过`props`的`control`属性 来控制是否显示控制器
+:::demo 通过`control` 来控制是否显示控制器
+```vue
+<template>
+  <div>
+    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const options = reactive({
+  width: '500px', //播放器高度
+  height: '260px', //播放器高度
   color: "#409eff", //主题色
   control: false, //是否显示控制器
   title: '', //视频名称
@@ -238,9 +239,8 @@ const onCanplay = (ev) => {
 
 
 
-## Hls 直播
-:::demo `vue3-video-play` 支持原生`video`所有事件。
-
+## Hls m3u8视频/直播
+:::demo `vue3-video-play` 支持m3u8(hls)播放
 ```vue
 <template>
   <div>
@@ -248,39 +248,24 @@ const onCanplay = (ev) => {
       width="800px"
       title="冰河世纪"
       :src="options.src"
+      :type="options.type"
+      :autoPlay="false"
        />
   </div>
 
 </template>
-
-
 <script setup lang="ts">
 import { reactive } from 'vue';
-
 const options = reactive({
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
   type: 'm3u8', //视频类型
 })
-const onPlay = (ev) => {
-  console.log('播放')
-}
-const onPause = (ev) => {
-  console.log(ev, '暂停')
-}
-
-const onTimeupdate = (ev) => {
-  console.log(ev, '时间更新')
-}
-const onCanplay = (ev) => {
-  console.log(ev, '可以播放')
-}
 </script>
 
 <style scoped>
 </style>
 
 ```
-
 :::
 
 
@@ -298,7 +283,7 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | color         |   播放器主色调   | string  |   -    |                   #409eff                    |
 | webFullScreen |     网页全屏     | boolean |   -    |                    false                     |
 | speed         | 是否支持快进快退 | boolean |   -    |                     true                     |
-| currentTime         | 当前播放时间(s) | number |   -    |                    0                     |
+| currentTime         | 跳转到固定播放时间(s) | number |   -    |                    0                     |
 | speedRate     |     倍速配置     |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
 | mirror        |     镜像画面     | boolean |   -    |                    false                     |
 | ligthOff      |     关灯模式     | boolean |   -    |                    false                     |

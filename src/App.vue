@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 11:45:14
+ * @LastEditTime: 2021-08-31 15:09:36
  * @Description: file content
 */
 <template>
@@ -26,7 +26,7 @@ const options = reactive({
   color: "#409eff",
   muted: false, //静音
   webFullScreen: false,
-  autoPlay: true, //自动播放
+  autoPlay: false, //自动播放
   currentTime: 20,
   loop: false, //循环播放
   mirror: false, //镜像画面

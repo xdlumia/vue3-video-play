@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-30 09:57:38
+ * @LastEditTime: 2021-08-31 15:14:01
  * @Description: file content
 */
 
@@ -52,7 +52,7 @@
     <div class="d-player-state" v-if="!isMobile">
       <transition name="d-scale-out">
         <!-- 播放按钮 -->
-        <div class="d-play-btn" v-show="state.loadStateType == 'pause'">
+        <div class="d-play-btn" v-show="state.playBtnState == 'play'">
           <d-icon icon="icon-play" :size="40"></d-icon>
         </div>
       </transition>
@@ -112,7 +112,7 @@
             <div class="d-tool-item-main">
               <ul class="speed-main" style="text-align:center">
                 <li
-                  :class="{ 'speed-active': state.levelsActive == row }"
+                  :class="{ 'speed-active': state.currentLevel == index }"
                   @click="qualityLevelsHandle(row, index)"
                   v-for="(row,index) of state.qualityLevels"
                   :key="row"
