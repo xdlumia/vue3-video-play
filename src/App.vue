@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 18:20:12
+ * @LastEditTime: 2021-08-31 21:39:36
  * @Description: file content
 */
 <template>
@@ -36,7 +36,7 @@ const options = reactive({
   type: 'm3u8',
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
   // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
-  poster: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg", //封面
+  poster: "https://go.dreamwq.com/videos/ironMan.jpg", //封面
   controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'],
 });
 const video = ref(null);

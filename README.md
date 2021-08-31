@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 16:01:42
+ * @LastEditTime: 2021-08-31 21:40:29
  * @Description: file content
 -->
 
@@ -139,7 +139,7 @@ const options = reactive({
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
   </div>
 </template>
 
@@ -170,7 +170,7 @@ const options = reactive({
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg'/>
+    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
   </div>
 </template>
 
@@ -280,25 +280,25 @@ const options = reactive({
 ## Props
 vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
-| 名称          |       说明       |  类型   | 可选值 |                    默认值                    |
-| ------------- | :--------------: | :-----: | :----: | :------------------------------------------: |
-| width         |    播放器宽度    | string  |   -    |                    800px                     |
-| height        |    播放器高度    | string  |   -    |                    450px                     |
-| title         |     视频名称     | string  |   -    |                      -                       |
-| src           |     视频资源     | string  |   -    |                      -                       |
-| type           |     视频类型     | string  |   -    |                      video/mp4                       |
-| color         |   播放器主色调   | string  |   -    |                   #409eff                    |
-| webFullScreen |     网页全屏     | boolean |   -    |                    false                     |
-| speed         | 是否支持快进快退 | boolean |   -    |                     true                     |
-| currentTime         | 跳转到固定播放时间(s) | number |   -    |                    0                     |
-| speedRate     |     倍速配置     |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
-| mirror        |     镜像画面     | boolean |   -    |                    false                     |
-| ligthOff      |     关灯模式     | boolean |   -    |                    false                     |
-| muted         |       静音       | boolean |   -    |                    false                     |
-| autoPlay      |     自动播放     | boolean |   -    |           false,为true时会自动静音           |
-| loop          |     循环播放     | boolean |   -    |                    false                     |
-| volume        |     默认音量     |   0.3   |  0-1   |                     0.3                      |
-| poster        |     视频封面     | string  |   -    |                  视频第一帧                  |
+| 名称          |         说明          |  类型   | 可选值 |                    默认值                    |
+| ------------- | :-------------------: | :-----: | :----: | :------------------------------------------: |
+| width         |      播放器宽度       | string  |   -    |                    800px                     |
+| height        |      播放器高度       | string  |   -    |                    450px                     |
+| title         |       视频名称        | string  |   -    |                      -                       |
+| src           |       视频资源        | string  |   -    |                      -                       |
+| type          |       视频类型        | string  |   -    |                  video/mp4                   |
+| color         |     播放器主色调      | string  |   -    |                   #409eff                    |
+| webFullScreen |       网页全屏        | boolean |   -    |                    false                     |
+| speed         |   是否支持快进快退    | boolean |   -    |                     true                     |
+| currentTime   | 跳转到固定播放时间(s) | number  |   -    |                      0                       |
+| speedRate     |       倍速配置        |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
+| mirror        |       镜像画面        | boolean |   -    |                    false                     |
+| ligthOff      |       关灯模式        | boolean |   -    |                    false                     |
+| muted         |         静音          | boolean |   -    |                    false                     |
+| autoPlay      |       自动播放        | boolean |   -    |           false,为true时会自动静音           |
+| loop          |       循环播放        | boolean |   -    |                    false                     |
+| volume        |       默认音量        |   0.3   |  0-1   |                     0.3                      |
+| poster        |       视频封面        | string  |   -    |                  视频第一帧                  |
 
 
 

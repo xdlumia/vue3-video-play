@@ -49,7 +49,7 @@
     "vitepress": "^0.16.1",
     "vitepress-theme-demoblock": "^1.1.1",
     "vue-tsc": "^0.2.3",
-    "vue3-video-play": "^1.3.0-rc.3"
+    "vue3-video-play": "^1.3.0-rc.4"
   },
   "keywords": [
     "vue 3",
