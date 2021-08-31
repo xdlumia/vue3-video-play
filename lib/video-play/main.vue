@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 15:14:01
+ * @LastEditTime: 2021-08-31 18:20:03
  * @Description: file content
 */
 
@@ -21,6 +21,12 @@
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
     <div class="d-player-video" id="dPlayerVideo">
+      <div
+        class="d-player-video-poster"
+        v-show="props.poster && state.playBtnState == 'play' && state.currentTime == '00:00:00'"
+      >
+        <img :src="props.poster" :alt="props.title" />
+      </div>
       <video
         ref="refdVideo"
         class="d-player-video-main"
@@ -37,7 +43,7 @@
         width="100%"
         height="100%"
         :src="props.src"
-        poster="https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg"
+        :poster="props.poster"
       >您的浏览器不支持Video标签。</video>
     </div>
     <!-- 缓冲动画 -->
@@ -99,7 +105,10 @@
           <div class="d-tool-item">
             <d-icon @click="togglePlay" size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
           </div>
-          <div class="d-tool-item d-tool-time">
+          <div
+            class="d-tool-item d-tool-time audioTrack-btn"
+            v-if="props.controlBtns.includes('audioTrack')"
+          >
             <span>{{ state.currentTime }}</span>
             <span style="margin: 0 3px">/</span>
             <span class="total-time">{{ state.totalTime }}</span>
@@ -107,7 +116,10 @@
         </div>
         <div class="d-tool-bar">
           <!-- 清晰度 -->
-          <div class="d-tool-item" v-if="state.qualityLevels.length">
+          <div
+            class="d-tool-item quality-btn"
+            v-if="state.qualityLevels.length && props.controlBtns.includes('quality')"
+          >
             {{ state.qualityLevels.length && (state.qualityLevels[state.currentLevel] || {}).height }}P
             <div class="d-tool-item-main">
               <ul class="speed-main" style="text-align:center">
@@ -122,7 +134,7 @@
             </div>
           </div>
           <!-- 倍速播放 -->
-          <div class="d-tool-item">
+          <div class="d-tool-item speedRate-btn" v-if="props.controlBtns.includes('speedRate')">
             {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
@@ -136,7 +148,7 @@
             </div>
           </div>
           <!-- 音量 -->
-          <div class="d-tool-item">
+          <div class="d-tool-item volume-btn" v-if="props.controlBtns.includes('volume')">
             <div class="d-tool-item-main volume-box" style="width: 52px">
               <div class="volume-main" :class="{ 'is-muted': state.muted }">
                 <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
@@ -163,7 +175,7 @@
             </span>
           </div>
           <!-- 设置 -->
-          <div class="d-tool-item">
+          <div class="d-tool-item setting-btn" v-if="props.controlBtns.includes('setting')">
             <d-icon size="20" class="rotateHover" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
@@ -183,17 +195,29 @@
             </div>
           </div>
           <!-- 画中画 -->
-          <div class="d-tool-item" @click="requestPictureInPictureHandle">
+          <div
+            class="d-tool-item pip-btn"
+            v-if="props.controlBtns.includes('pip')"
+            @click="requestPictureInPictureHandle"
+          >
             <d-icon size="20" icon="icon-pip"></d-icon>
             <div class="d-tool-item-main">画中画</div>
           </div>
-          <!-- 画中画 -->
-          <div class="d-tool-item" @click="state.webFullScreen = !state.webFullScreen">
+          <!-- 网页全屏 -->
+          <div
+            class="d-tool-item pip-btn"
+            v-if="props.controlBtns.includes('pageFullScreen')"
+            @click="state.webFullScreen = !state.webFullScreen"
+          >
             <d-icon size="20" icon="icon-web-screen"></d-icon>
             <div class="d-tool-item-main">网页全屏</div>
           </div>
           <!-- 全屏 -->
-          <div class="d-tool-item" @click="toggleFullScreenHandle">
+          <div
+            class="d-tool-item fullScreen-btn"
+            v-if="props.controlBtns.includes('fullScreen')"
+            @click="toggleFullScreenHandle"
+          >
             <div class="d-tool-item-main">全屏</div>
             <d-icon size="20" icon="icon-screen"></d-icon>
           </div>
@@ -285,6 +309,7 @@ const videoEvents = videoEmits.reduce((events, emit) => {
 }, {});
 // 可以播放
 videoEvents["onCanplay"] = compose(videoEvents["onCanplay"], () => {
+
   if (state.autoPlay) {
     //如果是自动播放 则显示暂停按钮
     state.dVideo.play();

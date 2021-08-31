@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:28:30
+ * @LastEditTime: 2021-08-31 16:11:00
  * @Description: file content
 */
 <template>
@@ -17,7 +17,11 @@
 
         <div class="index-link">
             <a class="d-button primary" href="/guide/install">快速上手</a>
-            <a class="d-button" href="/guide/install">view github</a>
+            <a
+                class="d-button"
+                target="_blank"
+                href="https://github.com/xdlumia/vue3-video-play/"
+            >view github</a>
         </div>
         <div>
             <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">

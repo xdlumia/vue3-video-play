@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 15:09:36
+ * @LastEditTime: 2021-08-31 18:20:12
  * @Description: file content
 */
 <template>
@@ -18,7 +18,6 @@
 <script setup lang="ts">
 import { reactive, ref, nextTick } from "vue";
 import { videoPlay } from "../lib/index.js";
-import DSlider from "./components/d-slider.vue";
 
 const options = reactive({
   width: "800px",
@@ -27,7 +26,7 @@ const options = reactive({
   muted: false, //静音
   webFullScreen: false,
   autoPlay: false, //自动播放
-  currentTime: 20,
+  currentTime: 0,
   loop: false, //循环播放
   mirror: false, //镜像画面
   ligthOff: false, //关灯模式
@@ -37,7 +36,8 @@ const options = reactive({
   type: 'm3u8',
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
   // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
-  poster: "", //封面
+  poster: "https://xdlumia.oss-cn-beijing.aliyuncs.com/videos/02.jpg", //封面
+  controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'],
 });
 const video = ref(null);
 

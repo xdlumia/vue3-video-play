@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 15:24:33
+ * @LastEditTime: 2021-08-31 16:01:42
  * @Description: file content
 -->
 
@@ -21,7 +21,10 @@
 ![wechat](https://xdlumia.gitee.io/lib/images/wechat.jpeg)
 
 <span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
+## vue3-video-play
+hls.js player component for Vue3.
 
+适用于 Vue3 的 hls.js 播放器组件。
 ## 功能一览
 1. 支持快捷键操作
 2. 支持倍速播放设置
