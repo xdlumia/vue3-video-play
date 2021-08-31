@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 15:21:17
+ * @LastEditTime: 2021-08-31 15:24:33
  * @Description: file content
 -->
 
@@ -38,7 +38,7 @@
 [https://xdlumia.github.io](https://xdlumia.github.io)
 
 
-## rc版本 v1.3.0-rc.4 🎉
+## rc版本 v1.3.0-rc.3 🎉
 - 新增: 支持hls视频流播放 
 - 新增: 新增画质切换，需视频流支持
 - 新增: 新增画音视切换，需视频流支持
