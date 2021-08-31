@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-30 09:25:32
+ * @LastEditTime: 2021-08-30 09:57:38
  * @Description: file content
 */
 
@@ -107,21 +107,22 @@
         </div>
         <div class="d-tool-bar">
           <!-- 清晰度 -->
-          <div class="d-tool-item" style="width: 26px">
-            高清
+          <div class="d-tool-item" v-if="state.qualityLevels.length">
+            {{ state.qualityLevels.length && (state.qualityLevels[state.currentLevel] || {}).height }}P
             <div class="d-tool-item-main">
               <ul class="speed-main" style="text-align:center">
                 <li
-                  :class="{ 'speed-active': state.levelsActive == index }"
+                  :class="{ 'speed-active': state.levelsActive == row }"
                   @click="qualityLevelsHandle(row, index)"
                   v-for="(row,index) of state.qualityLevels"
                   :key="row"
                 >{{ row.height }}P</li>
+                <!-- <li @click="qualityLevelsHandle({}, -1)">自动</li> -->
               </ul>
             </div>
           </div>
           <!-- 倍速播放 -->
-          <div class="d-tool-item" style="width: 26px">
+          <div class="d-tool-item">
             {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
@@ -265,7 +266,8 @@ const state = reactive({
   isMultiplesPlay: false, //是否倍速播放
   longPressTimeout: null,
   progressCursorTime: "00:00:00", //进度条光标时间
-  qualityLevels: []
+  qualityLevels: [], //分辨率数组
+  currentLevel: 0, //首选分辨率
 });
 const compose =
   (...args) =>
@@ -462,10 +464,8 @@ const mouseMovewWarp = (ev) => {
 
 // 播放速度
 const qualityLevelsHandle = (row, index) => {
-  state.levelsActive = index
   Hls.currentLevel = index
-  // state.levelsActive = row;
-  // state.dVideo.playbackRate = row;
+  state.currentLevel = index
 };
 // 播放速度
 const playbackRate = (row) => {
@@ -507,20 +507,21 @@ const init = (): void => {
     Hls.attachMedia(state.dVideo);
 
     // 加载可用质量级别
-    Hls.on(Hls2.Events.MANIFEST_PARSED, (ev, data) => {
+    Hls.on('hlsManifestParsed', (ev, data) => {
       console.log(data)
-      state.qualityLevels = Hls.levels || []
-      console.log(Hls)
+      state.currentLevel = data.level
+      state.qualityLevels = data.levels || []
+
       // state.dVideo.load();
     });
-    Hls.on(Hls2.Events.LEVEL_SWITCHING, (ev, data) => {
+    Hls.on('hlsLevelSwitching', (ev, data) => {
       console.log(data)
       // state.qualityLevels = Hls.levels || []
       console.log('LEVEL_SWITCHING')
       // state.dVideo.load();
     });
-    Hls.on(Hls2.Events.LEVEL_SWITCHED, (ev, data) => {
-      console.log(data)
+    Hls.on('hlsLevelSwitched', (ev, data) => {
+      state.currentLevel = data.level
       // state.qualityLevels = Hls.levels || []
       console.log('LEVEL_SWITCHED')
       // state.dVideo.load();

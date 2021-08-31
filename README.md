@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 10:57:54
+ * @LastEditTime: 2021-08-31 11:18:28
  * @Description: file content
 -->
 
@@ -26,20 +26,20 @@
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
 
-## 即将支持 🎉
-
-- 支持 hls 直播视频
-- 支持弹幕
-
+## RC版本 v1.3.0-rc.2 (2021-08-29) 🎉
+- 新增: 支持hls视频流播放 
+- 新增: 新增画质切换，需视频流支持
+- 新增: 新增画音视切换，需视频流支持
+- 新增: props参数增加`currentTime`属性，可跳转到固定时间播放
+- 新增: props参数增加`type`属性，视频格式
 ## 近期更新 v1.2.52 (2021-08-27) 🎉
 
 - 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
-- 新增: 倍速播放默认配置,增加`0.5`倍速播放
-- 新增: 资源播放失败错误状态
-- 新增: 非循环播放状态下播放结束增加重新播放按钮
 - 新增: 增加空格快捷键 `播放/暂停` 的操作
 - 优化: 如果音量为 0 关闭静音按钮 音量设置为 5
+
+
 
 # 使用指南
 
@@ -78,7 +78,7 @@ app.mount("#app");
 ```js
 // require style
 import "vue3-video-play/dist/style.css";
-import { videoPlay } from "vue-video-player";
+import { videoPlay } from "vue-video-play";
 export default {
   components: {
     videoPlay,

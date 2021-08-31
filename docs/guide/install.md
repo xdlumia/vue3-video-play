@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 09:35:28
+ * @LastEditTime: 2021-08-31 11:35:49
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -17,11 +17,35 @@
 
 
 <span style="color:#cb3837"> **必须使用 vue@3.2.4及以上版本**</span>
-# 示例 主页
+
+## 功能一览
+1. 支持快捷键操作
+2. 支持倍速播放设置
+3. 支持镜像画面设置
+4. 支持关灯模式设置
+5. 支持画中画模式播放
+6. 支持全屏播放
+7. 支持网页全屏播放
+8. 支持移动端，移动端会自动调用自带视频播放器
+9. 支持hls视频流播放，支持直播
+9. 支持清晰度切换
+# 主页示例
 
 [https://xdlumia.github.io](https://xdlumia.github.io)
 
 
+## rc版本 v1.3.0-rc.2 (2021-08-29) 🎉
+- 新增: 支持hls视频流播放 
+- 新增: 新增画质切换，需视频流支持
+- 新增: 新增画音视切换，需视频流支持
+- 新增: props参数增加`currentTime`属性，可跳转到固定时间播放
+- 新增: props参数增加`type`属性，视频格式
+## 近期更新 v1.2.52 (2021-08-27) 🎉
+
+- 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
+- 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
+- 新增: 增加空格快捷键 `播放/暂停` 的操作
+- 优化: 如果音量为 0 关闭静音按钮 音量设置为 5
 # 使用指南
 
 ## 安装
@@ -55,7 +79,7 @@ app.mount('#app')
 ```js
 // require style
 import 'vue3-video-play/dist/style.css'
-import { videoPlay } from 'vue-video-player'
+import { videoPlay } from 'vue-video-play'
 export default {
   components: {
     videoPlay
@@ -64,7 +88,7 @@ export default {
 ```
 
 
-## 举个例子
+## 基本示例
 提供了丰富了配置功能
 :::demo 自定义配置 比如自定义poster。
 
@@ -214,6 +238,53 @@ const onCanplay = (ev) => {
 
 
 
+## Hls 直播
+:::demo `vue3-video-play` 支持原生`video`所有事件。
+
+```vue
+<template>
+  <div>
+      <vue3VideoPlay 
+      width="800px"
+      title="冰河世纪"
+      :src="options.src"
+       />
+  </div>
+
+</template>
+
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+
+const options = reactive({
+  src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
+  type: 'm3u8', //视频类型
+})
+const onPlay = (ev) => {
+  console.log('播放')
+}
+const onPause = (ev) => {
+  console.log(ev, '暂停')
+}
+
+const onTimeupdate = (ev) => {
+  console.log(ev, '时间更新')
+}
+const onCanplay = (ev) => {
+  console.log(ev, '可以播放')
+}
+</script>
+
+<style scoped>
+</style>
+
+```
+
+:::
+
+
+
 ## Props
 vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
@@ -223,9 +294,11 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | height        |    播放器高度    | string  |   -    |                    450px                     |
 | title         |     视频名称     | string  |   -    |                      -                       |
 | src           |     视频资源     | string  |   -    |                      -                       |
+| type           |     视频类型     | string  |   -    |                      video/mp4                       |
 | color         |   播放器主色调   | string  |   -    |                   #409eff                    |
 | webFullScreen |     网页全屏     | boolean |   -    |                    false                     |
 | speed         | 是否支持快进快退 | boolean |   -    |                     true                     |
+| currentTime         | 当前播放时间(s) | number |   -    |                    0                     |
 | speedRate     |     倍速配置     |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
 | mirror        |     镜像画面     | boolean |   -    |                    false                     |
 | ligthOff      |     关灯模式     | boolean |   -    |                    false                     |

@@ -2,11 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
-<<<<<<< HEAD
- * @LastEditTime: 2021-08-26 18:30:20
-=======
- * @LastEditTime: 2021-08-29 11:09:35
->>>>>>> 90a3c62fe7e4a73a584696c85a2646a5e039c396
+ * @LastEditTime: 2021-08-31 11:45:14
  * @Description: file content
 */
 <template>
@@ -15,15 +11,7 @@
   </div>-->
   <div style="text-align: center">
     <button>{{ options.src }}</button>
-    <videoPlay
-      @playing="clickHandle"
-      @play="play"
-      @pause="pause"
-      @ended="ended"
-      ref="video"
-      style="display: inline-block; width: 100%"
-      v-bind="options"
-    />
+    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
   </div>
 </template>
 
@@ -52,20 +40,7 @@ const options = reactive({
   poster: "", //封面
 });
 const video = ref(null);
-const play = (val, ev) => {
-  // console.log("APP 开始播放");
-};
-const pause = (val, ev) => {
-  // console.log("APP 暂停播放");
-};
-const ended = (val, ev) => {
-  // console.log("APP ended");
-};
-// video.value.play()
-const clickHandle = (val, ev) => {
-  // console.log(val, ev);
-  // video.value.play()
-};
+
 nextTick(() => {
   console.log(video.value);
 });
