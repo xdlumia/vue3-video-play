@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 11:00:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-28 10:50:59
+ * @LastEditTime: 2021-09-01 18:08:30
  * @Description: file content
 */
 <template>
@@ -10,24 +10,24 @@
         <div>
             <!-- 初始化加载 -->
             <span v-if="loadType == 'loadstart'">
-                <d-icon class="rotating" icon="icon-loading" :size="50"></d-icon>
+                <i class="rotating iconfont icon-loading f50"></i>
                 <p>{{ text }}</p>
             </span>
             <!-- 缓冲中 -->
             <span v-show="loadType == 'waiting'">
-                <d-icon class="rotating" icon="icon-loading" :size="50"></d-icon>
+                <i class="rotating iconfont icon-loading f50"></i>
                 <p>正在缓冲...</p>
             </span>
             <!-- 播放结束 -->
             <span v-show="loadType == 'ended'">
                 <p @click="replayHandle" class="d-flex-x d-pointer">
-                    <d-icon icon="icon-replay" :size="24" class="mr5"></d-icon>重新播放
+                    <i class="iconfont icon-replay f24 mr5"></i>重新播放
                 </p>
             </span>
             <!-- 播放错误 -->
             <span v-show="loadType == 'error' || loadType == 'stalled'">
                 <p @click="replayHandle" class="d-flex-x d-pointer">
-                    <d-icon icon="icon-replay" :size="24" class="mr5"></d-icon>请求错误
+                    <i class="iconfont icon-replay f24 mr5"></i>请求错误
                 </p>
             </span>
         </div>
@@ -59,10 +59,18 @@ const loadingStyle = computed(() => {
 </script>
 
 <style scoped lang='less'>
+@import "../style/iconfont.css";
 @import "../style/reset.less";
 @import "../style/base.less";
 @import "../style/animate.less";
 @import "../style/transition.less";
+
+.f50 {
+    font-size: 50px;
+}
+.f24 {
+    font-size: 24px;
+}
 .d-loading {
     position: absolute;
     left: 0;

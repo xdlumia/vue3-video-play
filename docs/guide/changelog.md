@@ -2,13 +2,17 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-24 14:50:14
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 15:22:13
+ * @LastEditTime: 2021-09-01 18:11:02
  * @Description: file content
 -->
 <style scoped>
 
 </style>
 # 更新日志
+### 1.3.1-beta.2
+*2021-09-1*
+- 修复: 工具栏播放/暂停按钮构建后不能点击的问题
+- 修复: 缓冲动画构建后动画丢失的问题
 ### 1.3.1-beta.1
 *2021-09-1*
 - 新增: props参数增加`controlBtns`属性，自定义控制器按钮显示

@@ -2150,10 +2150,10 @@ vue-tsc@^0.2.3:
   dependencies:
     vscode-vue-languageservice "^0.27.0"
 
-vue3-video-play@^1.3.1-beta.1:
-  version "1.3.1-beta.1"
-  resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.3.1-beta.1.tgz#b095a3262200b5bdaa32a0aaee1bf89358f7d4fd"
-  integrity sha512-kD1bDEe11u4pME6bp3rl/zhjEH1wtGhDyRHk5K93C9L7qkXzzaQFnz90aKfc9Sw3Fw7rGs2Ludaf5gn3v0lN9g==
+vue3-video-play@^1.3.1-beta.2:
+  version "1.3.1-beta.2"
+  resolved "https://registry.yarnpkg.com/vue3-video-play/-/vue3-video-play-1.3.1-beta.2.tgz#8e5789d34880812c49b581fed27ec83eaacbcfc2"
+  integrity sha512-nw1wtp59rNxtbPXe6DvjDhVLZauEM5wqzJL6qLNarCD5Zj2mxVoFLhVVEx48jvCJSC+xIze6TKGNEaQOx/WdPw==
   dependencies:
     hls.js "^1.0.10"
     throttle-debounce "^3.0.1"

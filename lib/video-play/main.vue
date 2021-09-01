@@ -102,8 +102,8 @@
 
       <div class="d-control-tool" @click="inputFocusHandle">
         <div class="d-tool-bar">
-          <div class="d-tool-item">
-            <d-icon @click="togglePlay" size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
+          <div class="d-tool-item" @click="togglePlay">
+            <d-icon size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
           </div>
           <div
             class="d-tool-item d-tool-time audioTrack-btn"

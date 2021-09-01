@@ -2,10 +2,9 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 15:23:09
+ * @LastEditTime: 2021-09-01 18:10:51
  * @Description: file content
 -->
-
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
 [![Downloads](https://img.shields.io/npm/v/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
 [![GitHub stars](https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/stargazers)
@@ -16,15 +15,9 @@
 
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 
-在使用的时候遇到任何问题 欢迎各位大佬提[issue](https://github.com/xdlumia/vue3-video-play/issues)或者扫码加我微信我拉你入群
-
-![wechat](https://xdlumia.gitee.io/lib/images/wechat.jpeg)
 
 <span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
-## vue3-video-play
-hls.js player component for Vue3.
 
-适用于 Vue3 的 hls.js 播放器组件。
 ## 功能一览
 1. 支持快捷键操作
 2. 支持倍速播放设置
@@ -41,14 +34,14 @@ hls.js player component for Vue3.
 [http://vue3-video-play.dreamwq.com/](http://vue3-video-play.dreamwq.com/)
 
 
-## rc版本 v1.3.0-rc.3 🎉
+
+## 近期更新 v1.3.1-beta.2 🎉
 - 新增: 支持hls视频流播放 
 - 新增: 新增画质切换，需视频流支持
 - 新增: 新增画音视切换，需视频流支持
 - 新增: props参数增加`currentTime`属性，可跳转到固定时间播放
 - 新增: props参数增加`type`属性，视频格式
-## 近期更新 v1.2.52 🎉
-
+- 新增: props参数增加`controlBtns`属性，自定义控制器按钮显示
 - 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
 - 新增: 增加空格快捷键 `播放/暂停` 的操作
@@ -122,7 +115,8 @@ const options = reactive({
   mirror: false, //镜像画面
   ligthOff: false,  //关灯模式
   volume: 0.3, //默认音量大小
-  control: true, //是否显示控制器
+  control: true, //是否显示控制
+  controlBtns:['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] //显示所有按钮,
 })
 </script>
 
@@ -280,27 +274,41 @@ const options = reactive({
 ## Props
 vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
 
-| 名称          |         说明          |  类型   | 可选值 |                    默认值                    |
-| ------------- | :-------------------: | :-----: | :----: | :------------------------------------------: |
-| width         |      播放器宽度       | string  |   -    |                    800px                     |
-| height        |      播放器高度       | string  |   -    |                    450px                     |
-| title         |       视频名称        | string  |   -    |                      -                       |
-| src           |       视频资源        | string  |   -    |                      -                       |
-| type          |       视频类型        | string  |   -    |                  video/mp4                   |
-| color         |     播放器主色调      | string  |   -    |                   #409eff                    |
-| webFullScreen |       网页全屏        | boolean |   -    |                    false                     |
-| speed         |   是否支持快进快退    | boolean |   -    |                     true                     |
-| currentTime   | 跳转到固定播放时间(s) | number  |   -    |                      0                       |
-| speedRate     |       倍速配置        |  array  |   -    | ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"] |
-| mirror        |       镜像画面        | boolean |   -    |                    false                     |
-| ligthOff      |       关灯模式        | boolean |   -    |                    false                     |
-| muted         |         静音          | boolean |   -    |                    false                     |
-| autoPlay      |       自动播放        | boolean |   -    |           false,为true时会自动静音           |
-| loop          |       循环播放        | boolean |   -    |                    false                     |
-| volume        |       默认音量        |   0.3   |  0-1   |                     0.3                      |
-| poster        |       视频封面        | string  |   -    |                  视频第一帧                  |
+| 名称          |         说明          |  类型   |                                               可选值                                               |                                               默认值                                               |
+| ------------- | :-------------------: | :-----: | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
+| width         |      播放器宽度       | string  |                                                 -                                                  |                                               800px                                                |
+| height        |      播放器高度       | string  |                                                 -                                                  |                                               450px                                                |
+| color         |     播放器主色调      | string  |                                                 -                                                  |                                              #409eff                                               |
+| src           |       视频资源        | string  |                                                 -                                                  |                                                 -                                                  |
+| title         |       视频名称        | string  |                                                 -                                                  |                                                 -                                                  |
+| type          |       视频类型        | string  |                                                 -                                                  |                                             video/mp4                                              |
+| poster        |       视频封面        | string  |                                                 -                                                  |                                             视频第一帧                                             |
+| webFullScreen |       网页全屏        | boolean |                                                 -                                                  |                                               false                                                |
+| speed         |   是否支持快进快退    | boolean |                                                 -                                                  |                                                true                                                |
+| currentTime   | 跳转到固定播放时间(s) | number  |                                                 -                                                  |                                                 0                                                  |
+| playsinline   |  ios点击屏幕是否全屏  | boolean |                                                 -                                                  |                                               false                                                |
+| muted         |         静音          | boolean |                                                 -                                                  |                                               false                                                |
+| speedRate     |       倍速配置        |  array  |                                                 -                                                  |                            ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"]                            |
+| autoPlay      |       自动播放        | boolean |                                                 -                                                  |                                      false,为true时会自动静音                                      |
+| loop          |       循环播放        | boolean |                                                 -                                                  |                                               false                                                |
+| mirror        |       镜像画面        | boolean |                                                 -                                                  |                                               false                                                |
+| ligthOff      |       关灯模式        | boolean |                                                 -                                                  |                                               false                                                |
+| volume        |       默认音量        | number  |                                                0-1                                                 |                                                0.3                                                 |
+| control       |    是否显示控制器     | boolean |                                                 -                                                  |                                                true                                                |
+| controlBtns   |   控制器显示的按钮    |  array  | ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] | ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] |
+| preload       |        预加载         | string  |                                           meta/auto/none                                           |                                                auto                                                |
 
-
+### `props`属性 `controlBtns` 按钮说明
+| 名称           |       说明       |
+| -------------- | :--------------: |
+| audioTrack     |   音轨切换按钮   |
+| quality        | 视频质量切换按钮 |
+| speedRate      |   速率切换按钮   |
+| volume         |       音量       |
+| setting        |       设置       |
+| pip            |    画中画按钮    |
+| pageFullScreen |   网页全屏按钮   |
+| fullScreen     |     全屏按钮     |
 
 ## Events
 vue3-video-play支持video原生所有事件  [video默认事件](https://segmentfault.com/a/1190000008053507)
