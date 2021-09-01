@@ -2,13 +2,19 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-24 14:50:14
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 15:23:56
+ * @LastEditTime: 2021-09-01 15:22:13
  * @Description: file content
 -->
 <style scoped>
 
 </style>
 # 更新日志
+### 1.3.1-beta.1
+*2021-09-1*
+- 新增: props参数增加`controlBtns`属性，自定义控制器按钮显示
+- 修复: m3u8切换视频源不生效的bug
+- 修复: 设置poster不生效的bug(#5)
+- 优化: 视频加载后中间增加播放按钮
 ### 1.3.0-rc.3
 *2021-08-31*
 

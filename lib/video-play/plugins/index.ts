@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 18:17:31
+ * @LastEditTime: 2021-09-01 14:13:01
  * @Description: file content
  */
 export const videoEmits = [
@@ -27,8 +27,8 @@ export const defineProps = {
     height: { type: String, default: '450px' },
     color: { type: String, default: '#409eff' },
     src: { required: true, type: String, default: '' }, //视频源
-    type: { type: String, default: 'video/mp4' }, //视频类型
     title: { type: String, default: '' }, //视频名称
+    type: { type: String, default: 'video/mp4' }, //视频类型
     poster: { type: String, default: '' },//封面
     webFullScreen: { type: Boolean, default: false },//网页全屏
     speed: { type: Boolean, default: true },//是否支持快进快退 //移动端不支持

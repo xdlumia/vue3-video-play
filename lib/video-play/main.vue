@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 18:20:03
+ * @LastEditTime: 2021-09-01 12:03:22
  * @Description: file content
 */
 
@@ -21,12 +21,12 @@
   >
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
     <div class="d-player-video" id="dPlayerVideo">
-      <div
+      <!-- <div
         class="d-player-video-poster"
         v-show="props.poster && state.playBtnState == 'play' && state.currentTime == '00:00:00'"
       >
         <img :src="props.poster" :alt="props.title" />
-      </div>
+      </div>-->
       <video
         ref="refdVideo"
         class="d-player-video-main"
@@ -239,6 +239,8 @@ import {
   Ref,
   onMounted,
   useAttrs,
+  watch,
+  nextTick
 } from "vue";
 import { debounce } from "throttle-debounce";
 import Hls2 from "hls.js";
@@ -265,7 +267,7 @@ const emits = defineEmits([
   "loopChange",
   "lightOffChange",
 ]); //emits
-const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
+
 const refPlayerWrap: Ref<HTMLElement> = ref(null); //wrap
 const refdVideo: Ref<HTMLElement> = ref(null); // 视频播放器
 const refPlayerControl: Ref<HTMLElement> = ref(null); //播放器控制器
@@ -309,7 +311,10 @@ const videoEvents = videoEmits.reduce((events, emit) => {
 }, {});
 // 可以播放
 videoEvents["onCanplay"] = compose(videoEvents["onCanplay"], () => {
-
+  if (state.playBtnState != "play") {
+    //如果是自动播放 则显示暂停按钮
+    state.dVideo.play();
+  }
   if (state.autoPlay) {
     //如果是自动播放 则显示暂停按钮
     state.dVideo.play();
@@ -324,7 +329,10 @@ videoEvents["onEnded"] = compose(videoEvents["onEnded"], () => {
 // 资源长度改变
 videoEvents["onDurationchange"] = (ev) => {
   emits("durationchange", ev);
-  state.dVideo.currentTime = props.currentTime
+  if (props.currentTime != 0) {
+    state.dVideo.currentTime = props.currentTime
+  }
+
   //更新当前时长的所有状态
   videoEvents.onTimeupdate(ev)
 };
@@ -524,21 +532,24 @@ const toggleFullScreenHandle = () => {
 const init = (): void => {
   if (state.dVideo.canPlayType(props.type) || state.dVideo.canPlayType('application/vnd.apple.mpegurl')) {
     state.muted = props.autoPlay
-    state.dVideo.load();
+    // state.dVideo.load();
   }
   // // 使用hls解码
   else if (Hls2.isSupported()) {
-    Hls.loadSource(props.src);
+    const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
+    Hls.detachMedia(); //解除绑定
     Hls.attachMedia(state.dVideo);
+    Hls.on(Hls2.Events.MEDIA_ATTACHED, () => {
+      Hls.loadSource(props.src);
+      // 加载可用质量级别
+      Hls.on('hlsManifestParsed', (ev, data) => {
+        console.log(data)
+        state.currentLevel = data.level
+        state.qualityLevels = data.levels || []
+        // state.dVideo.load();
+      });
+    })
 
-    // 加载可用质量级别
-    Hls.on('hlsManifestParsed', (ev, data) => {
-      console.log(data)
-      state.currentLevel = data.level
-      state.qualityLevels = data.levels || []
-
-      // state.dVideo.load();
-    });
     Hls.on('hlsLevelSwitching', (ev, data) => {
       console.log(data)
       // state.qualityLevels = Hls.levels || []
@@ -553,10 +564,15 @@ const init = (): void => {
     });
   }
 }
+
+watch(() => props.src, () => {
+  nextTick(() => {
+    // 初始化
+    init()
+  })
+}, { immediate: true })
 onMounted(() => {
   state.dVideo = refdVideo;
-  // 初始化
-  init()
   inputFocusHandle();
 });
 defineExpose({

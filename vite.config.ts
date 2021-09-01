@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 10:25:40
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 09:46:19
+ * @LastEditTime: 2021-09-01 11:28:11
  * @Description: file content
  */
 const path = require('path')
@@ -15,6 +15,14 @@ export default defineConfig({
   server: {
     port: 3005,
     open: true,
+    // 反向代理
+    proxy: {
+      '/api': {
+        target: 'http://xxx.xxxxx.xxx/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
   },
   build: {
     lib: {

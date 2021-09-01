@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 21:39:36
+ * @LastEditTime: 2021-09-01 12:00:11
  * @Description: file content
 */
 <template>
@@ -10,7 +10,9 @@
     <d-slider v-model="options.volume"></d-slider>
   </div>-->
   <div style="text-align: center">
-    <button>{{ options.src }}</button>
+    <button
+      @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
+    >{{ options.src }}</button>
     <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
   </div>
 </template>
@@ -35,6 +37,7 @@ const options = reactive({
   title: "", //视频名称
   type: 'm3u8',
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
+  // src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
   // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
   poster: "https://go.dreamwq.com/videos/ironMan.jpg", //封面
   controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'],

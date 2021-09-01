@@ -1,6 +1,6 @@
 {
   "name": "vue3-video-play",
-  "version": "1.3.0-rc.4",
+  "version": "1.3.1-beta.1",
   "description": "hls.js player component for Vue3",
   "files": [
     "dist",
@@ -23,7 +23,7 @@
     "email": "214005111@qq.com",
     "url": "https://dreamwq.com"
   },
-  "homepage": "https://xdlumia.github.io",
+  "homepage": "http://vue3-video-play.dreamwq.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/xdlumia/vue3-video-play.git"
@@ -49,7 +49,7 @@
     "vitepress": "^0.16.1",
     "vitepress-theme-demoblock": "^1.1.1",
     "vue-tsc": "^0.2.3",
-    "vue3-video-play": "^1.3.0-rc.4"
+    "vue3-video-play": "^1.3.1-beta.1"
   },
   "keywords": [
     "vue 3",
