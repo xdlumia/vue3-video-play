@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-23 21:12:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 14:42:01
+ * @LastEditTime: 2021-09-02 16:41:34
  * @Description: file content
 */
 <template>
@@ -35,7 +35,6 @@ export default {
 <script setup lang="ts">
 import { reactive, ref, Ref, computed } from 'vue'
 import { on, off } from '../utils/dom.ts'
-import type { PropType } from 'vue'
 type Nullable<T> = null | T
 const refSlider: Ref<HTMLElement> = ref(null)
 const refTips: Ref<Nullable<HTMLElement>> = ref(null)

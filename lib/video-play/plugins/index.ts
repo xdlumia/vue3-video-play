@@ -2,9 +2,10 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-25 11:19:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 14:13:01
+ * @LastEditTime: 2021-09-02 16:03:36
  * @Description: file content
  */
+import type { PropType } from 'vue'
 export const videoEmits = [
     'loadstart',
     'play',
@@ -42,6 +43,9 @@ export const defineProps = {
     ligthOff: { type: Boolean, default: false },  //关灯模式
     volume: { type: [String, Number], default: 0.3 }, //默认音量大小
     control: { type: Boolean, default: true }, //是否显示控制器
-    controlBtns: { type: Array, default: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] }, //是否显示控制器
+    controlBtns: {
+        type: Array as PropType<Array<string>>,
+        default: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen']
+    }, //是否显示控制器
     preload: { type: String, default: 'auto' }, //预加载 
 }
