@@ -42,7 +42,7 @@ npm manifest:
       "email": "214005111@qq.com",
       "url": "https://dreamwq.com"
     },
-    "homepage": "http://vue3-video-play.dreamwq.com/",
+    "homepage": "https://dreamwq.com/vue3-video-play/",
     "repository": {
       "type": "git",
       "url": "https://github.com/xdlumia/vue3-video-play.git"

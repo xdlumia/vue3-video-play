@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 18:10:51
+ * @LastEditTime: 2021-09-14 09:25:41
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -31,11 +31,11 @@
 10. hls播放支持清晰度切换
 # 主页示例
 
-[http://vue3-video-play.dreamwq.com/](http://vue3-video-play.dreamwq.com/)
+[https://dreamwq.com/vue3-video-play/](https://dreamwq.com/vue3-video-play/)
 
 
 
-## 近期更新 v1.3.1-beta.2 🎉
+## 近期更新 v1.3.1-beta.3 🎉
 - 新增: 支持hls视频流播放 
 - 新增: 新增画质切换，需视频流支持
 - 新增: 新增画音视切换，需视频流支持
