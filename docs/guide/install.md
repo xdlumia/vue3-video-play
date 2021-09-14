@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 18:10:39
+ * @LastEditTime: 2021-09-14 09:26:02
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -31,7 +31,7 @@
 10. hls播放支持清晰度切换
 # 主页示例
 
-[http://vue3-video-play.dreamwq.com/](http://vue3-video-play.dreamwq.com/)
+[https://dreamwq.com/vue3-video-play/](https://dreamwq.com/vue3-video-play/)
 
 
 

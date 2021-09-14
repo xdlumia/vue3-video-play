@@ -2,13 +2,15 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 22:40:21
+ * @LastEditTime: 2021-09-14 09:16:36
  * @Description: file content
  */
 module.exports = {
     title: "Vue3VideoPlay", // 网站标题
     description: 'Vue3VideoPlay 基于vue3编写的视频播放器', //网站描述
+    keyword: 'videoPlayer,vue3Video, hlsjs, m3u8视频流播放', //网站描述
     // lang: 'en-US', //语言
+    base: '/vue3-video-play/',
     repo: 'vuejs/vitepress',
     head: [
         // 改变title的图标
