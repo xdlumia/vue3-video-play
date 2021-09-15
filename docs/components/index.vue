@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-31 16:11:00
+ * @LastEditTime: 2021-09-15 23:18:12
  * @Description: file content
 */
 <template>
@@ -12,11 +12,11 @@
             <!-- <vue3-video-play /> -->
         </div>
         <h1>Vue3-video-play</h1>
-        <p>基于Vue3 的视频播放器</p>
+        <p>适用于 Vue3 的 hls.js 播放器组件 | 并且支持MP4/WebM/Ogg格式</p>
         <p>配置强大，UI还算好看</p>
 
         <div class="index-link">
-            <a class="d-button primary" href="/guide/install">快速上手</a>
+            <a class="d-button primary" href="/vue3-video-play/guide/install">快速上手</a>
             <a
                 class="d-button"
                 target="_blank"

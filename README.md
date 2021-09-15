@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-14 09:25:41
+ * @LastEditTime: 2021-09-15 23:18:05
  * @Description: file content
 -->
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
@@ -17,7 +17,9 @@
 
 
 <span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
-
+###  Vue3-video-play
+适用于 Vue3 的 hls.js 播放器组件 | 并且支持MP4/WebM/Ogg格式
+配置强大，UI还算好看
 ## 功能一览
 1. 支持快捷键操作
 2. 支持倍速播放设置
