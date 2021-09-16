@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 12:00:11
+ * @LastEditTime: 2021-09-16 17:42:17
  * @Description: file content
 */
 <template>
@@ -10,43 +10,27 @@
     <d-slider v-model="options.volume"></d-slider>
   </div>-->
   <div style="text-align: center">
-    <button
-      @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
-    >{{ options.src }}</button>
-    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
+    <button @click="options.lock = !options.lock">{{ options.lock }}</button>
+
+    <lockScreen @enter="enter" v-model="options.lock" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref, nextTick } from "vue";
-import { videoPlay } from "../lib/index.js";
+import { lockScreen } from "../lib/index.js";
 
 const options = reactive({
-  width: "800px",
-  height: "450px",
-  color: "#409eff",
-  muted: false, //静音
-  webFullScreen: false,
-  autoPlay: false, //自动播放
-  currentTime: 0,
-  loop: false, //循环播放
-  mirror: false, //镜像画面
-  ligthOff: false, //关灯模式
-  volume: 0.3, //默认音量大小
-  control: true, //是否显示控制器
-  title: "", //视频名称
-  type: 'm3u8',
-  src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
-  // src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
-  // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
-  poster: "https://go.dreamwq.com/videos/ironMan.jpg", //封面
-  controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'],
+  lock: false,
 });
-const video = ref(null);
 
-nextTick(() => {
-  console.log(video.value);
-});
+const enter = () => {
+  setTimeout(() => {
+    options.lock = false
+  }, 1000)
+
+}
+
 </script>
 
 <style scoped>
