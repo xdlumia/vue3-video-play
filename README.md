@@ -2,9 +2,10 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-19 18:56:59
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-14 09:25:41
+ * @LastEditTime: 2021-09-15 23:18:05
  * @Description: file content
 -->
+
 [![Version](https://img.shields.io/npm/dt/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
 [![Downloads](https://img.shields.io/npm/v/vue3-video-play.svg?style=flat-square)](https://www.npmjs.com/package/vue3-video-play)
 [![GitHub stars](https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square)](https://github.com/xdlumia/vue3-video-play/stargazers)
@@ -15,46 +16,56 @@
 
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 
-
 <span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
 
+### Vue3-video-play
+
+适用于 Vue3 的 hls.js 播放器组件 | 并且支持 MP4/WebM/Ogg 格式
+配置强大，UI 还算好看
+
 ## 功能一览
+
 1. 支持快捷键操作
 2. 支持倍速播放设置
 3. 支持镜像画面设置
 4. 支持关灯模式设置
 5. 支持画中画模式播放
 6. 支持全屏/网页全屏播放
-6. 支持从固定时间开始播放
+7. 支持从固定时间开始播放
 8. 支持移动端，移动端会自动调用自带视频播放器
-9. 支持hls视频流播放，支持直播
-10. hls播放支持清晰度切换
+9. 支持 hls 视频流播放，支持直播
+10. hls 播放支持清晰度切换
+
 # 主页示例
 
-[https://dreamwq.com/vue3-video-play/](https://dreamwq.com/vue3-video-play/)
-
-
+[https://codelife.cc/vue3-video-play/](https://codelife.cc/vue3-video-play/)
 
 ## 近期更新 v1.3.1-beta.3 🎉
-- 新增: 支持hls视频流播放 
+
+- 新增: 支持 hls 视频流播放
 - 新增: 新增画质切换，需视频流支持
 - 新增: 新增画音视切换，需视频流支持
-- 新增: props参数增加`currentTime`属性，可跳转到固定时间播放
-- 新增: props参数增加`type`属性，视频格式
-- 新增: props参数增加`controlBtns`属性，自定义控制器按钮显示
+- 新增: props 参数增加`currentTime`属性，可跳转到固定时间播放
+- 新增: props 参数增加`type`属性，视频格式
+- 新增: props 参数增加`controlBtns`属性，自定义控制器按钮显示
 - 新增: 右键菜单功能，右键菜单包涵，视频滤镜调节、快捷键说明、复制当前视频网址
 - 新增: `mirrorChange` `loopChange` `lightOffChange` 事件
 - 新增: 增加空格快捷键 `播放/暂停` 的操作
 - 优化: 如果音量为 0 关闭静音按钮 音量设置为 5
+
 # 使用指南
 
 ## 安装
-npm安装：
-``` bash
+
+npm 安装：
+
+```bash
 npm i vue3-video-play --save
 ```
-yarn安装：
-``` bash
+
+yarn 安装：
+
+```bash
 yarn add vue3-video-play --save
 ```
 
@@ -62,217 +73,224 @@ yarn add vue3-video-play --save
 
 #### 全局使用
 
-``` js
-import { createApp } from 'vue'
-import App from './App.vue'
-let app = createApp(App)
+```js
+import { createApp } from "vue";
+import App from "./App.vue";
+let app = createApp(App);
 
-import vue3videoPlay from 'vue3-video-play' // 引入组件
-import 'vue3-video-play/dist/style.css' // 引入css
-app.use(vue3videoPlay)
+import vue3videoPlay from "vue3-video-play"; // 引入组件
+import "vue3-video-play/dist/style.css"; // 引入css
+app.use(vue3videoPlay);
 
-app.mount('#app')
+app.mount("#app");
 ```
 
 #### 组件内使用
 
 ```js
 // require style
-import 'vue3-video-play/dist/style.css'
-import { videoPlay } from 'vue-video-play'
+import "vue3-video-play/dist/style.css";
+import { videoPlay } from "vue-video-play";
 export default {
   components: {
-    videoPlay
-  }
-}
+    videoPlay,
+  },
+};
 ```
 
-
 ## 基本示例
+
 提供了丰富了配置功能
-:::demo 自定义配置 比如自定义poster。
+:::demo 自定义配置 比如自定义 poster。
 
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
+    <vue3VideoPlay
+      v-bind="options"
+      poster="https://go.codelife.cc/videos/ironMan.jpg"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 const options = reactive({
-  width: '800px', //播放器高度
-  height: '450px', //播放器高度
+  width: "800px", //播放器高度
+  height: "450px", //播放器高度
   color: "#409eff", //主题色
-  title: '', //视频名称
-  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
+  title: "", //视频名称
+  src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
   muted: false, //静音
   webFullScreen: false,
   speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
   autoPlay: false, //自动播放
   loop: false, //循环播放
   mirror: false, //镜像画面
-  ligthOff: false,  //关灯模式
+  ligthOff: false, //关灯模式
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制
-  controlBtns:['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] //显示所有按钮,
-})
+  controlBtns: [
+    "audioTrack",
+    "quality",
+    "speedRate",
+    "volume",
+    "setting",
+    "pip",
+    "pageFullScreen",
+    "fullScreen",
+  ], //显示所有按钮,
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 :::
 
-可以通过`props`的`speed`开启或关闭进度条功能, 并且通过 `currentTime`属性控制从60秒开始播放
+可以通过`props`的`speed`开启或关闭进度条功能, 并且通过 `currentTime`属性控制从 60 秒开始播放
 
-:::demo  通过`speed`关闭进度条拖动功能。 并且通过 `currentTime`属性控制从60秒开始播放
+:::demo 通过`speed`关闭进度条拖动功能。 并且通过 `currentTime`属性控制从 60 秒开始播放
 
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
+    <vue3VideoPlay
+      v-bind="options"
+      poster="https://go.codelife.cc/videos/ironMan.jpg"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
 const options = reactive({
-  width: '500px', //播放器高度
-  height: '260px', //播放器高度
+  width: "500px", //播放器高度
+  height: "260px", //播放器高度
   color: "#409eff", //主题色
-  currentTime:60,
-  speed:false, //关闭进度条拖动
-  title: '', //视频名称
-  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
-})
+  currentTime: 60,
+  speed: false, //关闭进度条拖动
+  title: "", //视频名称
+  src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
 ```
 
 :::
-
-
 
 还可以通过`props`的`control`属性 来控制是否显示控制器
 :::demo 通过`control` 来控制是否显示控制器
+
 ```vue
 <template>
   <div>
-    <vue3VideoPlay v-bind="options" poster='https://go.dreamwq.com/videos/ironMan.jpg'/>
+    <vue3VideoPlay
+      v-bind="options"
+      poster="https://go.codelife.cc/videos/ironMan.jpg"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
 const options = reactive({
-  width: '500px', //播放器高度
-  height: '260px', //播放器高度
+  width: "500px", //播放器高度
+  height: "260px", //播放器高度
   color: "#409eff", //主题色
   control: false, //是否显示控制器
-  title: '', //视频名称
-  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
-})
+  title: "", //视频名称
+  src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
+});
 </script>
 
-<style scoped>
-</style>
-
+<style scoped></style>
 ```
+
 :::
 
-
-
 ## 事件示例
+
 :::demo `vue3-video-play` 支持原生`video`所有事件。
 
 ```vue
 <template>
   <div>
-      <vue3VideoPlay 
+    <vue3VideoPlay
       width="800px"
       title="钢铁侠"
       :src="options.src"
       :poster="options.poster"
       @play="onPlay"
-      @pause="onPause" 
-      @timeupdate="onTimeupdate" 
-      @canplay="onCanplay" />
+      @pause="onPause"
+      @timeupdate="onTimeupdate"
+      @canplay="onCanplay"
+    />
   </div>
-
 </template>
 
-
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
 const options = reactive({
-  src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
-  poster: '', //封面
-})
+  src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
+  poster: "", //封面
+});
 const onPlay = (ev) => {
-  console.log('播放')
-}
+  console.log("播放");
+};
 const onPause = (ev) => {
-  console.log(ev, '暂停')
-}
+  console.log(ev, "暂停");
+};
 
 const onTimeupdate = (ev) => {
-  console.log(ev, '时间更新')
-}
+  console.log(ev, "时间更新");
+};
 const onCanplay = (ev) => {
-  console.log(ev, '可以播放')
-}
+  console.log(ev, "可以播放");
+};
 </script>
 
-<style scoped>
-</style>
-
+<style scoped></style>
 ```
 
 :::
 
+## Hls m3u8 视频/直播
 
+:::demo `vue3-video-play` 支持 m3u8(hls)播放
 
-## Hls m3u8视频/直播
-:::demo `vue3-video-play` 支持m3u8(hls)播放
 ```vue
 <template>
   <div>
-      <vue3VideoPlay 
+    <vue3VideoPlay
       width="800px"
       title="冰河世纪"
       :src="options.src"
       :type="options.type"
       :autoPlay="false"
-       />
+    />
   </div>
-
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 const options = reactive({
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
-  type: 'm3u8', //视频类型
-})
+  type: "m3u8", //视频类型
+});
 </script>
 
-<style scoped>
-</style>
-
+<style scoped></style>
 ```
+
 :::
 
-
-
 ## Props
-vue3-video-play 支持video原生所有Attributes  [video原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和props属性使用一致
+
+vue3-video-play 支持 video 原生所有 Attributes [video 原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和 props 属性使用一致
 
 | 名称          |         说明          |  类型   |                                               可选值                                               |                                               默认值                                               |
 | ------------- | :-------------------: | :-----: | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
@@ -286,10 +304,10 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | webFullScreen |       网页全屏        | boolean |                                                 -                                                  |                                               false                                                |
 | speed         |   是否支持快进快退    | boolean |                                                 -                                                  |                                                true                                                |
 | currentTime   | 跳转到固定播放时间(s) | number  |                                                 -                                                  |                                                 0                                                  |
-| playsinline   |  ios点击屏幕是否全屏  | boolean |                                                 -                                                  |                                               false                                                |
+| playsinline   | ios 点击屏幕是否全屏  | boolean |                                                 -                                                  |                                               false                                                |
 | muted         |         静音          | boolean |                                                 -                                                  |                                               false                                                |
 | speedRate     |       倍速配置        |  array  |                                                 -                                                  |                            ["2.0", "1.0", "1.5", "1.25", "0.75", "0.5"]                            |
-| autoPlay      |       自动播放        | boolean |                                                 -                                                  |                                      false,为true时会自动静音                                      |
+| autoPlay      |       自动播放        | boolean |                                                 -                                                  |                                     false,为 true 时会自动静音                                     |
 | loop          |       循环播放        | boolean |                                                 -                                                  |                                               false                                                |
 | mirror        |       镜像画面        | boolean |                                                 -                                                  |                                               false                                                |
 | ligthOff      |       关灯模式        | boolean |                                                 -                                                  |                                               false                                                |
@@ -299,6 +317,7 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | preload       |        预加载         | string  |                                           meta/auto/none                                           |                                                auto                                                |
 
 ### `props`属性 `controlBtns` 按钮说明
+
 | 名称           |       说明       |
 | -------------- | :--------------: |
 | audioTrack     |   音轨切换按钮   |
@@ -311,7 +330,8 @@ vue3-video-play 支持video原生所有Attributes  [video原生属性](https://s
 | fullScreen     |     全屏按钮     |
 
 ## Events
-vue3-video-play支持video原生所有事件  [video默认事件](https://segmentfault.com/a/1190000008053507)
+
+vue3-video-play 支持 video 原生所有事件 [video 默认事件](https://segmentfault.com/a/1190000008053507)
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
@@ -337,21 +357,22 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 | volumechange   | 音量改变           | event |
 
 ## 快捷键说明
+
 支持快捷键操作
-| 键名       | 说明                          |
+| 键名 | 说明 |
 | ---------- | ----------------------------- |
-| Space      | 暂停/播放                     |
+| Space | 暂停/播放 |
 | 方向右键 → | 单次快进 10s，长按 5 倍速播放 |
-| 方向左键 ← | 快退 10s                      |
-| 方向上键 ↑ | 音量+10%                      |
-| 方向下键 ↓ | 音量-10%                      |
-| Esc        | 退出全屏/退出网页全屏         |
-| F          | 全屏/退出全屏                 |
+| 方向左键 ← | 快退 10s |
+| 方向上键 ↑ | 音量+10% |
+| 方向下键 ↓ | 音量-10% |
+| Esc | 退出全屏/退出网页全屏 |
+| F | 全屏/退出全屏 |
+
 # Author
 
-[xdlumia](https://dreamwq.com)
+[xdlumia](https://codelife.cc)
 
-# 点个start
+# 点个 start
 
 [vue3-video-play](https://github.com/xdlumia/vue3-video-play)
-

@@ -12,8 +12,14 @@
   <div style="text-align: center">
     <button
       @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
-    >{{ options.src }}</button>
-    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
+    >
+      {{ options.src }}
+    </button>
+    <videoPlay
+      ref="video"
+      style="display: inline-block; width: 100%"
+      v-bind="options"
+    />
   </div>
 </template>
 
@@ -35,12 +41,21 @@ const options = reactive({
   volume: 0.3, //默认音量大小
   control: true, //是否显示控制器
   title: "", //视频名称
-  type: 'm3u8',
+  type: "m3u8",
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
-  // src: "https://go.dreamwq.com/videos/IronMan.mp4", //视频源
+  // src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
   // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
-  poster: "https://go.dreamwq.com/videos/ironMan.jpg", //封面
-  controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'],
+  poster: "https://go.codelife.cc/videos/ironMan.jpg", //封面
+  controlBtns: [
+    "audioTrack",
+    "quality",
+    "speedRate",
+    "volume",
+    "setting",
+    "pip",
+    "pageFullScreen",
+    "fullScreen",
+  ],
 });
 const video = ref(null);
 
