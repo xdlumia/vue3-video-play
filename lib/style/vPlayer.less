@@ -1,0 +1,263 @@
+.d-player-wrap {
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+
+  &.web-full-screen {
+    z-index: 9999999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  .d-player-video {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    .d-player-video-poster{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top:0;
+      left:0;
+      img{
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .d-player-video-main {
+      width: 100%;
+      height: 100%;
+      transition: .2s;
+
+
+      &.video-mirror {
+        transform: rotateY(180deg);
+      }
+    }
+
+  }
+
+  .d-player-control {
+    transition: .1s;
+    transform: translateY(40px);
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    color: #fff;
+
+    .d-control-progress {
+      width: 100%;
+      position: relative;
+      height: 10px;
+      cursor: pointer;
+
+      .d-progress-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        transition: height 0.1s;
+        height: 3px;
+        z-index: 1;
+
+        // pointer-events: none;
+        //对 d-slider内的组件样式修改
+        :deep(.d-slider__runway) {
+          transition: height 0.1s;
+          height: 100%;
+
+          .d-slider__bar::before {
+            transform: translateY(-50%) scale(0, 0);
+          }
+        }
+      }
+
+      &:hover {
+        .d-progress-bar {
+          height: 100%;
+
+          :deep(.d-slider__bar::before) {
+            transform: translateY(-50%) scale(1, 1) !important;
+          }
+        }
+      }
+    }
+
+    .d-control-tool {
+      position: absolute;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      top: 10px;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      box-sizing: border-box;
+
+      .d-tool-bar {
+        display: flex;
+        height: 100%;
+
+        .d-tool-item {
+          position: relative;
+          height: 100%;
+          cursor: pointer;
+          text-align: center;
+          padding: 0 8px;
+          display: flex;
+          align-items: center;
+          font-size: 13px;
+
+          .d-tool-item-main {
+            position: absolute;
+            white-space: nowrap;
+            z-index: 2;
+            bottom: 98%;
+            left: 50%;
+            padding: 6px 16px;
+            box-sizing: border-box;
+            display: none;
+            background: rgba(0, 0, 0, 0.95);
+            border-radius: 5px;
+            transform: translateX(-50%);
+          }
+
+          &:hover {
+            .d-tool-item-main {
+              display: flex;
+            }
+          }
+        }
+      }
+
+      // 时间
+      .d-tool-time {
+        font-size: 12px;
+        color: #fff;
+        font-weight: 300;
+
+        .total-time {
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      // 音量
+      .volume-box {
+        height: 160px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .volume-main {
+          height: 90%;
+          display: flex;
+          width: 60px;
+          flex-direction: column;
+          align-items: center;
+
+          .volume-text-size {
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 400;
+          }
+
+          &.is-muted {
+            :deep(.d-slider__bar) {
+              height: 0 !important
+            }
+          }
+        }
+      }
+
+      .speed-main {
+        padding: 0 10px;
+
+        li {
+          cursor: pointer;
+          line-height: 34px;
+          font-size: 12px;
+          color: #fff;
+
+          &:hover {
+            opacity: .8;
+          }
+
+          &.speed-active {
+            color: rgba(var(--primary-color), 1);
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  &.d-player-wrap-hover {
+    .d-player-control {
+      transform: translateY(0px);
+    }
+  }
+}
+
+.d-player-state,
+.d-player-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.d-player-input {
+  width: 100%;
+  border: none;
+  opacity: 0;
+  cursor: default;
+
+}
+
+.d-play-btn {
+  width: 90px;
+  height: 90px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .7);
+  border-radius: 50%;
+}
+
+
+// 黑幕
+.d-player-lightoff {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .9);
+}
+
+// 关灯模式
+.is-lightoff {
+  z-index: 999998;
+}
