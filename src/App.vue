@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-20 19:10:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 12:00:11
+ * @LastEditTime: 2021-10-10 22:33:02
  * @Description: file content
 */
 <template>
@@ -12,14 +12,8 @@
   <div style="text-align: center">
     <button
       @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
-    >
-      {{ options.src }}
-    </button>
-    <videoPlay
-      ref="video"
-      style="display: inline-block; width: 100%"
-      v-bind="options"
-    />
+    >{{ options.src }}</button>
+    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
   </div>
 </template>
 
@@ -43,9 +37,9 @@ const options = reactive({
   title: "", //视频名称
   type: "m3u8",
   src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", //视频源
-  // src: "https://go.codelife.cc/videos/IronMan.mp4", //视频源
+  // src: "https://cdn.jsdelivr.net/gh/xdlumia/files/video-play/IronMan.mp4", //视频源
   // src: "https://logos-channel.scaleengine.net/logos-channel/live/biblescreen-ad-free/playlist.m3u8", //视频源
-  poster: "https://go.codelife.cc/videos/ironMan.jpg", //封面
+  poster: "https://cdn.jsdelivr.net/gh/xdlumia/files/video-play/ironMan.jpg", //封面
   controlBtns: [
     "audioTrack",
     "quality",
