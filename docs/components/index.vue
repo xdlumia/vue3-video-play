@@ -2,17 +2,13 @@
  * @Author: web.王晓冬
  * @Date: 2021-08-21 19:20:46
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-15 23:18:12
+ * @LastEditTime: 2021-10-11 12:54:56
  * @Description: file content
 */
 <template>
   <div style="text-align: center; margin-top: 20px">
     <div class="video-main">
-      <component
-        v-bind="options"
-        v-if="dynamicComponent"
-        :is="dynamicComponent"
-      ></component>
+      <component v-bind="options" v-if="dynamicComponent" :is="dynamicComponent"></component>
       <!-- <vue3-video-play /> -->
     </div>
     <h1>Vue3-video-play</h1>
@@ -20,15 +16,12 @@
     <p>配置强大，UI还算好看</p>
 
     <div class="index-link">
-      <a class="d-button primary" href="/vue3-video-play/guide/install"
-        >快速上手</a
-      >
+      <a class="d-button primary" href="/vue3-video-play/guide/install">快速上手</a>
       <a
         class="d-button"
         target="_blank"
         href="https://github.com/xdlumia/vue3-video-play/"
-        >view github</a
-      >
+      >view github</a>
     </div>
     <div>
       <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">
@@ -43,39 +36,26 @@
           alt="Version"
         />
       </a>
-      <a
-        href="https://github.com/xdlumia/vue3-video-play/stargazers"
-        target="_blank"
-      >
+      <a href="https://github.com/xdlumia/vue3-video-play/stargazers" target="_blank">
         <img
           src="https://img.shields.io/github/stars/xdlumia/vue3-video-play.svg?style=flat-square"
         />
       </a>
-      <a
-        href="https://github.com/xdlumia/vue3-video-play/issues"
-        target="_blank"
-      >
+      <a href="https://github.com/xdlumia/vue3-video-play/issues" target="_blank">
         <img
           src="https://img.shields.io/github/issues/xdlumia/vue3-video-play.svg?style=flat-square"
         />
       </a>
-      <a
-        href="https://github.com/xdlumia/vue3-video-play/network"
-        target="_blank"
-      >
+      <a href="https://github.com/xdlumia/vue3-video-play/network" target="_blank">
         <img
           src="https://img.shields.io/github/forks/xdlumia/vue3-video-play.svg?style=flat-square"
         />
       </a>
       <a href="https://github.com/xdlumia/vue3-video-play" target="_blank">
-        <img
-          src="https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square"
-        />
+        <img src="https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square" />
       </a>
       <a href="https://github.com/xdlumia/vue3-video-play" target="_blank">
-        <img
-          src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square"
-        />
+        <img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square" />
       </a>
       <p>
         <a href="https://www.npmjs.com/package/vue3-video-play" target="_blank">
@@ -89,7 +69,7 @@
     <p class="index-footer">
       <a href="https://codelife.cc/" target="_blank">博客</a>
       <a href="https://codelife.cc/bing" target="_blank">每日必应壁纸</a>
-      <a href="https://go.codelife.cc/" target="_blank">lingo新标签页</a>
+      <a href="https://itab.link/" target="_blank">iTab新标签页</a>
     </p>
     <hr />
     <p>MIT Licensed | Copyright © 2021-present xdlumia</p>
