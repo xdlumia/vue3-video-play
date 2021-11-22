@@ -69,7 +69,7 @@
     <p class="index-footer">
       <a href="https://codelife.cc/" target="_blank">博客</a>
       <a href="https://codelife.cc/bing" target="_blank">每日必应壁纸</a>
-      <a href="https://go.codelife.cc/" target="_blank">lingo新标签页</a>
+      <a href="https://itab.link/" target="_blank">iTab新标签页</a>
     </p>
     <hr />
     <p>MIT Licensed | Copyright © 2021-present xdlumia</p>
