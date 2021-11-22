@@ -1,8 +1,8 @@
 /*
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
- * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 12:03:22
+ * @LastEditors: iTab.link
+ * @LastEditTime: 2021-11-22 17:06:18
  * @Description: file content
 */
 
@@ -259,6 +259,7 @@ import {
   isMobile,
   firstUpperCase,
 } from "../utils/util";
+const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
 import { videoEmits, defineProps } from "./plugins/index";
 const props = defineProps(defineProps); //props
 const emits = defineEmits([
@@ -536,7 +537,6 @@ const init = (): void => {
   }
   // // 使用hls解码
   else if (Hls2.isSupported()) {
-    const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
     Hls.detachMedia(); //解除绑定
     Hls.attachMedia(state.dVideo);
     Hls.on(Hls2.Events.MEDIA_ATTACHED, () => {
