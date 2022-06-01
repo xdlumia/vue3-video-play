@@ -434,11 +434,17 @@ const inputFocusHandle = () => {
 // 播放方法
 const playHandle = () => {
   state.loadStateType = "play";
+  //首次播放会报错：DOMException: The play() request was interrupted by a new load request.
   state.dVideo.play().catch(() => {
+    //处理无缓冲报错问题
+    state.dVideo.load()
     setTimeout(() => {
-      state.playBtnState = "replay";
-      state.loadStateType = "error";
-    }, 500);
+      state.dVideo.play().catch(() => {
+        //如果依然报错，则显示错误状态。
+        state.playBtnState = "replay";
+        state.loadStateType = "error";
+      })
+    },200)
   });
   state.playBtnState = "pause";
   // 播放后清空状态
