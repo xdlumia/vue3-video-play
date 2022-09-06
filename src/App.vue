@@ -9,11 +9,11 @@
   <!-- <div style="height:150px; margin-top:100px">
     <d-slider v-model="options.volume"></d-slider>
   </div>-->
-  <div style="text-align: center">
-    <button
+  <div class="main">
+    <!-- <button
       @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
-    >{{ options.src }}</button>
-    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
+    >{{ options.src }}</button> -->
+    <videoPlay ref="video" style="display: inline-block; width: 100%;" v-bind="options" />
   </div>
 </template>
 
@@ -59,4 +59,9 @@ nextTick(() => {
 </script>
 
 <style scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
