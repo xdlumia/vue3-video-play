@@ -90,7 +90,7 @@ app.mount("#app");
 ```js
 // require style
 import "vue3-video-play/dist/style.css";
-import { videoPlay } from "vue-video-play";
+import { videoPlay } from "vue3-video-play";
 export default {
   components: {
     videoPlay,
