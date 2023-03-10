@@ -129,7 +129,7 @@ const options = reactive({
   mirror: false, //镜像画面
   ligthOff: false, //关灯模式
   volume: 0.3, //默认音量大小
-  control: true, //是否显示控制
+  controls: true, //是否显示控制
   controlBtns: [
     "audioTrack",
     "quality",
@@ -181,8 +181,8 @@ const options = reactive({
 
 :::
 
-还可以通过`props`的`control`属性 来控制是否显示控制器
-:::demo 通过`control` 来控制是否显示控制器
+还可以通过`props`的`controls`属性 来控制是否显示控制器
+:::demo 通过`controls` 来控制是否显示控制器
 
 ```vue
 <template>
@@ -201,7 +201,7 @@ const options = reactive({
   width: "500px", //播放器高度
   height: "260px", //播放器高度
   color: "#409eff", //主题色
-  control: false, //是否显示控制器
+  controls: false, //是否显示控制器
   title: "", //视频名称
   src: "https://cdn.jsdelivr.net/gh/xdlumia/files/video-play/IronMan.mp4", //视频源
 });
@@ -312,7 +312,7 @@ vue3-video-play 支持 video 原生所有 Attributes [video 原生属性](https:
 | mirror        |       镜像画面        | boolean |                                                 -                                                  |                                               false                                                |
 | ligthOff      |       关灯模式        | boolean |                                                 -                                                  |                                               false                                                |
 | volume        |       默认音量        | number  |                                                0-1                                                 |                                                0.3                                                 |
-| control       |    是否显示控制器     | boolean |                                                 -                                                  |                                                true                                                |
+| controls       |    是否显示控制器     | boolean |                                                 -                                                  |                                                true                                                |
 | controlBtns   |   控制器显示的按钮    |  array  | ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] | ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] |
 | preload       |        预加载         | string  |                                           meta/auto/none                                           |                                                auto                                                |
 
