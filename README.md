@@ -116,7 +116,7 @@ export default {
 <script setup lang="ts">
 import { reactive } from "vue";
 const options = reactive({
-  width: "800px", //播放器高度
+  width: "800px", //播放器宽度
   height: "450px", //播放器高度
   color: "#409eff", //主题色
   title: "", //视频名称
