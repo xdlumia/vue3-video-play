@@ -368,11 +368,3 @@ vue3-video-play 支持 video 原生所有事件 [video 默认事件](https://seg
 | 方向下键 ↓ | 音量-10%                      |
 | Esc        | 退出全屏/退出网页全屏         |
 | F          | 全屏/退出全屏                 |
-
-# Author
-
-[xdlumia](https://codelife.cc)
-
-# 点个 start
-
-[vue3-video-play](https://github.com/xdlumia/vue3-video-play)
