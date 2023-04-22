@@ -17,30 +17,11 @@
 import { Ref, computed, nextTick, ref } from 'vue'
 
 const props = defineProps({
-  modelValue: {
-    //绑定值，必须等于active-value或inactive-value，默认为Boolean类型
-    type: [Number, String, Boolean]
-  },
-  width: {
-    //switch 的宽度（像素）
-    type: String,
-    default: '40px'
-  },
-  trueValue: {
-    //switch 打开时的值
-    type: [Number, String, Boolean],
-    default: true
-  },
-  falseValue: {
-    //	switch 关闭时的值
-    type: [Number, String, Boolean],
-    default: true
-  },
-  activeColor: {
-    //switch 打开时的背景色
-    type: [String],
-    default: '#409EFF'
-  }
+  modelValue    : { type: [Number, String, Boolean] },
+  width         : { type: String, default: '40px' }, //switch 的宽度（像素）
+  trueValue     : { type: [Number, String, Boolean], default: true }, //switch 打开时的值
+  falseValue    : { type: [Number, String, Boolean], default: true }, //	switch 关闭时的值
+  activeColor   : { type: [String], default: '#409EFF' } //switch 打开时的背景色
 })
 const emits = defineEmits(['update:modelValue', 'change'])
 

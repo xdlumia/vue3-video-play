@@ -8,20 +8,10 @@ export default {
 </script>
 <script setup>
 const props = withDefaults(
-  defineProps <
+  defineProps < { icon: string, size: [Number, String] } >
     {
-      icon: string,
-      size: [Number, String]
-    } >
-    {
-      icon: {
-        type: String,
-        default: ''
-      },
-      size: {
-        type: [Number, String],
-        default: () => []
-      }
+      icon: { type: String, default: '' },
+      size: { type: [Number, String], default: () => [] }
     }
 )
 

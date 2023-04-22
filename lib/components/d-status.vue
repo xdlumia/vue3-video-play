@@ -4,26 +4,20 @@
       <d-icon
         size="18"
         class="d-status-icon"
-        :icon="`icon-volume-${
-          state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
-        }`"
+        :icon="`icon-volume-${state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'}`"
       ></d-icon>
       {{ ~~(state.volume * 100) }}%
     </li>
-    <li
-      class="d-flex-center"
-      v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay"
-    >
+    <li class="d-flex-center" v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay">
       <d-icon size="12" icon="icon-play"></d-icon>
-      <d-icon size="12" icon="icon-play" style="margin-right: 5px"></d-icon
-      >5X速播放中
+      <d-icon size="12" icon="icon-play" style="margin-right: 5px"></d-icon>5X速播放中
     </li>
   </div>
 </template>
 
 <script setup lang="ts">
 import DIcon from './d-icon.vue'
-const props = defineProps(['state'])
+defineProps(['state'])
 </script>
 
 <style scoped lang="less">

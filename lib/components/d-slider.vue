@@ -8,12 +8,7 @@
   >
     <div class="d-slider__runway" @mousemove="mousemoveHandle">
       <div class="d-slider__cursor" :style="hoverStyle" v-show="props.hover">
-        <div
-          class="d-slider__tips"
-          ref="refTips"
-          :style="{ left: state.hoverTipsLeft }"
-          v-show="props.hoverText"
-        >
+        <div class="d-slider__tips" ref="refTips" :style="{ left: state.hoverTipsLeft }" v-show="props.hoverText">
           {{ props.hoverText }}
         </div>
       </div>
@@ -34,26 +29,13 @@ type Nullable<T> = null | T
 const refSlider: Ref<HTMLElement | null> = ref(null)
 const refTips: Ref<Nullable<HTMLElement>> = ref(null)
 const props = defineProps({
-  modelValue: {
-    required: true,
-    type: Number,
-    default: 0
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  vertical: {
-    type: Boolean,
-    default: false
-  },
-  hover: { type: Boolean, default: true }, // 鼠标hover位置
-  hoverText: { type: String, default: '' }, // 鼠标hover位置
-  preload: { type: Number, default: 0 }, // 预加载load
-  size: {
-    type: String,
-    default: '10px'
-  }
+  modelValue    : { required: true, type: Number, default: 0 },
+  disabled      : { type: Boolean, default: false },
+  vertical      : { type: Boolean, default: false },
+  hover         : { type: Boolean, default: true }, // 鼠标hover位置
+  hoverText     : { type: String, default: '' }, // 鼠标hover位置
+  preload       : { type: Number, default: 0 }, // 预加载load
+  size          : { type: String, default: '10px' }
 })
 const emits = defineEmits(['update:modelValue', 'change', 'onMousemove'])
 const state = reactive({
@@ -63,8 +45,7 @@ const state = reactive({
 })
 // 获取当前位置的高度或宽度
 const sliderBarStyle: any = computed(() => {
-  let value =
-    props.modelValue < 0 ? 0 : props.modelValue > 1 ? 1 : props.modelValue
+  let value = props.modelValue < 0 ? 0 : props.modelValue > 1 ? 1 : props.modelValue
   return props.vertical ? `height:${value * 100}%` : `width:${value * 100}%`
 })
 
@@ -75,12 +56,7 @@ const preloadStyle: any = computed(() => {
 })
 // 预加载进度条样式
 const hoverStyle: any = computed(() => {
-  let value =
-    state.hoverPosition < 0
-      ? 0
-      : state.hoverPosition > 1
-      ? 1
-      : state.hoverPosition
+  let value = state.hoverPosition < 0 ? 0 : state.hoverPosition > 1 ? 1 : state.hoverPosition
   return props.vertical ? `bottom:${value * 100}%` : `left:${value * 100}%`
 })
 // 阻止右键事件
@@ -115,8 +91,7 @@ const mousemoveHandle = (ev: MouseEvent) => {
     state.hoverTipsLeft = refTipsWidth - movePositon + 'px'
   } else if (refSliderEl.clientWidth - movePositon < refTipsWidth) {
     // 如果当前往右的偏移量大于提示框宽度  （总宽度-当前移动位置）< tips一半的宽度
-    state.hoverTipsLeft =
-      refSliderEl.clientWidth - movePositon - refTipsWidth + 'px'
+    state.hoverTipsLeft = refSliderEl.clientWidth - movePositon - refTipsWidth + 'px'
   } else {
     state.hoverTipsLeft = '50%'
   }
@@ -136,12 +111,9 @@ const getPosition = (ev: any) => {
   if (props.vertical) {
     // 垂直模式下获取高度
     let clientHeight = refSliderEl.clientHeight
-    value =
-      (refSliderEl.getBoundingClientRect().bottom - ev.clientY) / clientHeight
+    value = (refSliderEl.getBoundingClientRect().bottom - ev.clientY) / clientHeight
   } else {
-    value =
-      (ev.clientX - refSliderEl.getBoundingClientRect().left) /
-      refSliderEl.clientWidth
+    value = (ev.clientX - refSliderEl.getBoundingClientRect().left) / refSliderEl.clientWidth
   }
   return value < 0 ? 0 : value > 1 ? 1 : value
 }
@@ -211,12 +183,7 @@ const onDragEnd = (ev: Event) => {
       background: #717171;
     }
     .d-slider__bar {
-      background: linear-gradient(
-        to right,
-        #52a0fd 0%,
-        #00e2fa 80%,
-        #00e2fa 100%
-      );
+      background: linear-gradient(to right, #52a0fd 0%, #00e2fa 80%, #00e2fa 100%);
       &::before {
         display: block;
         content: '';

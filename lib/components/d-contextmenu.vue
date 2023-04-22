@@ -8,58 +8,30 @@
             <i @click="state.dialogType = false" class="icon icon-close">X</i>
           </h5>
           <!-- 快捷键说明 -->
-          <ul
-            class="d-player-hotkey-panel"
-            v-show="state.dialogType == 'hotkey'"
-          >
-            <li
-              class="d-player-hotkey-panel-item"
-              v-for="item of hotkeyList"
-              :key="item.key"
-            >
+          <ul class="d-player-hotkey-panel" v-show="state.dialogType == 'hotkey'">
+            <li class="d-player-hotkey-panel-item" v-for="item of hotkeyList" :key="item.key">
               <span>{{ item.key }}</span>
               <span>{{ item.label }}</span>
             </li>
           </ul>
           <!-- 色彩调整 -->
-          <ul
-            class="d-player-filter-panel"
-            v-show="state.dialogType == 'filter'"
-          >
+          <ul class="d-player-filter-panel" v-show="state.dialogType == 'filter'">
             <li class="d-player-filter-panel-item">
               <span>饱和度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.saturate"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.saturate"></d-slider>
               <span>{{ Math.round(filter.saturate * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>亮度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.brightness"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.brightness"></d-slider>
               <span>{{ Math.round(filter.brightness * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>对比度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.contrast"
-              ></d-slider>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.contrast"></d-slider>
               <span>{{ Math.round(filter.contrast * 255) }}</span>
             </li>
-            <span
-              @click="filterReset"
-              title="重置"
-              aria-label="重置"
-              class="d-player-filter-reset"
-              >重置</span
-            >
+            <span @click="filterReset" title="重置" aria-label="重置" class="d-player-filter-reset">重置</span>
           </ul>
         </div>
       </div>
@@ -82,33 +54,32 @@ import { version } from '../../package.json'
 import DSlider from './d-slider.vue'
 
 const state = reactive({
-  show: false,
-  dialogType: null as string | null | boolean,
-  dialogTitle: '',
-  version: version,
-  mouseX: 0,
-  mouseY: 0
+  show          : false,
+  dialogType    : null as string | null | boolean,
+  dialogTitle   : '',
+  version       : version,
+  mouseX        : 0,
+  mouseY        : 0
 })
-
 const menuList = [
-  { label: '视频色彩调整', key: 'filter' },
-  { label: '快捷键说明', key: 'hotkey' },
-  { label: '复制视频网址', key: 'copy' },
-  { label: '版本：' + version, key: 'version' }
+  { label       : '视频色彩调整', key: 'filter' },
+  { label       : '快捷键说明', key: 'hotkey' },
+  { label       : '复制视频网址', key: 'copy' },
+  { label       : '版本：' + version, key: 'version' }
 ]
 const hotkeyList = [
-  { key: 'Space', label: '播放/暂停' },
-  { key: '→', label: '单次快进10s，长按5倍速播放' },
-  { key: '←', label: '快退5s' },
-  { key: '↑', label: '音量增加10%' },
-  { key: '↓', label: '音量增加降低10%' },
-  { key: 'Esc', label: '退出全屏/退出网页全屏' },
-  { key: 'F', label: '全屏/退出全屏' }
+  { key         : 'Space', label: '播放/暂停' },
+  { key         : '→', label: '单次快进10s，长按5倍速播放' },
+  { key         : '←', label: '快退5s' },
+  { key         : '↑', label: '音量增加10%' },
+  { key         : '↓', label: '音量增加降低10%' },
+  { key         : 'Esc', label: '退出全屏/退出网页全屏' },
+  { key         : 'F', label: '全屏/退出全屏' }
 ]
 const filter = reactive({
-  saturate: 0.392,
-  brightness: 0.392,
-  contrast: 0.392
+  saturate      : 0.392,
+  brightness    : 0.392,
+  contrast      : 0.392
 })
 
 // 菜单坐标
@@ -118,8 +89,7 @@ const menuStyle = computed(() => ({
 }))
 
 watch(filter, (val) => {
-  const dPlayerVideoMain: HTMLBaseElement | null =
-    document.querySelector('#dPlayerVideo')
+  const dPlayerVideoMain: HTMLBaseElement | null = document.querySelector('#dPlayerVideo')
   const saturate = (val.saturate * 2.55).toFixed(2)
   const brightness = (val.brightness * 2.55).toFixed(2)
   const contrast = (val.contrast * 2.55).toFixed(2)
@@ -131,19 +101,18 @@ const filterReset = () => {
   filter.brightness = 0.392
   filter.contrast = 0.392
 }
-const keydownHandle = (ev) => {
+const keydownHandle = (ev: any) => {
   // ev.preventDefault()
   if (ev.key == 'Escape') {
     contextmenuHide(0)
   }
 }
 // 显示菜单
-const contextmenuShow = (ev) => {
+const contextmenuShow = (ev: any) => {
   ev.preventDefault()
   on(window, 'keydown', keydownHandle) //启用快捷键
   on(window, 'click', contextmenuHide) //启用点击键
-  const refPlayerWrap: HTMLBaseElement | null =
-    document.querySelector('#refPlayerWrap')
+  const refPlayerWrap: HTMLBaseElement | null = document.querySelector('#refPlayerWrap')
   if (refPlayerWrap) {
     const clientWidth = refPlayerWrap.clientWidth
     const clientHeight = refPlayerWrap.clientHeight
@@ -159,18 +128,15 @@ const contextmenuShow = (ev) => {
 }
 
 // 隐藏菜单
-const contextmenuHide = (ev) => {
+const contextmenuHide = (ev: any) => {
   const tagName = ev.path[0].tagName == 'LI'
-  const keycode =
-    ev.path[0].attributes.dplayerKeyCode &&
-    ev.path[0].attributes.dplayerKeyCode.value
+  const keycode = ev.path[0].attributes.dplayerKeyCode && ev.path[0].attributes.dplayerKeyCode.value
   const hotKeyArr = menuList.map((item) => item.key)
   if (tagName && hotKeyArr.includes(keycode)) {
     state.dialogTitle = ev.path[0].innerText
     state.dialogType = keycode
     if (keycode == 'copy') {
-      const copyText: HTMLInputElement | null =
-        document.querySelector('.d-player-copyText')
+      const copyText: HTMLInputElement | null = document.querySelector('.d-player-copyText')
       if (copyText) {
         copyText.value = window.location.href
         copyText.select()
@@ -188,8 +154,7 @@ const contextmenuHide = (ev) => {
 }
 
 onMounted(() => {
-  const refPlayerWrap: HTMLDivElement | null =
-    document.querySelector('#refPlayerWrap')
+  const refPlayerWrap: HTMLDivElement | null = document.querySelector('#refPlayerWrap')
   // 卸载快捷键
   off(window, 'keydown', keydownHandle)
   off(window, 'click', contextmenuHide) //启用点击键
@@ -201,8 +166,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  const refPlayerWrap: HTMLDivElement | null =
-    document.querySelector('#refPlayerWrap')
+  const refPlayerWrap: HTMLDivElement | null = document.querySelector('#refPlayerWrap')
   off(window, 'keydown', keydownHandle)
   off(window, 'click', contextmenuHide) //启用点击键
   if (refPlayerWrap) {

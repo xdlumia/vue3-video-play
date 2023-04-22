@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="d-loading"
-    :style="loadingStyle"
-    v-show="LOAD_TYPE.includes(loadType)"
-  >
+  <div class="d-loading" :style="loadingStyle" v-show="LOAD_TYPE.includes(loadType)">
     <div>
       <!-- 初始化加载 -->
       <span v-if="loadType == 'loadstart'">
@@ -17,15 +13,11 @@
       </span>
       <!-- 播放结束 -->
       <span v-show="loadType == 'ended'">
-        <p @click="replayHandle" class="d-flex-x d-pointer">
-          <i class="iconfont icon-replay f24 mr5"></i>重新播放
-        </p>
+        <p @click="replayHandle" class="d-flex-x d-pointer"><i class="iconfont icon-replay f24 mr5"></i>重新播放</p>
       </span>
       <!-- 播放错误 -->
       <span v-show="loadType == 'error' || loadType == 'stalled'">
-        <p @click="replayHandle" class="d-flex-x d-pointer">
-          <i class="iconfont icon-replay f24 mr5"></i>请求错误
-        </p>
+        <p @click="replayHandle" class="d-flex-x d-pointer"><i class="iconfont icon-replay f24 mr5"></i>请求错误</p>
       </span>
     </div>
   </div>
@@ -40,13 +32,7 @@ const props = defineProps({
     type: String,
     default: '',
     validator: (value: string): boolean => {
-      const allowedValues = [
-        'loadstart',
-        'waiting',
-        'ended',
-        'error',
-        'stalled'
-      ]
+      const allowedValues = ['loadstart', 'waiting', 'ended', 'error', 'stalled']
       return allowedValues.includes(value)
     }
   },
