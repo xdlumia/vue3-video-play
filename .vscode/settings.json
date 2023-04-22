@@ -12,6 +12,7 @@
     "loadeddata",
     "loadedmetadata",
     "loadstart",
+    "playsinline",
     "ratechange",
     "timeupdate",
     "vitepress",
