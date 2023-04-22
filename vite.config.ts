@@ -7,12 +7,11 @@
  */
 const path = require('path')
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import createVitePlugins from './vite.plugins'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), createVitePlugins()],
+  plugins: createVitePlugins(),
   server: {
     port: 3005,
     open: true,
@@ -21,7 +20,7 @@ export default defineConfig({
       '/api': {
         target: 'http://xxx.xxxxx.xxx/',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   },
@@ -40,7 +39,7 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    },
+    }
     // hmr: { overlay: false }
   }
 })

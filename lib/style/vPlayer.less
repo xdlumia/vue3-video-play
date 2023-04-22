@@ -17,13 +17,13 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    .d-player-video-poster{
+    .d-player-video-poster {
       position: absolute;
       height: 100%;
       width: 100%;
-      top:0;
-      left:0;
-      img{
+      top: 0;
+      left: 0;
+      img {
         display: block;
         width: 100%;
         height: 100%;
@@ -34,18 +34,16 @@
     .d-player-video-main {
       width: 100%;
       height: 100%;
-      transition: .2s;
-
+      transition: 0.2s;
 
       &.video-mirror {
         transform: rotateY(180deg);
       }
     }
-
   }
 
   .d-player-control {
-    transition: .1s;
+    transition: 0.1s;
     transform: translateY(40px);
     position: absolute;
     z-index: 2;
@@ -178,7 +176,7 @@
 
           &.is-muted {
             :deep(.d-slider__bar) {
-              height: 0 !important
+              height: 0 !important;
             }
           }
         }
@@ -194,7 +192,7 @@
           color: #fff;
 
           &:hover {
-            opacity: .8;
+            opacity: 0.8;
           }
 
           &.speed-active {
@@ -232,7 +230,6 @@
   border: none;
   opacity: 0;
   cursor: default;
-
 }
 
 .d-play-btn {
@@ -242,10 +239,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
 }
-
 
 // 黑幕
 .d-player-lightoff {
@@ -254,7 +250,7 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .9);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 // 关灯模式
