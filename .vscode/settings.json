@@ -3,11 +3,19 @@
   "cSpell.words": [
     "Btns",
     "canplay",
+    "canplaythrough",
     "demoblock",
+    "dplayer",
+    "durationchange",
     "hlsjs",
     "ligth",
+    "loadeddata",
+    "loadedmetadata",
+    "loadstart",
+    "ratechange",
     "timeupdate",
     "vitepress",
+    "volumechange",
     "vrsion"
   ]
 }
