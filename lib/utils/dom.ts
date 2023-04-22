@@ -1,10 +1,3 @@
-/*
- * @Author: web.SmallTeddy
- * @Date: 2021-08-23 21:17:54
- * @LastEditors: web.SmallTeddy
- * @LastEditTime: 2021-08-26 14:03:35
- * @Description: file content
- */
 export const on = function (
   element: Element | HTMLElement | Document | Window,
   event: string,

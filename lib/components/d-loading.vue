@@ -1,6 +1,3 @@
-/* * @Author: web.SmallTeddy * @Date: 2021-08-20 11:00:41 * @LastEditors:
-web.SmallTeddy * @LastEditTime: 2021-09-01 18:08:30 * @Description: file content
-*/
 <template>
   <div
     class="d-loading"
@@ -35,12 +32,14 @@ web.SmallTeddy * @LastEditTime: 2021-09-01 18:08:30 * @Description: file content
 </template>
 
 <script setup lang="ts">
-import { getCurrentInstance, reactive, computed } from 'vue'
 import DIcon from './d-icon.vue'
 const { proxy } = getCurrentInstance()
 const LOAD_TYPE = ['loadstart', 'waiting', 'ended', 'error', 'stalled']
 const props = defineProps({
-  loadType: String,
+  loadType: {
+    type: String,
+    default: undefined
+  },
   text: {
     type: String,
     default: ''
@@ -86,14 +85,4 @@ const loadingStyle = computed(() => {
   text-align: center;
   font-size: 13px;
 }
-// .d-play-btn {
-//     width: 90px;
-//     height: 90px;
-//     color: #fff;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     background-color: rgba(0, 0, 0, 0.7);
-//     border-radius: 50%;
-// }
 </style>

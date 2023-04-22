@@ -8,6 +8,7 @@
     "dplayer",
     "durationchange",
     "hlsjs",
+    "iconfont",
     "ligth",
     "loadeddata",
     "loadedmetadata",
@@ -17,6 +18,7 @@
     "timeupdate",
     "vitepress",
     "volumechange",
-    "vrsion"
+    "vrsion",
+    "xdlumia"
   ]
 }

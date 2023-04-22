@@ -1,7 +1,3 @@
-/* * @Author: web.SmallTeddy * @Date: 2020-11-03 16:29:47 * @LastEditors:
-web.SmallTeddy * @LastEditTime: 2021-09-01 12:03:22 * @Description: file content
-*/
-
 <template>
   <div
     ref="refPlayerWrap"

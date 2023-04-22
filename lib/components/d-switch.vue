@@ -1,6 +1,3 @@
-/* * @Author: web.SmallTeddy * @Date: 2021-08-20 09:34:45 * @LastEditors:
-web.SmallTeddy * @LastEditTime: 2021-08-28 07:15:07 * @Description: file content
-*/
 <template>
   <div class="d-switch" :class="{ 'is-checked': checked }">
     <input
@@ -17,7 +14,6 @@ web.SmallTeddy * @LastEditTime: 2021-08-28 07:15:07 * @Description: file content
 </template>
 
 <script setup lang="ts">
-import { computed, ref, nextTick } from 'vue'
 const props = defineProps({
   modelValue: {
     //绑定值，必须等于active-value或inactive-value，默认为Boolean类型

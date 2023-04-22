@@ -1,6 +1,3 @@
-/* * @Author: web.SmallTeddy * @Date: 2020-10-27 10:31:35 * @LastEditors:
-web.SmallTeddy * @LastEditTime: 2021-08-28 07:14:47 * @Description: file content
-*/
 <template>
   <!-- <svg class="d-icon" :style="iconSize" aria-hidden="true">
     <use :xlink:href="`#${icon}`" />
@@ -13,7 +10,6 @@ export default {
 }
 </script>
 <script setup>
-import { computed } from 'vue'
 // const emits = defineEmits('click')
 const props = defineProps({
   icon: String,
