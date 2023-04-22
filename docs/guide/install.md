@@ -34,10 +34,6 @@
 8. 支持移动端，移动端会自动调用自带视频播放器
 9. 支持hls视频流播放，支持直播
 10. hls播放支持清晰度切换
-# 主页示例
-
-[https://codelife.cc/vue3-video-play/](https://codelife.cc/vue3-video-play/)
-
 
 
 ## 近期更新 v1.3.1-beta.2 🎉
@@ -200,14 +196,14 @@ const options = reactive({
 ```vue
 <template>
   <div>
-      <vue3VideoPlay 
+      <vue3VideoPlay
       width="800px"
       title="钢铁侠"
       :src="options.src"
       :poster="options.poster"
       @play="onPlay"
-      @pause="onPause" 
-      @timeupdate="onTimeupdate" 
+      @pause="onPause"
+      @timeupdate="onTimeupdate"
       @canplay="onCanplay" />
   </div>
 
@@ -352,11 +348,3 @@ vue3-video-play支持video原生所有事件  [video默认事件](https://segmen
 | 方向下键 ↓ | 音量-10%                      |
 | Esc        | 退出全屏/退出网页全屏         |
 | F          | 全屏/退出全屏                 |
-# Author
-
-[xdlumia](https://codelife.cc)
-
-# 点个start
-
-[vue3-video-play](https://github.com/xdlumia/vue3-video-play)
-

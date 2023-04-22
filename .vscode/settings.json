@@ -1,3 +1,13 @@
 {
-  "nuxt.isNuxtApp": false
+  "nuxt.isNuxtApp": false,
+  "cSpell.words": [
+    "Btns",
+    "canplay",
+    "demoblock",
+    "hlsjs",
+    "ligth",
+    "timeupdate",
+    "vitepress",
+    "vrsion"
+  ]
 }

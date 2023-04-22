@@ -27,28 +27,8 @@ let currentBranch = shell.exec('git symbolic-ref --short -q HEAD', {
 }).stdout.trim();
 if (currentBranch != 'dev') {
     errorLog(`当前是${currentBranch}分支 请切换到dev分支`)
-    // shell.echo("\033[1;31m Error: 当前是 " + currentBranch + " 分支 请切换到dev分支\033[0m");
     return
 }
-// shell.exec('git add .');
-// shell.exec(`git commit -m ${commitInfo}`);
-// shell.exec('git push');
-// successLog('dev分支提交成功')
-// shell.exec('git checkout main');
-// shell.exec('git pull');
-// shell.exec('git merge dev');
-// defaultLog('dev分支合并到main分支')
-// if (shell.exec('git push origin main --tags').code != 0) {
-//     // shell.echo("\033[1;31mError: git push ogigin main 失败! 已退出\033[0m");
-//     errorLog(`git push ogigin main 失败! 已退出 已`)
-//     shell.exec('git checkout dev');
-//     shell.exit()
-//     return
-// }
-// successLog('main分支提交成功')
-// shell.exec('git checkout dev');
-// shell.exec('git push origin dev');
-
 
 // 新版本
 var confirm = readlineSync.question(`Current is "v${currentVersion}".\n\

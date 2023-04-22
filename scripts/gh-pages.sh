@@ -5,7 +5,7 @@
  # @LastEditors: web.SmallTeddy
  # @LastEditTime: 2021-09-01 15:27:27
  # @Description: file content
-### 
+###
 
 # 确保脚本抛出遇到的错误
 set -e
@@ -24,8 +24,4 @@ git add -A
 git commit -m 'deploy to the gh-pages'
 
 # 如果发布到 https://<USERNAME>.github.io
-# git push -f git@github.com:xdlumia/vue3-video-play.git gh-pages
-# git push -f git@github.com:xdlumia/vue3-video-play.git master:gh-pages
-# git push -f git@github.com:xdlumia/xdlumia.github.io.git master:gh-pages
-# git push -f https://github.com/xdlumia/vue3-video-play.git master:gh-pages
-git push -f https://github.com/xdlumia/xdlumia.github.io.git master:gh-pages
+git push -f https://github.com/SmallTeddy/vue3-video-play.git master:gh-pages

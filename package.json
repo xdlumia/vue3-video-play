@@ -19,17 +19,17 @@
     "docs:pub": "sh ./scripts/gh-pages.sh"
   },
   "author": {
-    "name": "xdlumia",
-    "email": "214005111@qq.com",
-    "url": "https://codelife.cc"
+    "name": "SmallTeddy",
+    "email": "zhangzeming1212@gmail.com",
+    "url": "https://github.com/SmallTeddy/vue3-video-play"
   },
-  "homepage": "https://codelife.cc/vue3-video-play/",
+  "homepage": "https://github.com/SmallTeddy/vue3-video-play",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xdlumia/vue3-video-play.git"
+    "url": "https://github.com/SmallTeddy/vue3-video-play.git"
   },
   "bugs": {
-    "url": "https://github.com/xdlumia/vue3-video-play/issues"
+    "url": "https://github.com/SmallTeddy/vue3-video-play/issues"
   },
   "dependencies": {
     "hls.js": "^1.0.10",

@@ -19,7 +19,7 @@ const successLog = (log) => console.log(chalk.green(`------${log}-----`))
 // 当前版本
 const currentVersion = packageJSON.version
 // 版本标识
-const [vrsionFlag] = process.argv.slice(2)
+const [versionFlag] = process.argv.slice(2)
 // 获取git当前分支
 let currentBranch = shell.exec('git symbolic-ref --short -q HEAD', {
     async: false,
