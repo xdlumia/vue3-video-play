@@ -14,6 +14,7 @@
     "loadedmetadata",
     "loadstart",
     "playsinline",
+    "Positon",
     "ratechange",
     "timeupdate",
     "vitepress",

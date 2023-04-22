@@ -76,12 +76,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, onUnmounted, reactive, watch } from 'vue'
 import { on, off } from '../utils/dom'
 import { version } from '../../package.json'
 import DSlider from './d-slider.vue'
+
 const state = reactive({
   show: false,
-  dialogType: '',
+  dialogType: null as string | null | boolean,
   dialogTitle: '',
   version: version,
   mouseX: 0,
@@ -116,11 +118,13 @@ const menuStyle = computed(() => ({
 }))
 
 watch(filter, (val) => {
-  let dPlayerVideoMain = document.querySelector('#dPlayerVideo')
-  let saturate = (val.saturate * 2.55).toFixed(2)
-  let brightness = (val.brightness * 2.55).toFixed(2)
-  let contrast = (val.contrast * 2.55).toFixed(2)
-  dPlayerVideoMain.style.filter = `saturate(${saturate}) brightness(${brightness}) contrast(${contrast})`
+  const dPlayerVideoMain: HTMLBaseElement | null =
+    document.querySelector('#dPlayerVideo')
+  const saturate = (val.saturate * 2.55).toFixed(2)
+  const brightness = (val.brightness * 2.55).toFixed(2)
+  const contrast = (val.contrast * 2.55).toFixed(2)
+  if (dPlayerVideoMain)
+    dPlayerVideoMain.style.filter = `saturate(${saturate}) brightness(${brightness}) contrast(${contrast})`
 })
 const filterReset = () => {
   filter.saturate = 0.392
@@ -138,34 +142,40 @@ const contextmenuShow = (ev) => {
   ev.preventDefault()
   on(window, 'keydown', keydownHandle) //启用快捷键
   on(window, 'click', contextmenuHide) //启用点击键
-  let refPlayerWrap = document.querySelector('#refPlayerWrap')
-  let clientWidth = refPlayerWrap.clientWidth
-  let clientHeight = refPlayerWrap.clientHeight
-  state.mouseX = ev.clientX - refPlayerWrap.getBoundingClientRect().left
-  if (clientWidth - state.mouseX < 130) {
-    state.mouseX = state.mouseX + (clientWidth - state.mouseX - 130)
-    // state.mouseX = state.mouseX - (clientWidth - state.mouseX)
-  }
+  const refPlayerWrap: HTMLBaseElement | null =
+    document.querySelector('#refPlayerWrap')
+  if (refPlayerWrap) {
+    const clientWidth = refPlayerWrap.clientWidth
+    const clientHeight = refPlayerWrap.clientHeight
+    state.mouseX = ev.clientX - refPlayerWrap.getBoundingClientRect().left
+    if (clientWidth - state.mouseX < 130) {
+      state.mouseX = state.mouseX + (clientWidth - state.mouseX - 130)
+      // state.mouseX = state.mouseX - (clientWidth - state.mouseX)
+    }
 
-  state.mouseY = ev.clientY - refPlayerWrap.getBoundingClientRect().top
-  state.show = true
+    state.mouseY = ev.clientY - refPlayerWrap.getBoundingClientRect().top
+    state.show = true
+  }
 }
 
 // 隐藏菜单
 const contextmenuHide = (ev) => {
-  let tagName = ev.path[0].tagName == 'LI'
-  let keycode =
+  const tagName = ev.path[0].tagName == 'LI'
+  const keycode =
     ev.path[0].attributes.dplayerKeyCode &&
     ev.path[0].attributes.dplayerKeyCode.value
-  let hotKeyArr = menuList.map((item) => item.key)
+  const hotKeyArr = menuList.map((item) => item.key)
   if (tagName && hotKeyArr.includes(keycode)) {
     state.dialogTitle = ev.path[0].innerText
     state.dialogType = keycode
     if (keycode == 'copy') {
-      let copyText = document.querySelector('.d-player-copyText')
-      copyText.value = window.location.href
-      copyText.select()
-      document.execCommand('copy')
+      const copyText: HTMLInputElement | null =
+        document.querySelector('.d-player-copyText')
+      if (copyText) {
+        copyText.value = window.location.href
+        copyText.select()
+        document.execCommand('copy')
+      }
       state.dialogType = ''
     } else if (keycode == 'version') {
       state.dialogType = ''
@@ -178,19 +188,26 @@ const contextmenuHide = (ev) => {
 }
 
 onMounted(() => {
-  let refPlayerWrap = document.querySelector('#refPlayerWrap')
+  const refPlayerWrap: HTMLDivElement | null =
+    document.querySelector('#refPlayerWrap')
   // 卸载快捷键
   off(window, 'keydown', keydownHandle)
   off(window, 'click', contextmenuHide) //启用点击键
-  off(refPlayerWrap, 'contextmenu', contextmenuShow)
-  // 开启右键菜单
-  on(refPlayerWrap, 'contextmenu', contextmenuShow)
+  if (refPlayerWrap) {
+    off(refPlayerWrap, 'contextmenu', contextmenuShow)
+    // 开启右键菜单
+    on(refPlayerWrap, 'contextmenu', contextmenuShow)
+  }
 })
+
 onUnmounted(() => {
-  let refPlayerWrap = document.querySelector('#refPlayerWrap')
+  const refPlayerWrap: HTMLDivElement | null =
+    document.querySelector('#refPlayerWrap')
   off(window, 'keydown', keydownHandle)
   off(window, 'click', contextmenuHide) //启用点击键
-  off(refPlayerWrap, 'contextmenu', contextmenuShow)
+  if (refPlayerWrap) {
+    off(refPlayerWrap, 'contextmenu', contextmenuShow)
+  }
 })
 </script>
 

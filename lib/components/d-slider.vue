@@ -28,9 +28,10 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { on, off } from '../utils/dom.ts'
+import { Ref, computed, reactive, ref } from 'vue'
+import { on, off } from '../utils/dom'
 type Nullable<T> = null | T
-const refSlider: Ref<HTMLElement> = ref(null)
+const refSlider: Ref<HTMLElement | null> = ref(null)
 const refTips: Ref<Nullable<HTMLElement>> = ref(null)
 const props = defineProps({
   modelValue: {

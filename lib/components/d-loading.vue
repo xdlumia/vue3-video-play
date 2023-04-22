@@ -32,13 +32,23 @@
 </template>
 
 <script setup lang="ts">
-import DIcon from './d-icon.vue'
-const { proxy } = getCurrentInstance()
+import { computed, getCurrentInstance } from 'vue'
+const { proxy } = getCurrentInstance() as any
 const LOAD_TYPE = ['loadstart', 'waiting', 'ended', 'error', 'stalled']
 const props = defineProps({
   loadType: {
     type: String,
-    default: undefined
+    default: '',
+    validator: (value: string): boolean => {
+      const allowedValues = [
+        'loadstart',
+        'waiting',
+        'ended',
+        'error',
+        'stalled'
+      ]
+      return allowedValues.includes(value)
+    }
   },
   text: {
     type: String,

@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { Ref, computed, nextTick, ref } from 'vue'
+
 const props = defineProps({
   modelValue: {
     //绑定值，必须等于active-value或inactive-value，默认为Boolean类型
@@ -42,15 +44,17 @@ const props = defineProps({
 })
 const emits = defineEmits(['update:modelValue', 'change'])
 
-const input = ref(null)
+const input: Ref<HTMLInputElement | null> = ref(null)
 const checked = computed(() => {
   return props.modelValue === props.trueValue
 })
 const handleInput = (): void => {
   nextTick(() => {
-    const val = input.value.checked
-    emits('update:modelValue', val)
-    emits('change', val)
+    if (input.value) {
+      const val = input.value.checked
+      emits('update:modelValue', val)
+      emits('change', val)
+    }
   })
 }
 </script>

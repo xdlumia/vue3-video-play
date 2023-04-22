@@ -1,7 +1,4 @@
 <template>
-  <!-- <svg class="d-icon" :style="iconSize" aria-hidden="true">
-    <use :xlink:href="`#${icon}`" />
-  </svg>-->
   <i class="d-icon iconfont" :class="icon" :style="iconSize"></i>
 </template>
 <script>
@@ -10,13 +7,26 @@ export default {
 }
 </script>
 <script setup>
-// const emits = defineEmits('click')
-const props = defineProps({
-  icon: String,
-  size: [Number, String]
-})
+const props = withDefaults(
+  defineProps <
+    {
+      icon: string,
+      size: [Number, String]
+    } >
+    {
+      icon: {
+        type: String,
+        default: ''
+      },
+      size: {
+        type: [Number, String],
+        default: () => []
+      }
+    }
+)
+
 const iconSize = computed(() => {
-  let size = /^\d+$/.test(props.size) ? props.size + 'px' : props.size
+  const size = /^\d+$/.test(props.size) ? props.size + 'px' : props.size
   return { fontSize: size }
 })
 </script>
