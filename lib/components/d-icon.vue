@@ -7,13 +7,10 @@ export default {
 }
 </script>
 <script setup>
-const props = withDefaults(
-  defineProps < { icon: string, size: [Number, String] } >
-    {
-      icon: { type: String, default: '' },
-      size: { type: [Number, String], default: () => [] }
-    }
-)
+const props = defineProps({
+  icon: String,
+  size: [Number, String],
+})
 
 const iconSize = computed(() => {
   const size = /^\d+$/.test(props.size) ? props.size + 'px' : props.size

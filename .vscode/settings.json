@@ -9,17 +9,21 @@
     "durationchange",
     "hlsjs",
     "iconfont",
+    "lightoff",
     "ligth",
     "loadeddata",
     "loadedmetadata",
     "loadstart",
+    "mpegurl",
     "playsinline",
     "Positon",
     "ratechange",
+    "refd",
     "timeupdate",
     "vitepress",
     "volumechange",
     "vrsion",
+    "waitingloading",
     "xdlumia"
   ]
 }
