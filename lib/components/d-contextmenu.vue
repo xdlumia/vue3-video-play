@@ -48,7 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, watch } from 'vue'
 import { on, off } from '../utils/dom'
 import { version } from '../../package.json'
 import DSlider from './d-slider.vue'

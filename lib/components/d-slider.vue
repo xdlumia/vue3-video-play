@@ -23,7 +23,6 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { Ref, computed, reactive, ref } from 'vue'
 import { on, off } from '../utils/dom'
 type Nullable<T> = null | T
 const refSlider: Ref<HTMLElement | null> = ref(null)

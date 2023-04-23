@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, nextTick, ref } from 'vue'
-
 const props = defineProps({
   modelValue    : { type: [Number, String, Boolean] },
   width         : { type: String, default: '40px' }, //switch 的宽度（像素）

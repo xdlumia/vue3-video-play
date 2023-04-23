@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance() as any
 const LOAD_TYPE = ['loadstart', 'waiting', 'ended', 'error', 'stalled']
 const props = defineProps({

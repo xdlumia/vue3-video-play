@@ -25,7 +25,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "lib/**/*.vue"
+    "lib/**/*.vue",
+    "auto-imports.d.ts"
   ],
   "exclude": ["node_modules", "build/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
