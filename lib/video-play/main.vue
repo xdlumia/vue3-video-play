@@ -1,8 +1,8 @@
 /*
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
- * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-09-01 12:03:22
+ * @LastEditors: itab.link
+ * @LastEditTime: 2023-11-09 15:40:03
  * @Description: file content
 */
 
@@ -44,7 +44,9 @@
         height="100%"
         :src="props.src"
         :poster="props.poster"
-      >您的浏览器不支持Video标签。</video>
+      >
+        您的浏览器不支持Video标签。
+      </video>
     </div>
     <!-- 缓冲动画 -->
     <!-- <d-waitingloading text="正在缓冲..." v-show="state.waitingLoading" /> -->
@@ -87,7 +89,11 @@
     <d-loading :loadType="state.loadStateType" />
     <d-contextmenu />
     <!-- PC端播放按钮控制器  移动端调用自带控制器-->
-    <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
+    <div
+      class="d-player-control"
+      ref="refPlayerControl"
+      v-if="!isMobile && state.control"
+    >
       <div class="d-control-progress">
         <d-slider
           class="d-progress-bar"
@@ -118,23 +124,34 @@
           <!-- 清晰度 -->
           <div
             class="d-tool-item quality-btn"
-            v-if="state.qualityLevels.length && props.controlBtns.includes('quality')"
+            v-if="
+              state.qualityLevels.length &&
+              props.controlBtns.includes('quality')
+            "
           >
-            {{ state.qualityLevels.length && (state.qualityLevels[state.currentLevel] || {}).height }}P
+            {{
+              state.qualityLevels.length &&
+              (state.qualityLevels[state.currentLevel] || {}).height
+            }}P
             <div class="d-tool-item-main">
-              <ul class="speed-main" style="text-align:center">
+              <ul class="speed-main" style="text-align: center">
                 <li
                   :class="{ 'speed-active': state.currentLevel == index }"
                   @click="qualityLevelsHandle(row, index)"
-                  v-for="(row,index) of state.qualityLevels"
+                  v-for="(row, index) of state.qualityLevels"
                   :key="row"
-                >{{ row.height }}P</li>
+                >
+                  {{ row.height }}P
+                </li>
                 <!-- <li @click="qualityLevelsHandle({}, -1)">自动</li> -->
               </ul>
             </div>
           </div>
           <!-- 倍速播放 -->
-          <div class="d-tool-item speedRate-btn" v-if="props.controlBtns.includes('speedRate')">
+          <div
+            class="d-tool-item speedRate-btn"
+            v-if="props.controlBtns.includes('speedRate')"
+          >
             {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
@@ -143,15 +160,22 @@
                   @click="playbackRate(row)"
                   v-for="row of state.speedRate"
                   :key="row"
-                >{{ row }}x</li>
+                >
+                  {{ row }}x
+                </li>
               </ul>
             </div>
           </div>
           <!-- 音量 -->
-          <div class="d-tool-item volume-btn" v-if="props.controlBtns.includes('volume')">
+          <div
+            class="d-tool-item volume-btn"
+            v-if="props.controlBtns.includes('volume')"
+          >
             <div class="d-tool-item-main volume-box" style="width: 52px">
               <div class="volume-main" :class="{ 'is-muted': state.muted }">
-                <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
+                <span class="volume-text-size"
+                  >{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span
+                >
                 <!-- @change 如果修改音量则取消静音 -->
                 <d-slider
                   @change="state.muted = false"
@@ -165,17 +189,21 @@
             <span @click="mutedHandler" style="display: flex">
               <d-icon
                 size="20"
-                :icon="`icon-volume-${state.volume == 0 || state.muted
-                ? 'mute'
-                : state.volume > 0.5
-                  ? 'up'
-                  : 'down'
+                :icon="`icon-volume-${
+                  state.volume == 0 || state.muted
+                    ? 'mute'
+                    : state.volume > 0.5
+                    ? 'up'
+                    : 'down'
                 }`"
               ></d-icon>
             </span>
           </div>
           <!-- 设置 -->
-          <div class="d-tool-item setting-btn" v-if="props.controlBtns.includes('setting')">
+          <div
+            class="d-tool-item setting-btn"
+            v-if="props.controlBtns.includes('setting')"
+          >
             <d-icon size="20" class="rotateHover" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
@@ -233,15 +261,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import {
-  reactive,
-  ref,
-  Ref,
-  onMounted,
-  useAttrs,
-  watch,
-  nextTick
-} from "vue";
+import { reactive, ref, Ref, onMounted, useAttrs, watch, nextTick } from "vue";
 import { debounce } from "throttle-debounce";
 import Hls2 from "hls.js";
 import DIcon from "../components/d-icon.vue";
@@ -297,8 +317,8 @@ const state = reactive({
 });
 const compose =
   (...args) =>
-    (value) =>
-      args.reverse().reduce((acc, fn) => fn(acc), value);
+  (value) =>
+    args.reverse().reduce((acc, fn) => fn(acc), value);
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`;
@@ -330,11 +350,11 @@ videoEvents["onEnded"] = compose(videoEvents["onEnded"], () => {
 videoEvents["onDurationchange"] = (ev) => {
   emits("durationchange", ev);
   if (props.currentTime != 0) {
-    state.dVideo.currentTime = props.currentTime
+    state.dVideo.currentTime = props.currentTime;
   }
 
   //更新当前时长的所有状态
-  videoEvents.onTimeupdate(ev)
+  videoEvents.onTimeupdate(ev);
 };
 
 // 缓冲下载中
@@ -372,7 +392,7 @@ const hexToRgbaColor = hexToRgba(state.color);
 // 清空当前操作类型
 const clearHandleType = debounce(500, () => {
   state.handleType = "";
-})
+});
 // 音量 +++ --
 const volumeKeydown = (ev) => {
   ev.preventDefault();
@@ -391,7 +411,7 @@ const keydownLeft = (ev) => {
     state.dVideo.currentTime < 10 ? 0.1 : state.dVideo.currentTime - 10;
   videoEvents.onTimeupdate(state.dVideo);
   playHandle();
-}
+};
 const keypress = (ev) => {
   ev.preventDefault();
   let pressType = ev.type;
@@ -497,8 +517,8 @@ const mouseMovewWarp = (ev) => {
 
 // 播放速度
 const qualityLevelsHandle = (row, index) => {
-  Hls.currentLevel = index
-  state.currentLevel = index
+  Hls.currentLevel = index;
+  state.currentLevel = index;
 };
 // 播放速度
 const playbackRate = (row) => {
@@ -530,8 +550,16 @@ const toggleFullScreenHandle = () => {
 };
 
 const init = (): void => {
-  if (state.dVideo.canPlayType(props.type) || state.dVideo.canPlayType('application/vnd.apple.mpegurl')) {
-    state.muted = props.autoPlay
+  if (!state.dVideo.canPlayType(props.type)) {
+    console.error(
+      "vue3-video-play: Format not supported,Check the [type] parameter"
+    );
+  }
+  if (
+    state.dVideo.canPlayType(props.type) ||
+    state.dVideo.canPlayType("application/vnd.apple.mpegurl")
+  ) {
+    state.muted = props.autoPlay;
     // state.dVideo.load();
   }
   // // 使用hls解码
@@ -542,35 +570,39 @@ const init = (): void => {
     Hls.on(Hls2.Events.MEDIA_ATTACHED, () => {
       Hls.loadSource(props.src);
       // 加载可用质量级别
-      Hls.on('hlsManifestParsed', (ev, data) => {
-        console.log(data)
-        state.currentLevel = data.level
-        state.qualityLevels = data.levels || []
+      Hls.on("hlsManifestParsed", (ev, data) => {
+        console.log(data);
+        state.currentLevel = data.level;
+        state.qualityLevels = data.levels || [];
         // state.dVideo.load();
       });
-    })
+    });
 
-    Hls.on('hlsLevelSwitching', (ev, data) => {
-      console.log(data)
+    Hls.on("hlsLevelSwitching", (ev, data) => {
+      console.log(data);
       // state.qualityLevels = Hls.levels || []
-      console.log('LEVEL_SWITCHING')
+      console.log("LEVEL_SWITCHING");
       // state.dVideo.load();
     });
-    Hls.on('hlsLevelSwitched', (ev, data) => {
-      state.currentLevel = data.level
+    Hls.on("hlsLevelSwitched", (ev, data) => {
+      state.currentLevel = data.level;
       // state.qualityLevels = Hls.levels || []
-      console.log('LEVEL_SWITCHED')
+      console.log("LEVEL_SWITCHED");
       // state.dVideo.load();
     });
   }
-}
+};
 
-watch(() => props.src, () => {
-  nextTick(() => {
-    // 初始化
-    init()
-  })
-}, { immediate: true })
+watch(
+  () => props.src,
+  () => {
+    nextTick(() => {
+      // 初始化
+      init();
+    });
+  },
+  { immediate: true }
+);
 onMounted(() => {
   state.dVideo = refdVideo;
   inputFocusHandle();

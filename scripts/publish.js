@@ -11,11 +11,11 @@ const shell = require('shelljs');
 const readlineSync = require('readline-sync');
 const path = require('path');
 let packageJSON = require(path.resolve('package.json'));
-const chalk = require('chalk');
 
-const defaultLog = (log) => console.log(chalk.blue(`------${log}-----`))
-const errorLog = (log) => console.log(chalk.red(`------Error: ${log}-----`))
-const successLog = (log) => console.log(chalk.green(`------${log}-----`))
+const defaultLog = (log) => console.log(`--------------${log}---------`)
+const errorLog = (log) => console.log('\x1B[31m%s\x1B[0m', `--------------${log}-----------`)
+const successLog = (log) => console.log('\x1B[32m%s\x1B[0m', `---------------${log}--------`)
+
 // 当前版本
 const currentVersion = packageJSON.version
 // 版本标识

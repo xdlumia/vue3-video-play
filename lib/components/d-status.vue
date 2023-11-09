@@ -1,8 +1,8 @@
 /*
  * @Author: web.王晓冬
  * @Date: 2021-08-20 13:52:52
- * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-27 23:09:29
+ * @LastEditors: itab.link
+ * @LastEditTime: 2023-11-09 15:28:50
  * @Description: file content
 */
 <template>
@@ -21,7 +21,7 @@
             v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay"
         >
             <d-icon size="12" icon="icon-play"></d-icon>
-            <d-icon size="12" icon="icon-play" style="margin-right:5px"></d-icon>5X速播放中
+            <d-icon size="12" icon="icon-play" style="margin-right:5px"></d-icon>5倍速播放中
         </li>
     </div>
 </template>

@@ -1,8 +1,8 @@
 /*
  * @Author: web.王晓冬
  * @Date: 2021-08-26 12:13:47
- * @LastEditors: web.王晓冬
- * @LastEditTime: 2021-08-30 09:25:09
+ * @LastEditors: itab.link
+ * @LastEditTime: 2023-11-09 14:44:07
  * @Description: file content
 */
 <template>
@@ -15,51 +15,75 @@
             <i @click="state.dialogType = false" class="icon icon-close">X</i>
           </h5>
           <!-- 快捷键说明 -->
-          <ul class="d-player-hotkey-panel" v-show="state.dialogType == 'hotkey'">
-            <li class="d-player-hotkey-panel-item" v-for="item of hotkeyList" :key="item.key">
+          <ul
+            class="d-player-hotkey-panel"
+            v-show="state.dialogType == 'hotkey'"
+          >
+            <li
+              class="d-player-hotkey-panel-item"
+              v-for="item of hotkeyList"
+              :key="item.key"
+            >
               <span>{{ item.key }}</span>
               <span>{{ item.label }}</span>
             </li>
           </ul>
           <!-- 色彩调整 -->
-          <ul class="d-player-filter-panel" v-show="state.dialogType == 'filter'">
+          <ul
+            class="d-player-filter-panel"
+            v-show="state.dialogType == 'filter'"
+          >
             <li class="d-player-filter-panel-item">
               <span>饱和度</span>
-              <d-slider class="filter-panel-slider" size="5px" v-model="filter.saturate"></d-slider>
+              <d-slider
+                class="filter-panel-slider"
+                size="5px"
+                v-model="filter.saturate"
+              ></d-slider>
               <span>{{ Math.round(filter.saturate * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>亮度</span>
-              <d-slider class="filter-panel-slider" size="5px" v-model="filter.brightness"></d-slider>
+              <d-slider
+                class="filter-panel-slider"
+                size="5px"
+                v-model="filter.brightness"
+              ></d-slider>
               <span>{{ Math.round(filter.brightness * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
               <span>对比度</span>
-              <d-slider class="filter-panel-slider" size="5px" v-model="filter.contrast"></d-slider>
+              <d-slider
+                class="filter-panel-slider"
+                size="5px"
+                v-model="filter.contrast"
+              ></d-slider>
               <span>{{ Math.round(filter.contrast * 255) }}</span>
             </li>
-            <span @click="filterReset" title="重置" aria-label="重置" class="d-player-filter-reset">重置</span>
+            <span
+              @click="filterReset"
+              title="重置"
+              aria-label="重置"
+              class="d-player-filter-reset"
+              >重置</span
+            >
           </ul>
         </div>
       </div>
     </transition>
     <div class="d-player-contextmenu" v-if="state.show">
       <ul class="d-player-contextmenu-body" :style="menuStyle">
-        <li :dplayerKeyCode="item.key" v-for="item of menuList" :key="item.key">{{ item.label }}</li>
+        <li :dplayerKeyCode="item.key" v-for="item of menuList" :key="item.key">
+          {{ item.label }}
+        </li>
       </ul>
       <input class="d-player-copyText" />
     </div>
   </div>
 </template>
 
-<script setup lang='ts'>
-import {
-  watch,
-  reactive,
-  onMounted,
-  computed,
-  onUnmounted,
-} from "vue";
+<script setup>
+import { watch, reactive, onMounted, computed, onUnmounted } from "vue";
 import { on, off } from "../utils/dom";
 import { version } from "../../package.json";
 import DSlider from "./d-slider.vue";
@@ -137,13 +161,13 @@ const contextmenuShow = (ev) => {
 
 // 隐藏菜单
 const contextmenuHide = (ev) => {
-  let tagName = ev.path[0].tagName == "LI";
+  let tagName = ev.target.nodeName == "LI";
   let keycode =
-    ev.path[0].attributes.dplayerKeyCode &&
-    ev.path[0].attributes.dplayerKeyCode.value;
+    ev.target.attributes.dplayerKeyCode &&
+    ev.target.attributes.dplayerKeyCode.value;
   let hotKeyArr = menuList.map((item) => item.key);
   if (tagName && hotKeyArr.includes(keycode)) {
-    state.dialogTitle = ev.path[0].innerText;
+    state.dialogTitle = ev.target.innerText;
     state.dialogType = keycode;
     if (keycode == "copy") {
       let copyText = document.querySelector(".d-player-copyText");
@@ -201,6 +225,8 @@ onUnmounted(() => {
     border-radius: 5px;
     font-size: 12px;
     background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     color: #efefef;
     padding: 0;
     text-align: left;
@@ -223,7 +249,9 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
   .d-player-dialog-body {
-    background-color: rgba(33, 33, 33, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-radius: 5px;
     color: #fff;
     min-width: 200px;
