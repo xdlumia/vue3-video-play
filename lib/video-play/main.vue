@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: itab.link
- * @LastEditTime: 2023-11-09 15:40:03
+ * @LastEditTime: 2023-11-09 15:50:42
  * @Description: file content
 */
 
@@ -279,6 +279,7 @@ import {
   isMobile,
   firstUpperCase,
 } from "../utils/util";
+const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
 import { videoEmits, defineProps } from "./plugins/index";
 const props = defineProps(defineProps); //props
 const emits = defineEmits([
@@ -453,11 +454,17 @@ const inputFocusHandle = () => {
 // 播放方法
 const playHandle = () => {
   state.loadStateType = "play";
+  //首次播放会报错：DOMException: The play() request was interrupted by a new load request.
   state.dVideo.play().catch(() => {
+    //处理无缓冲报错问题
+    state.dVideo.load()
     setTimeout(() => {
-      state.playBtnState = "replay";
-      state.loadStateType = "error";
-    }, 500);
+      state.dVideo.play().catch(() => {
+        //如果依然报错，则显示错误状态。
+        state.playBtnState = "replay";
+        state.loadStateType = "error";
+      })
+    },200)
   });
   state.playBtnState = "pause";
   // 播放后清空状态
@@ -564,7 +571,6 @@ const init = (): void => {
   }
   // // 使用hls解码
   else if (Hls2.isSupported()) {
-    const Hls = new Hls2({ fragLoadingTimeOut: 2000 });
     Hls.detachMedia(); //解除绑定
     Hls.attachMedia(state.dVideo);
     Hls.on(Hls2.Events.MEDIA_ATTACHED, () => {
