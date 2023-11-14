@@ -7,7 +7,7 @@
     "lib"
   ],
   "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
+  "module": "./dist/index.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
