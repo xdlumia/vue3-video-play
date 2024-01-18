@@ -89,12 +89,12 @@ const menuList = [
 ];
 const hotkeyList = [
   { key: "Space", label: userLocale.value.playOrPause }, // 播放/暂停
-  { key: "→", label: userLocale.value.playOrPause.fastForward }, // 单次快进10s，长按5倍速播放
-  { key: "←", label: userLocale.value.playOrPause.rewind }, //快退5s
-  { key: "↑", label: userLocale.value.playOrPause.volumeUp }, // 音量增加10%
-  { key: "↓", label: userLocale.value.playOrPause.volumeDown }, // 音量增加降低10%
-  { key: "Esc", label: userLocale.value.playOrPause.exitFullScreen }, //退出全屏/退出网页全屏
-  { key: "F", label: userLocale.value.playOrPause.fullScreen }, //全屏/退出全屏
+  { key: "→", label: userLocale.value.fastForward }, // 单次快进10s，长按5倍速播放
+  { key: "←", label: userLocale.value.rewind }, //快退5s
+  { key: "↑", label: userLocale.value.volumeUp }, // 音量增加10%
+  { key: "↓", label: userLocale.value.volumeDown }, // 音量增加降低10%
+  { key: "Esc", label: userLocale.value.exitFullScreen }, //退出全屏/退出网页全屏
+  { key: "F", label: userLocale.value.fullScreen }, //全屏/退出全屏
 ];
 const filter = reactive({
   saturate: 0.392,
