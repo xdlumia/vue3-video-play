@@ -11,22 +11,17 @@
   </div>-->
   <div style="text-align: center">
     {{ options.webFullScreen }}
-    <button
-      @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'"
-    >
+    <button @click="options.src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'">
       {{ options.src }}
     </button>
-    <videoPlay
-      ref="video"
-      style="display: inline-block; width: 100%"
-      v-bind="options"
-    />
+    <videoPlay ref="video" style="display: inline-block; width: 100%" v-bind="options" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref, nextTick } from "vue";
-import { videoPlay } from "../lib/index.js";
+import { videoPlay, useUserLocale } from "../lib/index.js";
+const { updateUserLocale } = useUserLocale();
 
 const options = reactive({
   width: "800px",
@@ -58,6 +53,7 @@ const options = reactive({
     "fullScreen",
   ],
 });
+
 const video = ref(null);
 
 nextTick(() => {
@@ -65,5 +61,4 @@ nextTick(() => {
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

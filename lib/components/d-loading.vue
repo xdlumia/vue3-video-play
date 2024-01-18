@@ -6,11 +6,7 @@
  * @Description: file content
 */
 <template>
-  <div
-    class="d-loading"
-    :style="loadingStyle"
-    v-show="LOAD_TYPE.includes(loadType)"
-  >
+  <div class="d-loading" :style="loadingStyle" v-show="LOAD_TYPE.includes(loadType)">
     <div>
       <!-- 初始化加载 -->
       <span v-if="loadType == 'loadstart'">
@@ -20,18 +16,20 @@
       <!-- 缓冲中 -->
       <span v-show="loadType == 'waiting'">
         <i class="rotating iconfont icon-loading f50"></i>
-        <p>正在缓冲...</p>
+        <p>{{ userLocale.buffering }}</p>
       </span>
       <!-- 播放结束 -->
       <span v-show="loadType == 'ended'">
         <p @click="replayHandle" class="d-flex-x d-pointer">
-          <i class="iconfont icon-replay f24 mr5"></i>重新播放
+          <i class="iconfont icon-replay f24 mr5"></i>
+          {{ userLocale.replay }}
         </p>
       </span>
       <!-- 播放错误 -->
       <span v-show="loadType == 'error' || loadType == 'stalled'">
         <p @click="replayHandle" class="d-flex-x d-pointer">
-          <i class="iconfont icon-replay f24 mr5"></i>请求错误
+          <i class="iconfont icon-replay f24 mr5"></i>
+          {{ userLocale.requestError }}
         </p>
       </span>
     </div>
@@ -39,8 +37,10 @@
 </template>
 
 <script setup lang='ts'>
-import { getCurrentInstance, reactive, computed } from "vue";
-import DIcon from "./d-icon.vue";
+import { getCurrentInstance, computed } from "vue";
+import { useUserLocale } from './../config/locale-service';
+const { userLocale } = useUserLocale();
+
 const { proxy } = getCurrentInstance();
 const LOAD_TYPE = ["loadstart", "waiting", "ended", "error", "stalled"];
 const props = defineProps({
@@ -72,9 +72,11 @@ const loadingStyle = computed(() => {
 .f50 {
   font-size: 50px;
 }
+
 .f24 {
   font-size: 24px;
 }
+
 .d-loading {
   position: absolute;
   left: 0;
@@ -90,6 +92,7 @@ const loadingStyle = computed(() => {
   text-align: center;
   font-size: 13px;
 }
+
 // .d-play-btn {
 //     width: 90px;
 //     height: 90px;

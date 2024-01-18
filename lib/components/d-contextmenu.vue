@@ -15,58 +15,39 @@
             <i @click="state.dialogType = false" class="icon icon-close">X</i>
           </h5>
           <!-- 快捷键说明 -->
-          <ul
-            class="d-player-hotkey-panel"
-            v-show="state.dialogType == 'hotkey'"
-          >
-            <li
-              class="d-player-hotkey-panel-item"
-              v-for="item of hotkeyList"
-              :key="item.key"
-            >
+          <ul class="d-player-hotkey-panel" v-show="state.dialogType == 'hotkey'">
+            <li class="d-player-hotkey-panel-item" v-for="item of hotkeyList" :key="item.key">
               <span>{{ item.key }}</span>
               <span>{{ item.label }}</span>
             </li>
           </ul>
           <!-- 色彩调整 -->
-          <ul
-            class="d-player-filter-panel"
-            v-show="state.dialogType == 'filter'"
-          >
+          <ul class="d-player-filter-panel" v-show="state.dialogType == 'filter'">
             <li class="d-player-filter-panel-item">
-              <span>饱和度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.saturate"
-              ></d-slider>
+              <span>
+                {{ userLocale.saturation }}
+              </span>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.saturate"></d-slider>
               <span>{{ Math.round(filter.saturate * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
-              <span>亮度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.brightness"
-              ></d-slider>
+              <span>
+                {{ userLocale.brightness }}
+              </span>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.brightness"></d-slider>
               <span>{{ Math.round(filter.brightness * 255) }}</span>
             </li>
             <li class="d-player-filter-panel-item">
-              <span>对比度</span>
-              <d-slider
-                class="filter-panel-slider"
-                size="5px"
-                v-model="filter.contrast"
-              ></d-slider>
+              <span>
+                {{ userLocale.contrast }}
+              </span>
+              <d-slider class="filter-panel-slider" size="5px" v-model="filter.contrast"></d-slider>
               <span>{{ Math.round(filter.contrast * 255) }}</span>
             </li>
-            <span
-              @click="filterReset"
-              title="重置"
-              aria-label="重置"
-              class="d-player-filter-reset"
-              >重置</span
-            >
+            <span @click="filterReset" :title="userLocale.reset" :aria-label="userLocale.reset"
+              class="d-player-filter-reset">
+              {{ userLocale.reset }}
+            </span>
           </ul>
         </div>
       </div>
@@ -87,6 +68,10 @@ import { watch, reactive, onMounted, computed, onUnmounted } from "vue";
 import { on, off } from "../utils/dom";
 import { version } from "../../package.json";
 import DSlider from "./d-slider.vue";
+import { useUserLocale } from './../config/locale-service';
+const { userLocale } = useUserLocale();
+
+
 const state = reactive({
   show: false,
   dialogType: "",
@@ -97,19 +82,19 @@ const state = reactive({
 });
 
 const menuList = [
-  { label: "视频色彩调整", key: "filter" },
-  { label: "快捷键说明", key: "hotkey" },
-  { label: "复制视频网址", key: "copy" },
-  { label: "版本：" + version, key: "version" },
+  { label: userLocale.value.vColorAdjustment, key: "filter" }, //视频色彩调整
+  { label: userLocale.value.shortcutKeys, key: "hotkey" }, //快捷键说明
+  { label: userLocale.value.copyVideoUrl, key: "copy" }, //复制视频网址
+  { label: userLocale.value.version + version, key: "version" }, //版本：
 ];
 const hotkeyList = [
-  { key: "Space", label: "播放/暂停" },
-  { key: "→", label: "单次快进10s，长按5倍速播放" },
-  { key: "←", label: "快退5s" },
-  { key: "↑", label: "音量增加10%" },
-  { key: "↓", label: "音量增加降低10%" },
-  { key: "Esc", label: "退出全屏/退出网页全屏" },
-  { key: "F", label: "全屏/退出全屏" },
+  { key: "Space", label: userLocale.value.playOrPause }, // 播放/暂停
+  { key: "→", label: userLocale.value.playOrPause.fastForward }, // 单次快进10s，长按5倍速播放
+  { key: "←", label: userLocale.value.playOrPause.rewind }, //快退5s
+  { key: "↑", label: userLocale.value.playOrPause.volumeUp }, // 音量增加10%
+  { key: "↓", label: userLocale.value.playOrPause.volumeDown }, // 音量增加降低10%
+  { key: "Esc", label: userLocale.value.playOrPause.exitFullScreen }, //退出全屏/退出网页全屏
+  { key: "F", label: userLocale.value.playOrPause.fullScreen }, //全屏/退出全屏
 ];
 const filter = reactive({
   saturate: 0.392,
@@ -207,6 +192,7 @@ onUnmounted(() => {
 @import "../style/base.less";
 @import "../style/animate.less";
 @import "../style/transition.less";
+
 .d-player-contextmenu,
 .d-player-dialog {
   position: absolute;
@@ -216,10 +202,12 @@ onUnmounted(() => {
   width: 100%;
   z-index: 5;
 }
+
 .d-player-contextmenu {
   .d-player-copyText {
     opacity: 0;
   }
+
   .d-player-contextmenu-body {
     position: absolute;
     border-radius: 5px;
@@ -230,24 +218,28 @@ onUnmounted(() => {
     color: #efefef;
     padding: 0;
     text-align: left;
-    width: 130px;
+    width: 140px;
     box-sizing: border-box;
     padding: 5px 0;
+
     li {
       padding: 8px 20px;
       margin: 0;
       cursor: pointer;
       transition: 0.2s;
+
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
       }
     }
   }
 }
+
 .d-player-dialog {
   display: flex;
   justify-content: center;
   align-items: center;
+
   .d-player-dialog-body {
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(5px);
@@ -256,6 +248,7 @@ onUnmounted(() => {
     color: #fff;
     min-width: 200px;
     padding: 0 0 10px;
+
     .d-player-dialog-title {
       position: relative;
       font-size: 14px;
@@ -264,6 +257,7 @@ onUnmounted(() => {
       padding: 12px 0px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       margin-bottom: 10px;
+
       .icon-close {
         position: absolute;
         right: 0px;
@@ -275,28 +269,34 @@ onUnmounted(() => {
         cursor: pointer;
       }
     }
+
     // 快捷键说明
     .d-player-hotkey-panel {
       font-size: 12px;
       color: #eee;
       padding-right: 40px;
+
       .d-player-hotkey-panel-item {
         line-height: 26px;
+
         span {
           text-align: center;
           display: inline-block;
           width: 120px;
         }
+
         span:nth-child(2) {
           color: #999;
           width: 160px;
         }
       }
     }
+
     // 过滤镜
     .d-player-filter-panel {
       width: 320px;
       padding: 0 20px;
+
       .d-player-filter-reset {
         cursor: pointer;
         margin-top: 10px;
@@ -305,18 +305,23 @@ onUnmounted(() => {
         border-radius: 2px;
         font-size: 12px;
         background: rgba(133, 133, 133, 0.5);
+
         &:hover {
           background: rgba(255, 255, 255, 0.3);
         }
       }
+
       .d-player-filter-panel-item {
         height: 32px;
         display: flex;
         align-items: center;
+
         .filter-panel-slider {
           width: 100%;
+
           :deep(.d-slider__runway) {
             background-color: #999;
+
             .d-slider__bar:before {
               width: 8px;
               height: 8px;
@@ -324,11 +329,13 @@ onUnmounted(() => {
             }
           }
         }
+
         span {
           font-size: 12px;
           display: block;
-          width: 80px;
+          width: 100px;
           text-align: center;
+          margin-inline-end: 5px;
         }
       }
     }

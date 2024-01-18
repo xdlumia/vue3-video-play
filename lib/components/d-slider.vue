@@ -6,21 +6,11 @@
  * @Description: file content
 */
 <template>
-  <div
-    ref="refSlider"
-    class="d-slider"
-    @mousedown.stop="mouseDownHandle"
-    @contextmenu="contextmenuHandle"
-    :class="{ 'is-vertical': props.vertical }"
-  >
+  <div ref="refSlider" class="d-slider" @mousedown.stop="mouseDownHandle" @contextmenu="contextmenuHandle"
+    :class="{ 'is-vertical': props.vertical }">
     <div class="d-slider__runway" @mousemove="mousemoveHandle">
       <div class="d-slider__cursor" :style="hoverStyle" v-show="props.hover">
-        <div
-          class="d-slider__tips"
-          ref="refTips"
-          :style="{ left: state.hoverTipsLeft }"
-          v-show="props.hoverText"
-        >
+        <div class="d-slider__tips" ref="refTips" :style="{ left: state.hoverTipsLeft }" v-show="props.hoverText">
           {{ props.hoverText }}
         </div>
       </div>
@@ -86,8 +76,8 @@ const hoverStyle: any = computed(() => {
     state.hoverPosition < 0
       ? 0
       : state.hoverPosition > 1
-      ? 1
-      : state.hoverPosition;
+        ? 1
+        : state.hoverPosition;
   return props.vertical ? `bottom:${value * 100}%` : `left:${value * 100}%`;
 });
 // 阻止右键事件
@@ -173,6 +163,7 @@ const onDragEnd = (ev: Event) => {
 <style lang='less' scoped>
 .d-slider {
   position: relative;
+
   .d-slider__runway {
     width: 100%;
     height: v-bind(size);
@@ -180,6 +171,7 @@ const onDragEnd = (ev: Event) => {
     position: relative;
     cursor: pointer;
     vertical-align: middle;
+
     .d-slider__cursor,
     .d-slider__preload,
     .d-slider__bar {
@@ -188,12 +180,14 @@ const onDragEnd = (ev: Event) => {
       left: 0;
       height: 100%;
     }
+
     .d-slider__cursor {
       display: none; //TODO
       z-index: 1;
       width: 1px;
       background: #fff;
       pointer-events: none;
+
       .d-slider__tips {
         pointer-events: none;
         color: #fff;
@@ -211,19 +205,21 @@ const onDragEnd = (ev: Event) => {
         transform: translateX(-50%);
       }
     }
+
     &:hover .d-slider__cursor {
       display: block;
     }
+
     .d-slider__preload {
       background: #717171;
     }
+
     .d-slider__bar {
-      background: linear-gradient(
-        to right,
-        #52a0fd 0%,
-        #00e2fa 80%,
-        #00e2fa 100%
-      );
+      background: linear-gradient(to right,
+          #52a0fd 0%,
+          #00e2fa 80%,
+          #00e2fa 100%);
+
       &::before {
         display: block;
         content: "";
@@ -240,15 +236,18 @@ const onDragEnd = (ev: Event) => {
       }
     }
   }
+
   // 垂直模式
   &.is-vertical {
     height: 100%;
     display: inline-block;
+
     .d-slider__runway {
       position: relative;
       height: 100%;
       width: v-bind(size);
       margin: 0 6px;
+
       .d-slider__preload,
       .d-slider__bar,
       .d-slider__cursor {
@@ -256,9 +255,11 @@ const onDragEnd = (ev: Event) => {
         top: auto;
         width: 100%;
       }
+
       .d-slider__cursor {
         height: 1px;
       }
+
       .d-slider__bar {
         &::before {
           top: -6px;

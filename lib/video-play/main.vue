@@ -7,18 +7,12 @@
 */
 
 <template>
-  <div
-    ref="refPlayerWrap"
-    id="refPlayerWrap"
-    class="d-player-wrap"
-    @mousemove="mouseMovewWarp"
-    :class="{
-      'web-full-screen': state.webFullScreen,
-      'is-lightoff': state.lightOff,
-      'd-player-wrap-hover':
-        state.playBtnState == 'play' || state.isVideoHovering,
-    }"
-  >
+  <div ref="refPlayerWrap" id="refPlayerWrap" class="d-player-wrap" @mousemove="mouseMovewWarp" :class="{
+    'web-full-screen': state.webFullScreen,
+    'is-lightoff': state.lightOff,
+    'd-player-wrap-hover':
+      state.playBtnState == 'play' || state.isVideoHovering,
+  }">
     <!-- 如果是移动端并且支持倍速 controls=true 否则为flase -->
     <div class="d-player-video" id="dPlayerVideo">
       <!-- <div
@@ -27,24 +21,11 @@
       >
         <img :src="props.poster" :alt="props.title" />
       </div>-->
-      <video
-        ref="refdVideo"
-        class="d-player-video-main"
-        id="dPlayerVideoMain"
-        :controls="isMobile && state.speed ? true : false"
-        :class="{ 'video-mirror': state.mirror }"
-        :webkit-playsinline="props.playsinline"
-        :playsinline="props.playsinline"
-        v-bind="videoEvents"
-        :volume="state.volume"
-        :muted="state.muted"
-        :loop="state.loop"
-        :preload="preload"
-        width="100%"
-        height="100%"
-        :src="props.src"
-        :poster="props.poster"
-      >
+      <video ref="refdVideo" class="d-player-video-main" id="dPlayerVideoMain"
+        :controls="isMobile && state.speed ? true : false" :class="{ 'video-mirror': state.mirror }"
+        :webkit-playsinline="props.playsinline" :playsinline="props.playsinline" v-bind="videoEvents"
+        :volume="state.volume" :muted="state.muted" :loop="state.loop" :preload="preload" width="100%" height="100%"
+        :src="props.src" :poster="props.poster">
         您的浏览器不支持Video标签。
       </video>
     </div>
@@ -68,42 +49,19 @@
       <d-status :state="state"></d-status>
     </div>
     <!-- 移动端不显示 -->
-    <input
-      v-if="!isMobile"
-      type="input"
-      readonly="readonly"
-      ref="refInput"
-      @dblclick="toggleFullScreenHandle"
-      @keyup.f="toggleFullScreenHandle"
-      @keyup.esc="state.webFullScreen = false"
-      @click="togglePlay"
-      @keydown.space="togglePlay"
-      @keyup="keypress"
-      @keydown.arrow-left="keydownLeft"
-      @keydown.arrow-up.arrow-down="volumeKeydown"
-      @keydown="keypress"
-      class="d-player-input"
-      maxlength="0"
-    />
+    <input v-if="!isMobile" type="input" readonly="readonly" ref="refInput" @dblclick="toggleFullScreenHandle"
+      @keyup.f="toggleFullScreenHandle" @keyup.esc="state.webFullScreen = false" @click="togglePlay"
+      @keydown.space="togglePlay" @keyup="keypress" @keydown.arrow-left="keydownLeft"
+      @keydown.arrow-up.arrow-down="volumeKeydown" @keydown="keypress" class="d-player-input" maxlength="0" />
     <!-- 预加载动画 -->
     <d-loading :loadType="state.loadStateType" />
     <d-contextmenu />
     <!-- PC端播放按钮控制器  移动端调用自带控制器-->
-    <div
-      class="d-player-control"
-      ref="refPlayerControl"
-      v-if="!isMobile && state.control"
-    >
+    <div class="d-player-control" ref="refPlayerControl" v-if="!isMobile && state.control">
       <div class="d-control-progress">
-        <d-slider
-          class="d-progress-bar"
-          @onMousemove="onProgressMove"
-          @change="progressBarChange"
-          :disabled="!state.speed"
-          :hoverText="state.progressCursorTime"
-          v-model="state.playProgress"
-          :preload="state.preloadBar"
-        ></d-slider>
+        <d-slider class="d-progress-bar" @onMousemove="onProgressMove" @change="progressBarChange"
+          :disabled="!state.speed" :hoverText="state.progressCursorTime" v-model="state.playProgress"
+          :preload="state.preloadBar"></d-slider>
       </div>
 
       <div class="d-control-tool" @click="inputFocusHandle">
@@ -111,10 +69,7 @@
           <div class="d-tool-item" @click="togglePlay">
             <d-icon size="24" :icon="`icon-${state.playBtnState}`"></d-icon>
           </div>
-          <div
-            class="d-tool-item d-tool-time audioTrack-btn"
-            v-if="props.controlBtns.includes('audioTrack')"
-          >
+          <div class="d-tool-item d-tool-time audioTrack-btn" v-if="props.controlBtns.includes('audioTrack')">
             <span>{{ state.currentTime }}</span>
             <span style="margin: 0 3px">/</span>
             <span class="total-time">{{ state.totalTime }}</span>
@@ -122,25 +77,17 @@
         </div>
         <div class="d-tool-bar">
           <!-- 清晰度 -->
-          <div
-            class="d-tool-item quality-btn"
-            v-if="
-              state.qualityLevels.length &&
-              props.controlBtns.includes('quality')
-            "
-          >
+          <div class="d-tool-item quality-btn" v-if="state.qualityLevels.length &&
+            props.controlBtns.includes('quality')
+            ">
             {{
               state.qualityLevels.length &&
               (state.qualityLevels[state.currentLevel] || {}).height
             }}P
             <div class="d-tool-item-main">
               <ul class="speed-main" style="text-align: center">
-                <li
-                  :class="{ 'speed-active': state.currentLevel == index }"
-                  @click="qualityLevelsHandle(row, index)"
-                  v-for="(row, index) of state.qualityLevels"
-                  :key="row"
-                >
+                <li :class="{ 'speed-active': state.currentLevel == index }" @click="qualityLevelsHandle(row, index)"
+                  v-for="(row, index) of state.qualityLevels" :key="row">
                   {{ row.height }}P
                 </li>
                 <!-- <li @click="qualityLevelsHandle({}, -1)">自动</li> -->
@@ -148,105 +95,78 @@
             </div>
           </div>
           <!-- 倍速播放 -->
-          <div
-            class="d-tool-item speedRate-btn"
-            v-if="props.controlBtns.includes('speedRate')"
-          >
-            {{ state.speedActive == "1.0" ? "倍速" : state.speedActive + "x" }}
+          <div class="d-tool-item speedRate-btn" v-if="props.controlBtns.includes('speedRate')">
+            {{ state.speedActive == "1.0" ? userLocale.speed : state.speedActive + "x" }}
             <div class="d-tool-item-main">
               <ul class="speed-main">
-                <li
-                  :class="{ 'speed-active': state.speedActive == row }"
-                  @click="playbackRate(row)"
-                  v-for="row of state.speedRate"
-                  :key="row"
-                >
+                <li :class="{ 'speed-active': state.speedActive == row }" @click="playbackRate(row)"
+                  v-for="row of state.speedRate" :key="row">
                   {{ row }}x
                 </li>
               </ul>
             </div>
           </div>
           <!-- 音量 -->
-          <div
-            class="d-tool-item volume-btn"
-            v-if="props.controlBtns.includes('volume')"
-          >
+          <div class="d-tool-item volume-btn" v-if="props.controlBtns.includes('volume')">
             <div class="d-tool-item-main volume-box" style="width: 52px">
               <div class="volume-main" :class="{ 'is-muted': state.muted }">
-                <span class="volume-text-size"
-                  >{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span
-                >
+                <span class="volume-text-size">{{ state.muted ? 0 : ~~(state.volume * 100) }}%</span>
                 <!-- @change 如果修改音量则取消静音 -->
-                <d-slider
-                  @change="state.muted = false"
-                  :hover="false"
-                  size="5px"
-                  :vertical="true"
-                  v-model="state.volume"
-                ></d-slider>
+                <d-slider @change="state.muted = false" :hover="false" size="5px" :vertical="true"
+                  v-model="state.volume"></d-slider>
               </div>
             </div>
             <span @click="mutedHandler" style="display: flex">
-              <d-icon
-                size="20"
-                :icon="`icon-volume-${
-                  state.volume == 0 || state.muted
-                    ? 'mute'
-                    : state.volume > 0.5
-                    ? 'up'
-                    : 'down'
-                }`"
-              ></d-icon>
+              <d-icon size="20" :icon="`icon-volume-${state.volume == 0 || state.muted
+                ? 'mute'
+                : state.volume > 0.5
+                  ? 'up'
+                  : 'down'
+                }`"></d-icon>
             </span>
           </div>
           <!-- 设置 -->
-          <div
-            class="d-tool-item setting-btn"
-            v-if="props.controlBtns.includes('setting')"
-          >
+          <div class="d-tool-item setting-btn" v-if="props.controlBtns.includes('setting')">
             <d-icon size="20" class="rotateHover" icon="icon-settings"></d-icon>
             <div class="d-tool-item-main">
               <ul class="speed-main">
                 <li>
-                  镜像画面
+                  {{ userLocale.mirrorScreen }}
                   <d-switch @change="mirrorChange" v-model="state.mirror" />
                 </li>
                 <li>
-                  循环播放
+                  {{ userLocale.loop }}
                   <d-switch @change="loopChange" v-model="state.loop" />
                 </li>
                 <li>
-                  关灯模式
+                  {{ state.lightOff ? userLocale.lightOn : userLocale.lightOff }}
                   <d-switch @change="lightOffChange" v-model="state.lightOff" />
                 </li>
               </ul>
             </div>
           </div>
           <!-- 画中画 -->
-          <div
-            class="d-tool-item pip-btn"
-            v-if="props.controlBtns.includes('pip')"
-            @click="requestPictureInPictureHandle"
-          >
+          <div class="d-tool-item pip-btn" v-if="props.controlBtns.includes('pip')"
+            @click="requestPictureInPictureHandle">
             <d-icon size="20" icon="icon-pip"></d-icon>
-            <div class="d-tool-item-main">画中画</div>
+            <div class="d-tool-item-main">
+              {{ userLocale.miniPlayer }}
+            </div>
           </div>
           <!-- 网页全屏 -->
-          <div
-            class="d-tool-item pip-btn"
-            v-if="props.controlBtns.includes('pageFullScreen')"
-            @click="state.webFullScreen = !state.webFullScreen"
-          >
+          <div class="d-tool-item pip-btn" v-if="props.controlBtns.includes('pageFullScreen')"
+            @click="state.webFullScreen = !state.webFullScreen">
             <d-icon size="20" icon="icon-web-screen"></d-icon>
-            <div class="d-tool-item-main">网页全屏</div>
+            <div class="d-tool-item-main">
+              {{ userLocale.webFullScreen }}
+            </div>
           </div>
           <!-- 全屏 -->
-          <div
-            class="d-tool-item fullScreen-btn"
-            v-if="props.controlBtns.includes('fullScreen')"
-            @click="toggleFullScreenHandle"
-          >
-            <div class="d-tool-item-main">全屏</div>
+          <div class="d-tool-item fullScreen-btn" v-if="props.controlBtns.includes('fullScreen')"
+            @click="toggleFullScreenHandle">
+            <div class="d-tool-item-main">
+              {{ userLocale.fullScreen }}
+            </div>
             <d-icon size="20" icon="icon-screen"></d-icon>
           </div>
         </div>
@@ -255,6 +175,9 @@
   </div>
 </template>
 <script lang="ts">
+import { useUserLocale } from './../config/locale-service';
+
+const { userLocale } = useUserLocale();
 export default {
   name: "vue3VideoPlay",
   inheritAttrs: false,
@@ -318,8 +241,8 @@ const state = reactive({
 });
 const compose =
   (...args) =>
-  (value) =>
-    args.reverse().reduce((acc, fn) => fn(acc), value);
+    (value) =>
+      args.reverse().reduce((acc, fn) => fn(acc), value);
 // 收集video事件
 const videoEvents = videoEmits.reduce((events, emit) => {
   let name = `on${firstUpperCase(emit)}`;
@@ -464,7 +387,7 @@ const playHandle = () => {
         state.playBtnState = "replay";
         state.loadStateType = "error";
       })
-    },200)
+    }, 200)
   });
   state.playBtnState = "pause";
   // 播放后清空状态
@@ -626,10 +549,13 @@ defineExpose({
 @import "../style/transition.less";
 @import "../style/animate.less";
 @import "../style/base.less";
+
 .d-player-wrap {
   --primary-color: v-bind(hexToRgbaColor);
-  width: v-bind(width);
+  width: 100%;
+  max-width: v-bind(width);
   height: v-bind(height);
 }
+
 @import "../style/vPlayer.less";
 </style>

@@ -7,15 +7,8 @@
 */
 <template>
     <div class="d-switch" :class="{ 'is-checked': checked }">
-        <input
-            class="d-switch__input"
-            ref="input"
-            type="checkbox"
-            :checked="checked"
-            @change="handleInput"
-            :true-value="trueValue"
-            :false-value="falseValue"
-        />
+        <input class="d-switch__input" ref="input" type="checkbox" :checked="checked" @change="handleInput"
+            :true-value="trueValue" :false-value="falseValue" />
         <span class="d-switch_action"></span>
     </div>
 </template>
@@ -70,6 +63,7 @@ const handleInput = (): void => {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
+
     .d-switch__input {
         position: relative;
         z-index: 1;
@@ -78,6 +72,7 @@ const handleInput = (): void => {
         height: 100%;
         opacity: 0;
     }
+
     .d-switch_action {
         position: absolute;
         transition: 0.2s;
@@ -89,8 +84,10 @@ const handleInput = (): void => {
         background: #fff;
         border-radius: 50%;
     }
+
     &.is-checked {
         background: v-bind(activeColor);
+
         .d-switch_action {
             left: 100%;
             background: #fff;

@@ -8,32 +8,30 @@
 <template>
     <div class="d-status" v-show="state.handleType || state.isMultiplesPlay">
         <li class="d-flex-center" v-show="state.handleType == 'volume'">
-            <d-icon
-                size="18"
-                class="d-status-icon"
-                :icon="`icon-volume-${state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'
-                }`"
-            ></d-icon>
+            <d-icon size="18" class="d-status-icon"
+                :icon="`icon-volume-${state.volume == 0 ? 'mute' : state.volume > 0.5 ? 'up' : 'down'}`"></d-icon>
             {{ ~~(state.volume * 100) }}%
         </li>
-        <li
-            class="d-flex-center"
-            v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay"
-        >
+        <li class="d-flex-center" v-show="state.handleType == 'playbackRate' || state.isMultiplesPlay">
             <d-icon size="12" icon="icon-play"></d-icon>
-            <d-icon size="12" icon="icon-play" style="margin-right:5px"></d-icon>5倍速播放中
+            <d-icon size="12" icon="icon-play" style="margin-right:5px"></d-icon>
+            {{ userLocale.playAt5xSpeed }}
         </li>
     </div>
 </template>
 
 <script setup lang='ts'>
 import DIcon from './d-icon.vue'
+import { useUserLocale } from './../config/locale-service';
+
+const { userLocale } = useUserLocale();
 const props = defineProps(['state'])
 
 </script>
 
 <style scoped lang='less'>
 @import "../style/base.less";
+
 .d-status {
     text-align: center;
     font-size: 14px;
