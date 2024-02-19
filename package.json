@@ -6,7 +6,7 @@
     "dist",
     "lib"
   ],
-  "main": "./dist/index.umd.mjs",
+  "main": "./dist/index.umd.js",
   "module": "./dist/index.mjs",
   "scripts": {
     "dev": "vite",
