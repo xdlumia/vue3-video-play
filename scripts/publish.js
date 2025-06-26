@@ -71,7 +71,7 @@ else if (confirm.trim().toLowerCase() == 's') {
     shell.exit()
 }
 
-shell.exec('yarn build');
+shell.exec('pnpm build');
 
 if (shell.exec('npm pub').code != 0) {
     shell.echo("\033[1;31mError: npm publish 失败! 已退出\033[0m");

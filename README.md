@@ -16,6 +16,7 @@
 
 [![NPM](https://nodei.co/npm/vue3-video-play.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue3-video-play)
 
+<span style="color:#cb3837"> 这是一个 Vue3-video-play 的接力项目 </span>
 <span style="color:#cb3837"> **必须使用 vue@3.2.2及以上版本**</span>
 
 ### Vue3-video-play
@@ -51,13 +52,13 @@
 npm 安装：
 
 ```bash
-npm i vue3-video-play --save
+npm i vue3-video-play-fixed --save
 ```
 
 yarn 安装：
 
 ```bash
-yarn add vue3-video-play --save
+yarn add vue3-video-play-fixed --save
 ```
 
 ## 开始使用
@@ -69,8 +70,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 let app = createApp(App);
 
-import vue3videoPlay from "vue3-video-play"; // 引入组件
-import "vue3-video-play/dist/style.css"; // 引入css
+import vue3videoPlay from "vue3-video-play-fixed"; // 引入组件
+import "vue3-video-play-fixed/dist/style.css"; // 引入css
 app.use(vue3videoPlay);
 
 app.mount("#app");
@@ -80,8 +81,8 @@ app.mount("#app");
 
 ```js
 // require style
-import "vue3-video-play/dist/style.css";
-import { videoPlay } from "vue3-video-play";
+import "vue3-video-play-fixed/dist/style.css";
+import { videoPlay } from "vue3-video-play-fixed";
 export default {
   components: {
     videoPlay,
@@ -205,7 +206,7 @@ const options = reactive({
 
 ## 事件示例
 
-:::demo `vue3-video-play` 支持原生`video`所有事件。
+:::demo `vue3-video-play-fixed` 支持原生`video`所有事件。
 
 ```vue
 <template>
@@ -252,7 +253,7 @@ const onCanplay = (ev) => {
 
 ## Hls m3u8 视频/直播
 
-:::demo `vue3-video-play` 支持 m3u8(hls)播放
+:::demo `vue3-video-play-fixed` 支持 m3u8(hls)播放
 
 ```vue
 <template>
@@ -281,7 +282,7 @@ const options = reactive({
 
 ## Props
 
-vue3-video-play 支持 video 原生所有 Attributes [video 原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和 props 属性使用一致
+vue3-video-play-fixed 支持 video 原生所有 Attributes [video 原生属性](https://segmentfault.com/a/1190000008053507) 使用方式和 props 属性使用一致
 
 | 名称          |         说明          |  类型   |                                               可选值                                               |                                               默认值                                               |
 | ------------- | :-------------------: | :-----: | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
@@ -322,7 +323,7 @@ vue3-video-play 支持 video 原生所有 Attributes [video 原生属性](https:
 
 ## Events
 
-vue3-video-play 支持 video 原生所有事件 [video 默认事件](https://segmentfault.com/a/1190000008053507)
+vue3-video-play-fixed 支持 video 原生所有事件 [video 默认事件](https://segmentfault.com/a/1190000008053507)
 
 | 事件名称       | 说明               | 回调  |
 | -------------- | ------------------ | ----- |
